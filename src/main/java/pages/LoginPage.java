@@ -7,10 +7,14 @@ import utils.WebDriverWrapper;
 public class LoginPage extends Page {
 
     private static final Logger log = Logger.getLogger(LoginPage.class);
-
+    private static final String DEV_URL = PropertyLoader.loadProperty("development.url");
 
     public LoginPage(WebDriverWrapper driverWrapper) {
-        super(driverWrapper);
+        super(driverWrapper, DEV_URL);
+    }
+
+    public boolean openLoginPage() {
+        return openPage();
     }
 
     /**
@@ -69,6 +73,14 @@ public class LoginPage extends Page {
     public boolean isFieldRequiredUserNameTextPresent() {
         return web.isElementPresent("fieldRequiredUserNameText") &&
                 web.isElementPresent("fieldRequiredPasswordText");
+    }
+
+    public String getPageURL() {
+        return getCurrentPageURL();
+    }
+
+    public void waitInvisibilityLoader() {
+        web.waitDisappearElement("apisSystemLoader");
     }
 
 }

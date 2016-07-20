@@ -507,11 +507,11 @@ public class WebElementsActions {
      *
      * @param elementLocator element to which you want to scroll
      */
-    public void scrollToElement(String elementLocator) {
+    public void scrollToElement(String elementLocator, String someElement) {
         WebElement element = driverWrapper.findElement(config.getLocator(elementLocator));
-        WebElement header = driverWrapper.findElement(config.getLocator("siteHeader"));
+        WebElement element2 = driverWrapper.findElement(config.getLocator(someElement));
         int elementCoordinateY = element.getLocation().getY();
-        int headerHeight = header.getSize().getHeight();
+        int headerHeight = element2.getSize().getHeight();
         int scrollValue = elementCoordinateY - headerHeight;
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
         javascriptExecutor.executeScript("window.scrollBy(0," + scrollValue + ")", "");
