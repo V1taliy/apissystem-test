@@ -1,12 +1,8 @@
-package pages.login;
+package pages;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebElement;
-import pages.Page;
 import utils.PropertyLoader;
 import utils.WebDriverWrapper;
-
-import java.util.List;
 
 public class LoginPage extends Page {
 
@@ -35,6 +31,16 @@ public class LoginPage extends Page {
     public void inputPassword(String password) {
         web.clickLink("passwordField");
         web.clearAndInput("passwordField", password);
+    }
+
+    /**
+     * Input user name and password and after that clear this fields
+     */
+    public void inputUserNameAndPasswordAndClearFields(String userName, String password) {
+        inputUserName(userName);
+        web.clear("userNameField");
+        inputPassword(password);
+        web.clear("passwordField");
     }
 
     /**
