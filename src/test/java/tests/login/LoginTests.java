@@ -9,12 +9,12 @@ import utils.PropertyLoader;
 public class LoginTests extends Fixture {
 
     private static final Logger log = Logger.getLogger(LoginTests.class);
-    private static final String FAKE_NAME = PropertyLoader.loadProperty("fake.NAME");
-    private static final String FAKE_PASSWORD = PropertyLoader.loadProperty("fake.PASSWORD");
-    private static final String USER_NAME = PropertyLoader.loadProperty("user.NAME");
-    private static final String USER_PASSWORD = PropertyLoader.loadProperty("user.PASSWORD");
-    private static final String ADMIN_NAME = PropertyLoader.loadProperty("admin.NAME");
-    private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.PASSWORD");
+    private static final String FAKE_NAME = PropertyLoader.loadProperty("fake.name");
+    private static final String FAKE_PASSWORD = PropertyLoader.loadProperty("fake.password");
+    private static final String USER_NAME = PropertyLoader.loadProperty("user.name");
+    private static final String USER_PASSWORD = PropertyLoader.loadProperty("user.password");
+    private static final String ADMIN_NAME = PropertyLoader.loadProperty("admin.name");
+    private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
 
     @Test(priority = 1)
     public void openWebSite() {
@@ -53,11 +53,17 @@ public class LoginTests extends Fixture {
         apisSystem.loginPage.inputUserName(USER_NAME);
         apisSystem.loginPage.inputPassword(USER_PASSWORD);
         apisSystem.loginPage.clickLoginButton();
+        Assert.assertTrue(apisSystem.mainPage.isWelcomeToApisSystemPresent());
+        apisSystem.mainPage.clickLogoutButton();
     }
 
     @Test(priority = 6, dependsOnMethods = {"openWebSite"})
     public void adminLogin() {
-
+        apisSystem.loginPage.inputUserName(ADMIN_NAME);
+        apisSystem.loginPage.inputPassword(ADMIN_PASSWORD);
+        apisSystem.loginPage.clickLoginButton();
+        Assert.assertTrue(apisSystem.mainPage.isWelcomeToApisSystemPresent());
+        apisSystem.mainPage.clickLogoutButton();
     }
 
 }
