@@ -8,4 +8,12 @@ public class MainPage extends Page {
         super(driverWrapper);
     }
 
+    public boolean isWelcomeToApisSystemPresent() {
+        return web.isElementPresent("welcomeToApisSystem");
+    }
+
+    public void clickLogoutButton() {
+        web.clickButton("logoutButton");
+    }
+
 }

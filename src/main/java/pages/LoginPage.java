@@ -64,6 +64,14 @@ public class LoginPage extends Page {
                 Integer.parseInt(PropertyLoader.loadProperty("wait.timeout5sec")));
     }
 
+    public void waitAlertInvalidUserOrPass() {
+        web.waitElementToBeVisibility("alertInvalidUserOrPass");
+    }
+
+    public void waitInvisibilityLoader() {
+        web.waitDisappearElement("apisSystemLoader");
+    }
+
     /**
      * Check is text 'Field required' present on a page
      *
@@ -77,10 +85,6 @@ public class LoginPage extends Page {
 
     public String getPageURL() {
         return getCurrentPageURL();
-    }
-
-    public void waitInvisibilityLoader() {
-        web.waitDisappearElement("apisSystemLoader");
     }
 
 }

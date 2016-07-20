@@ -24,6 +24,40 @@ public class LoginTests extends Fixture {
                 "http://development.apis.office.dev/manage/login");
     }
 
+    @Test(priority = 2, dependsOnMethods = {"openWebSite"})
+    public void negativeLogin() {
+        apisSystem.loginPage.inputUserName(FAKE_NAME);
+        apisSystem.loginPage.inputPassword(FAKE_PASSWORD);
+        apisSystem.loginPage.clickLoginButton();
+        apisSystem.loginPage.waitAlertInvalidUserOrPass();
+        Assert.assertTrue(apisSystem.loginPage.isAlertInvalidUserOrPassPresent());
+    }
 
+    @Test(priority = 3, dependsOnMethods = {"openWebSite"})
+    public void negativeLogin2() {
+        apisSystem.loginPage.inputUserName(FAKE_NAME + 1);
+        apisSystem.loginPage.inputPassword(FAKE_PASSWORD + 1);
+        apisSystem.loginPage.clickLoginButton();
+        apisSystem.loginPage.waitAlertInvalidUserOrPass();
+        Assert.assertTrue(apisSystem.loginPage.isAlertInvalidUserOrPassPresent());
+    }
+
+    @Test(priority = 4, dependsOnMethods = {"openWebSite"})
+    public void negativeLoginFailedRequired() {
+        apisSystem.loginPage.inputUserNameAndPasswordAndClearFields(FAKE_NAME, FAKE_PASSWORD);
+        Assert.assertEquals(apisSystem.loginPage.isFieldRequiredUserNameTextPresent(), true);
+    }
+
+    @Test(priority = 5, dependsOnMethods = {"openWebSite"})
+    public void userLogin() {
+        apisSystem.loginPage.inputUserName(USER_NAME);
+        apisSystem.loginPage.inputPassword(USER_PASSWORD);
+        apisSystem.loginPage.clickLoginButton();
+    }
+
+    @Test(priority = 6, dependsOnMethods = {"openWebSite"})
+    public void adminLogin() {
+
+    }
 
 }
