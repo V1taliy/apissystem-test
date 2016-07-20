@@ -98,6 +98,19 @@ public class WebDriverWrapper implements WebDriver, TakesScreenshot {
         return driver.findElement(by);
     }
 
+    /**
+     * Wait element to be invisibility
+     *
+     * @param by       element locator
+     * @param timeWait new timeout value
+     * @throws TimeoutException when the wait timeout is over
+     */
+    public WebElement findElementInvisibility(By by, int timeWait) throws TimeoutException {
+        WebDriverWait driverWait = new WebDriverWait(driver, timeWait);
+        driverWait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+        return driver.findElement(by);
+    }
+
     @Override
     public String getPageSource() {
         return driver.getPageSource();

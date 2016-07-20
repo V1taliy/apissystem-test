@@ -21,7 +21,7 @@ public class WebElementsActions {
     public WebElementsActions(WebDriverWrapper driverWrapper) {
         this.driverWrapper = driverWrapper;
         driverWait = new WebDriverWait(driverWrapper,
-                Integer.parseInt(PropertyLoader.loadProperty("wait.timeout30sec")));
+                Integer.parseInt(PropertyLoader.loadProperty("wait.timeout10sec")));
         config = ConfigurationData.getConfigData();
     }
 
@@ -49,25 +49,6 @@ public class WebElementsActions {
     }
 
     /**
-     * This method return the desired element with locator
-     *
-     * @param elementLocator search element locator
-     * @return element {@link WebElement} driverWrapper from
-     * configuration {@link WebElementsActions#config}
-     * @throws NoSuchElementException If the locator cannot found
-     */
-    public WebElement getElementCatchTimeout(String elementLocator) {
-        try {
-            log.info(String.format("get element < %s >", elementLocator));
-            return driverWrapper.findElement(config.getLocator(elementLocator),
-                    Integer.parseInt(PropertyLoader.loadProperty("wait.timeout1sec")));
-        } catch (TimeoutException e) {
-            log.info("element not present in DOM");
-            return null;
-        }
-    }
-
-    /**
      * This method return a list of elements
      *
      * @param elementLocator search element locator
@@ -81,15 +62,23 @@ public class WebElementsActions {
     }
 
     /**
-     * Insert value into text input HTML field
+     * This method return the desired element with locator
      *
-     * @param inputLocator search a locator for input
-     * @param data         data input
+     * @param elementLocator search element locator
+     * @param timeWait       time to wait for element to be displayed
+     * @return element {@link WebElement} driverWrapper from
+     * configuration {@link WebElementsActions#config}
      * @throws NoSuchElementException If the locator cannot found
      */
-    public void input(String inputLocator, String data) throws NoSuchElementException {
-        driverWrapper.findElement(config.getLocator(inputLocator)).sendKeys(data);
-        log.info(String.format("input < %s > and send < %s >", inputLocator, data));
+    public WebElement getElementWithTimeout(String elementLocator, int timeWait) {
+        try {
+            log.info(String.format("get element < %s >", elementLocator));
+            return driverWrapper.findElement(config.getLocator(elementLocator),
+                    Integer.parseInt(PropertyLoader.loadProperty(String.valueOf(timeWait))));
+        } catch (TimeoutException e) {
+            log.info("element not present in DOM");
+            return null;
+        }
     }
 
     /**
@@ -101,6 +90,18 @@ public class WebElementsActions {
     public void clear(String clearLocator) throws NoSuchElementException {
         driverWrapper.findElement(config.getLocator(clearLocator)).clear();
         log.info(String.format("clear element < %s >", clearLocator));
+    }
+
+    /**
+     * Insert value into text input HTML field
+     *
+     * @param inputLocator search a locator for input
+     * @param data         data input
+     * @throws NoSuchElementException If the locator cannot found
+     */
+    public void input(String inputLocator, String data) throws NoSuchElementException {
+        driverWrapper.findElement(config.getLocator(inputLocator)).sendKeys(data);
+        log.info(String.format("input < %s > and send < %s >", inputLocator, data));
     }
 
     /**
@@ -132,6 +133,17 @@ public class WebElementsActions {
     }
 
     /**
+     * Click a link
+     *
+     * @param linkLocator search link locator for click
+     * @throws NoSuchElementException If the locator cannot found
+     */
+    public void clickLink(String linkLocator) throws NoSuchElementException {
+        driverWrapper.findElement(config.getLocator(linkLocator)).click();
+        log.info(String.format("click on link < %s >", linkLocator));
+    }
+
+    /**
      * Click on element
      *
      * @param elementLocator search element locator for click
@@ -159,23 +171,14 @@ public class WebElementsActions {
      * @param buttonLocator search button locator for click
      * @throws NoSuchElementException If the locator cannot found
      */
-    public void clickButtonIsClickable(String buttonLocator) throws NoSuchElementException {
-        WebElement element = driverWrapper.findElement(config.getLocator(buttonLocator));
-        WebDriverWait wait = new WebDriverWait(driverWrapper,
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        element.click();
-    }
-
-    /**
-     * Click a link
-     *
-     * @param linkLocator search link locator for click
-     * @throws NoSuchElementException If the locator cannot found
-     */
-    public void clickLink(String linkLocator) throws NoSuchElementException {
-        driverWrapper.findElement(config.getLocator(linkLocator)).click();
-        log.info(String.format("click on link < %s >", linkLocator));
+    public void clickButtonIsClickable(String buttonLocator, int timeWait) throws NoSuchElementException {
+        WebElement webElement = driverWrapper.findElementToBeClickable(config.getLocator(buttonLocator), timeWait);
+        if (webElement.isDisplayed()) {
+            webElement.click();
+            log.info(String.format("click on element < %s > with time wait < %s >", buttonLocator, timeWait));
+        } else {
+            log.info(String.format("not click on element < %s >", buttonLocator));
+        }
     }
 
     /**
@@ -227,46 +230,11 @@ public class WebElementsActions {
         int y = driverWrapper.findElement(config.getLocator(moveToLocator)).getLocation().getY();
         double width = size.getWidth();
         double height = size.getHeight();
-        log.info(String.format("click on < %s > in position: x = < %d >, y = < %d > AND element: width = < %s >, height = < %s >", moveToLocator, x, y, width, height));
-        actions.moveToElement(webElement, size.getWidth() - xValue, size.getHeight() - yValue).click().build().perform();
-    }
-
-    /**
-     * If element is enabled return true, false otherwise
-     *
-     * @return True if the button is enabled, false otherwise.
-     */
-    public boolean isElementDisplayed(String elementLocator) throws TimeoutException {
-        WebElement webElement = driverWrapper.findElement(config.getLocator(elementLocator));
-        WebDriverWait wait = new WebDriverWait(driverWrapper,
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(config.getLocator(elementLocator)));
-//        log.info(webElement.getText());
-        if (webElement.isDisplayed()) {
-            log.info(String.format("element < %s > is displayed", elementLocator));
-            return true;
-        }
-        log.info(String.format("element < %s > is not displayed", elementLocator));
-        return false;
-    }
-
-    /**
-     * If element is enabled return true, false otherwise
-     *
-     * @return True if the button is enabled, false otherwise.
-     */
-    public boolean isElementDisplayedForExpiry(String elementLocator) throws TimeoutException {
-        WebElement webElement = driverWrapper.findElement(config.getLocator(elementLocator));
-        WebDriverWait wait = new WebDriverWait(driverWrapper,
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(config.getLocator(elementLocator)));
-//        log.info(webElement.getText());
-        if (webElement.isDisplayed()) {
-            log.info(String.format("element < %s > is displayed", elementLocator));
-            return true;
-        }
-        log.info(String.format("element < %s > is not displayed", elementLocator));
-        return false;
+        log.info(String.format("click on < %s > in position: x = < %d >, " +
+                        "y = < %d > AND element: width = < %s >, height = < %s >",
+                moveToLocator, x, y, width, height));
+        actions.moveToElement(webElement, size.getWidth() - xValue,
+                size.getHeight() - yValue).click().build().perform();
     }
 
     /**
@@ -286,23 +254,21 @@ public class WebElementsActions {
     }
 
     /**
-     * Method is used to check that element is present on page
-     * and wait for a some time until the item disappears
+     * Method is used to check that element is present on page with time wait
      *
      * @param elementLocator search element locator
+     * @param timeWait       time to wait for element to be displayed
      * @return true if element is present on page, otherwise false
      * @throws NoSuchElementException If the locator cannot found
      */
-    public boolean isElementPresentWait(String elementLocator) throws NoSuchElementException {
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(config.getLocator(elementLocator)));
-        if (!driverWrapper.findElement(config.getLocator(elementLocator)).isDisplayed()) {
-            log.info(String.format("< %s > not displayed on page", elementLocator));
-            return false;
+    public boolean isElementPresent(String elementLocator, int timeWait) throws TimeoutException {
+        WebElement webElement = driverWrapper.findElementVisibility(config.getLocator(elementLocator), timeWait);
+        if (webElement.isDisplayed()) {
+            log.info(String.format("element < %s > is displayed", elementLocator));
+            return true;
         }
-        log.info(String.format("< %s > is present on page.", elementLocator));
-        return true;
+        log.info(String.format("element < %s > is not displayed", elementLocator));
+        return false;
     }
 
     /**
@@ -357,18 +323,6 @@ public class WebElementsActions {
     }
 
     /**
-     * Wait the element on page specified time
-     *
-     * @param elementLocator search element locator which is not visible
-     * @param timeoutSeconds the timeout in seconds when an expectation is called
-     * @throws NoSuchElementException If the locator cannot found
-     */
-    public void waitElementNotVisible(String elementLocator, int timeoutSeconds) throws NoSuchElementException {
-        WebDriverWait webDriverWait = new WebDriverWait(driverWrapper, timeoutSeconds);
-        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(config.getLocator(elementLocator)));
-    }
-
-    /**
      * An expectation for checking that an element is present on the DOM of a page and visible.
      * Visibility means that the element is not only displayed but also has a height and width
      * that is greater than 0.
@@ -376,7 +330,7 @@ public class WebElementsActions {
      * is that it expects the appearance of an element.
      *
      * @param elementLocator search element locator
-     * @return true If element is present,otherwise false
+     * @return true If element is present, otherwise false
      * @throws NoSuchElementException If the locator cannot found
      */
     public boolean waitForElementPresent(String elementLocator) throws NoSuchElementException {
@@ -433,7 +387,7 @@ public class WebElementsActions {
      * @param disappearLocator element that overlaps
      * @throws NoSuchElementException, {@link InterruptedException}
      */
-    public void waitOpacityElement(String disappearLocator) throws NoSuchElementException {
+    public void waitOpacityElement(final String disappearLocator) throws NoSuchElementException {
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
         wait.until(new ExpectedCondition<Boolean>() {
