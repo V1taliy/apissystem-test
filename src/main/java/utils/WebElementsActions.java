@@ -400,6 +400,20 @@ public class WebElementsActions {
     }
 
     /**
+     * This method checks whether there is an element on the page
+     * that overlaps another element
+     *
+     * @param disappearLocator element that overlaps
+     * @param timeWait         time to wait for element to be displayed
+     * @throws NoSuchElementException
+     * @throws TimeoutException
+     */
+    public boolean waitDisappearElement(String disappearLocator, int timeWait) throws NoSuchElementException, TimeoutException {
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(), timeWait);
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(config.getLocator(disappearLocator)));
+    }
+
+    /**
      * This method checks whether there is an element on the page that overlaps another element
      *
      * @param disappearLocator element that overlaps

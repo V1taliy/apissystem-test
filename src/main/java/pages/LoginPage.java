@@ -72,6 +72,11 @@ public class LoginPage extends Page {
         web.waitDisappearElement("apisSystemLoader");
     }
 
+    public void waitInvisibilityPanelBody() {
+        web.waitDisappearElement("panelBody",
+                Integer.parseInt(PropertyLoader.loadProperty("wait.timeout1sec")));
+    }
+
     /**
      * Check is text 'Field required' present on a page
      *
