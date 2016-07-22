@@ -85,5 +85,8 @@ public class UsersPage extends Page {
         checkboxList.get(userPosition - 1).click();
     }
 
+    public void waitInvisibilityProcessing() {
+        web.waitDisappearElement("processing");
+    }
 
 }

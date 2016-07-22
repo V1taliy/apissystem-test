@@ -2,5 +2,6 @@
 <suite name="globalSuite" verbose="1">
     <suite-files>
         <suite-file path="login.xml"/>
+        <suite-file path="users.xml"/>
     </suite-files>
 </suite>
