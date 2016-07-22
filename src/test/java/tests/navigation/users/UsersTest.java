@@ -42,4 +42,11 @@ public class UsersTest extends Fixture {
         }
     }
 
+    @Test(priority = 4, dependsOnMethods = {"sortTabs"})
+    public void selectUserCheckbox() {
+        apisSystem.usersPage.clickUserCheckbox(1);
+        apisSystem.usersPage.clickToggleButton(true);
+        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+    }
+
 }

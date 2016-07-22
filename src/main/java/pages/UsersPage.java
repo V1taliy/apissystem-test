@@ -11,6 +11,8 @@ public class UsersPage extends Page {
         super(driverWrapper);
     }
 
+    private static int userRandomCheckbox;
+
     // methods for FILTER
 
     public void inputUserName(String userName) {
@@ -85,6 +87,32 @@ public class UsersPage extends Page {
         checkboxList.get(userPosition - 1).click();
     }
 
+    /**
+     * Click button 'Disable user' or 'Enable user'
+     *
+     * @param selectButton button, where
+     *                     true - 'Enable user'
+     *                     false - 'Disable user'
+     */
+    public void clickToggleButton(boolean selectButton) {
+        List<WebElement> buttonList = web.getElements("toggleButtonList");
+        if (selectButton) {
+            buttonList.get(1).click();
+        } else {
+            buttonList.get(0).click();
+        }
+    }
+
+    /**
+     * Is message 'Success' present on a page
+     */
+    public boolean isMessageSuccessPresent() {
+        return web.isElementPresent("greenMessage");
+    }
+
+    /**
+     * Wait for processing disappear
+     */
     public void waitInvisibilityProcessing() {
         web.waitDisappearElement("processing");
     }
