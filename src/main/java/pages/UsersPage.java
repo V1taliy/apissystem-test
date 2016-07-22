@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebElement;
 import utils.WebDriverWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersPage extends Page {
@@ -111,10 +112,38 @@ public class UsersPage extends Page {
     }
 
     /**
+     * Click action button
+     */
+    public void clickActionButton(int buttonPosition) {
+        List<WebElement> actionButtonList = web.getElements("actionButtonList");
+        actionButtonList.get(buttonPosition - 1).click();
+    }
+
+    /**
      * Wait for processing disappear
      */
     public void waitInvisibilityProcessing() {
         web.waitDisappearElement("processing");
+    }
+
+    /**
+     * Click action item from drop down menu
+     *
+     * @param menuItem item from menu, where
+     *                 1 - 'Disable user'
+     *                 2 - 'Enable user'
+     *                 3 - not used
+     *                 4 - Edit user
+     */
+    public void clickItemActionFromDropDownMenu(int menuItem) {
+        List<WebElement> buttonActionDropDownList = web.getElements("actionItemDropDownList");
+        List<WebElement> buttonActionDropDownListDisplay = new ArrayList<>();
+        for (WebElement element : buttonActionDropDownList) {
+            if (element.isDisplayed()) {
+                buttonActionDropDownListDisplay.add(element);
+            }
+        }
+        buttonActionDropDownListDisplay.get(menuItem - 1).click();
     }
 
 }

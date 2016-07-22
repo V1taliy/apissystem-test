@@ -43,10 +43,21 @@ public class UsersTest extends Fixture {
     }
 
     @Test(priority = 4, dependsOnMethods = {"sortTabs"})
-    public void selectUserCheckbox() {
-        apisSystem.usersPage.clickUserCheckbox(1);
-        apisSystem.usersPage.clickToggleButton(true);
-        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+    public void selectUserCheckboxAndClickToggleButtons() {
+        boolean button = true;
+        for (int i = 1; i <= 2; i++) {
+            apisSystem.usersPage.clickUserCheckbox(i);
+            apisSystem.usersPage.clickToggleButton(button);
+            Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+            button = false;
+        }
+    }
+
+    @Test(priority = 5, dependsOnMethods = {"selectUserCheckboxAndClickToggleButtons"})
+    public void foo() {
+        apisSystem.usersPage.clickActionButton(1);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+        // TODO
     }
 
 }
