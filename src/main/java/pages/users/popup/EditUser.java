@@ -16,7 +16,7 @@ public class EditUser extends Page {
     /**
      * Check is pop up window displayed on a page
      */
-    public boolean isPopUpEditUserPresent() {
+    public boolean isPopupPresent() {
         return web.isElementPresent("editUser");
     }
 
@@ -25,7 +25,7 @@ public class EditUser extends Page {
      *
      * @return true if pop up window down buttons loaded, otherwise false
      */
-    public boolean waitPopUpEditUserLoaded() {
+    public boolean waitPopupLoaded() {
         return web.waitElementToBeVisibility("editUserDown");
     }
 
@@ -61,7 +61,7 @@ public class EditUser extends Page {
      *               false - only clear field
      * @param data   data to first name field
      */
-    public void editUserInputFistName(boolean status, String data) {
+    public void inputFistName(boolean status, String data) {
         if (status) {
             web.clearAndInput("editUserFirstNameField", data);
         } else {
@@ -77,7 +77,7 @@ public class EditUser extends Page {
      *               false - only clear field
      * @param data   data to last name field
      */
-    public void editUserInputLastName(boolean status, String data) {
+    public void inputLastName(boolean status, String data) {
         if (status) {
             web.clearAndInput("editUserLastNameField", data);
         } else {
@@ -117,18 +117,18 @@ public class EditUser extends Page {
         newRoleList.get(random).click();
     }
 
-    public void closeEditUser() {
+    public void closeEditUserPopup() {
         web.clickLink("editUserClose");
     }
 
     /**
      * Wait for edit user loading change on invisibility
      */
-    public void waitInvisibilityEditUserLoading() {
+    public void waitInvisibilityLoading() {
         web.waitDisappearElement("editUserLoading");
     }
 
-    public boolean isEditUserErrorMessagePresent() {
+    public boolean isErrorMessagePresent() {
         return web.isElementPresent("errorMessage");
     }
 

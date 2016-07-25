@@ -109,6 +109,13 @@ public class UsersPage extends Page {
     }
 
     /**
+     * Wait for message present on a page
+     */
+    public void waitMessageSuccessPresent() {
+        web.waitElementToBeVisibility("greenMessage");
+    }
+
+    /**
      * Is message 'Success' present on a page
      */
     public boolean isMessageSuccessPresent() {

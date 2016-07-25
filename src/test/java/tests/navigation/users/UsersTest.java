@@ -63,6 +63,7 @@ public class UsersTest extends Fixture {
         for (int i = 1; i <= 2; i++) {
             apisSystem.usersPage.clickActionButton(i);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(i);
+            apisSystem.usersPage.waitMessageSuccessPresent();
             Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
         }
     }
@@ -74,19 +75,39 @@ public class UsersTest extends Fixture {
         // select 'Edit user' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
         // wait pop up 'Edit user' loaded
-        apisSystem.editUser.waitPopUpEditUserLoaded();
-        Assert.assertTrue(apisSystem.editUser.isPopUpEditUserPresent());
+        apisSystem.editUser.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.editUser.isPopupPresent());
     }
 
     @Test(priority = 7, dependsOnMethods = {"clickedOnEditUser"})
-    public void foo() {
-        apisSystem.editUser.editUserInputFistName(false, null);
-        apisSystem.editUser.editUserInputLastName(false, null);
+    public void changeGroupWithEmptyFields() {
+        apisSystem.editUser.inputFistName(false, null);
+        apisSystem.editUser.inputLastName(false, null);
         apisSystem.editUser.clickAndSelectGroup();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
-        apisSystem.editUser.waitInvisibilityEditUserLoading();
-        Assert.assertTrue(apisSystem.editUser.isEditUserErrorMessagePresent());
+        apisSystem.editUser.waitInvisibilityLoading();
+        Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
+    }
 
+    @Test(priority = 8, dependsOnMethods = {"changeGroupWithEmptyFields"})
+    public void changeRoleWithEmptyFields() {
+        apisSystem.editUser.clickAndSelectRole();
+        apisSystem.editUser.clickButtonSaveOrCancel(true);
+        apisSystem.editUser.waitInvisibilityLoading();
+        Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
+    }
+
+    @Test(priority = 9, dependsOnMethods = {"changeRoleWithEmptyFields"})
+    public void inputFirstName() {
+        apisSystem.editUser.inputFistName(true, "fistNameTest");
+        apisSystem.editUser.clickButtonSaveOrCancel(true);
+        apisSystem.editUser.waitInvisibilityLoading();
+        Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
+    }
+
+    @Test(priority = 10, dependsOnMethods = {"inputFirstName"})
+    public void inputLastName() {
+        apisSystem.editUser.inputLastName(true, "lastNameTest");
     }
 
 }
