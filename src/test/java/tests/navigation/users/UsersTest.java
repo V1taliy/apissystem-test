@@ -73,7 +73,7 @@ public class UsersTest extends Fixture {
         apisSystem.usersPage.clickActionButton(0);
         // select 'Edit user' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
-
+        Assert.assertTrue(apisSystem.usersPage.isPopUpEditUserPresent());
     }
 
 }

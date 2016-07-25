@@ -204,4 +204,72 @@ public class UsersPage extends Page {
         }
     }
 
+    /**
+     * Clear and (no) input data in first name field from pop up 'Edit User'
+     *
+     * @param status where
+     *               true - clear field and input data
+     *               false - only clear field
+     * @param data   data to first name field
+     */
+    public void editUserInputFistName(boolean status, String data) {
+        if (status) {
+            web.clearAndInput("editUserFirstNameField", data);
+        } else {
+            web.clear("editUserFirstNameField");
+        }
+    }
+
+    /**
+     * Clear and (no) input data in last name field from pop up 'Edit User'
+     *
+     * @param status where
+     *               true - clear field and input data
+     *               false - only clear field
+     * @param data   data to last name field
+     */
+    public void editUserInputLastName(boolean status, String data) {
+        if (status) {
+            web.clearAndInput("editUserLastNameField", data);
+        } else {
+            web.clear("editUserLastNameField");
+        }
+    }
+
+    /**
+     * Select and click random position from group list
+     */
+    public void clickAndSelectGroup() {
+        web.clickLink("editUserGroupLink");
+        List<WebElement> groupList = web.getElements("editUserGroupList");
+        List<WebElement> newGroupList = new ArrayList<>();
+        for (WebElement group : groupList) {
+            if (!group.getAttribute("value").contains("undefined:undefined")) {
+                newGroupList.add(group);
+            }
+        }
+        int random = (int) (Math.random() * newGroupList.size());
+        newGroupList.get(random).click();
+    }
+
+    /**
+     * Select and click random position from role list
+     */
+    public void clickAndSelectRole() {
+        web.clickLink("editUserRoleLink");
+        List<WebElement> roleList = web.getElements("editUserRoleList");
+        List<WebElement> newRoleList = new ArrayList<>();
+        for (WebElement role : roleList) {
+            if (!role.getAttribute("value").contains("undefined:undefined")) {
+                newRoleList.add(role);
+            }
+        }
+        int random = (int) (Math.random() * newRoleList.size());
+        newRoleList.get(random).click();
+    }
+
+    public void closeEditUser() {
+        web.clickLink("editUserClose");
+    }
+
 }
