@@ -136,37 +136,39 @@ public class UsersTest extends Fixture {
     public void filterInputUsername() {
         String username = apisSystem.usersPage.getValue("firstUserUsername");
         apisSystem.usersPage.inputUserName(username);
-        clickSearchAndReset();
-        // TODO ASSERT
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitInvisibilityProcessing();
+        Assert.assertEquals(username, apisSystem.usersPage.getInputValue("filterUserNameField"));
+        apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
     @Test(priority = 13, dependsOnMethods = {"filterInputUsername"})
     public void filterInputFirstName() {
         String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
         apisSystem.usersPage.inputFirstName(firstName);
-        clickSearchAndReset();
-        // TODO ASSERT
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitInvisibilityProcessing();
+        Assert.assertEquals(firstName, apisSystem.usersPage.getInputValue("filterFirstNameField"));
+        apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
     @Test(priority = 14, dependsOnMethods = {"filterInputFirstName"})
     public void filterInputLastName() {
         String lastName = apisSystem.usersPage.getValue("firstUserLastName");
         apisSystem.usersPage.inputLastName(lastName);
-        clickSearchAndReset();
-        // TODO ASSERT
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitInvisibilityProcessing();
+        Assert.assertEquals(lastName, apisSystem.usersPage.getInputValue("filterLastNameField"));
+        apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
     @Test(priority = 15, dependsOnMethods = {"filterInputLastName"})
     public void filterInputEmail() {
         String email = apisSystem.usersPage.getValue("firstUserEmail");
         apisSystem.usersPage.inputEmail(email);
-        clickSearchAndReset();
-        // TODO ASSERT
-    }
-
-    private void clickSearchAndReset() {
         apisSystem.usersPage.clickButtonSearchOrReset(true);
         apisSystem.usersPage.waitInvisibilityProcessing();
+        Assert.assertEquals(email, apisSystem.usersPage.getInputValue("filterEmailField"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 

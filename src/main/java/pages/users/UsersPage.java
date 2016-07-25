@@ -174,4 +174,8 @@ public class UsersPage extends Page {
         return web.getElement(locator).getText();
     }
 
+    public String getInputValue(String locator) {
+        return web.getElement(locator).getAttribute("value");
+    }
+
 }
