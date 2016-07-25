@@ -81,7 +81,7 @@ public class UsersTest extends Fixture {
     }
 
     @Test(priority = 7, dependsOnMethods = {"clickedOnEditUser"})
-    public void changeGroupWithEmptyFields() {
+    public void editUserChangeGroupWithEmptyFields() {
         apisSystem.editUser.inputFistName(false, null);
         apisSystem.editUser.inputLastName(false, null);
         apisSystem.editUser.clickAndSelectGroup();
@@ -90,47 +90,84 @@ public class UsersTest extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 8, dependsOnMethods = {"changeGroupWithEmptyFields"})
-    public void changeRoleWithEmptyFields() {
+    @Test(priority = 8, dependsOnMethods = {"editUserChangeGroupWithEmptyFields"})
+    public void editUserChangeRoleWithEmptyFields() {
         apisSystem.editUser.clickAndSelectRole();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.waitInvisibilityLoading();
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 9, dependsOnMethods = {"changeRoleWithEmptyFields"})
-    public void inputFirstName() {
-        apisSystem.editUser.inputFistName(true, "fistNameTest");
+    @Test(priority = 9, dependsOnMethods = {"editUserChangeRoleWithEmptyFields"})
+    public void editUserInputFirstName() {
+        apisSystem.editUser.inputFistName(true, "firstNameTest");
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.waitInvisibilityLoading();
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 10, dependsOnMethods = {"inputFirstName"})
-    public void inputLastName() {
+    @Test(priority = 10, dependsOnMethods = {"editUserInputFirstName"})
+    public void editUserInputLastName() {
         apisSystem.editUser.inputLastName(true, "lastNameTest");
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.usersPage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 11, dependsOnMethods = {"inputLastName"})
-    public void changeEnabledFromEditUser() {
-        if (apisSystem.editUser.waitInvisibilityPopup()) {
-            apisSystem.editUser.waitInvisibilityPopup();
-        }
+    @Test(priority = 11, dependsOnMethods = {"editUserInputLastName"})
+    public void editUserChangeEnabled() {
+        // TODO long wait
+        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.clickActionButton(1);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
         apisSystem.editUser.waitPopupLoaded();
-        if (apisSystem.editUser.isFirstNameEmpty().isEmpty()) {
+        if (apisSystem.editUser.isFirstNameEmpty().isEmpty() ||
+                apisSystem.editUser.isLastNameEmpty().isEmpty()) {
             apisSystem.editUser.inputFistName(true, "firstNameTest");
-        } else if (apisSystem.editUser.isLastNameEmpty().isEmpty()) {
             apisSystem.editUser.inputLastName(true, "lastNameTest");
         }
         apisSystem.editUser.clickOnEnabled();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.usersPage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 12, dependsOnMethods = {"editUserChangeEnabled"})
+    public void filterInputUsername() {
+        String username = apisSystem.usersPage.getValue("firstUserUsername");
+        apisSystem.usersPage.inputUserName(username);
+        clickSearchAndReset();
+        // TODO ASSERT
+    }
+
+    @Test(priority = 13, dependsOnMethods = {"filterInputUsername"})
+    public void filterInputFirstName() {
+        String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
+        apisSystem.usersPage.inputFirstName(firstName);
+        clickSearchAndReset();
+        // TODO ASSERT
+    }
+
+    @Test(priority = 14, dependsOnMethods = {"filterInputFirstName"})
+    public void filterInputLastName() {
+        String lastName = apisSystem.usersPage.getValue("firstUserLastName");
+        apisSystem.usersPage.inputLastName(lastName);
+        clickSearchAndReset();
+        // TODO ASSERT
+    }
+
+    @Test(priority = 15, dependsOnMethods = {"filterInputLastName"})
+    public void filterInputEmail() {
+        String email = apisSystem.usersPage.getValue("firstUserEmail");
+        apisSystem.usersPage.inputEmail(email);
+        clickSearchAndReset();
+        // TODO ASSERT
+    }
+
+    private void clickSearchAndReset() {
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitInvisibilityProcessing();
+        apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
 }

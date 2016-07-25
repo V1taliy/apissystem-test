@@ -117,10 +117,6 @@ public class EditUser extends Page {
         newRoleList.get(random).click();
     }
 
-    public void closeEditUserPopup() {
-        web.clickLink("editUserClose");
-    }
-
     /**
      * Wait for edit user loading change on invisibility
      */
@@ -141,6 +137,10 @@ public class EditUser extends Page {
 
     public boolean waitInvisibilityPopup() {
         return web.waitDisappearElement("editUserPopup");
+    }
+
+    public void closeEditUserPopup() {
+        web.clickLink("editUserClose");
     }
 
 }

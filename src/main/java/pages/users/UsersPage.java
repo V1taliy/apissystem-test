@@ -170,4 +170,8 @@ public class UsersPage extends Page {
                 buttonActionDropDownListDisplay.get(menuItem - 1).getTagName()));
     }
 
+    public String getValue(String locator) {
+        return web.getElement(locator).getText();
+    }
+
 }
