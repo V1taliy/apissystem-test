@@ -36,8 +36,10 @@ public class UsersTest extends Fixture {
     public void sortTabs() {
         for (int i = 2; i <= 9; i++) {
             for (int j = 0; j <= 1; j++) {
+                if (apisSystem.usersPage.isProcessingDisplayed()) {
+                    apisSystem.usersPage.waitInvisibilityProcessing();
+                }
                 apisSystem.usersPage.selectTableSort(i);
-                apisSystem.usersPage.waitInvisibilityProcessing();
             }
         }
     }
@@ -45,6 +47,9 @@ public class UsersTest extends Fixture {
     @Test(priority = 4, dependsOnMethods = {"sortTabs"})
     public void selectUserCheckboxAndClickToggleButtons() {
         boolean button = true;
+        if (apisSystem.usersPage.isProcessingDisplayed()) {
+            apisSystem.usersPage.waitInvisibilityProcessing();
+        }
         for (int i = 1; i <= 2; i++) {
             apisSystem.usersPage.clickUserCheckbox(i);
             apisSystem.usersPage.clickToggleButton(button);
@@ -54,10 +59,21 @@ public class UsersTest extends Fixture {
     }
 
     @Test(priority = 5, dependsOnMethods = {"selectUserCheckboxAndClickToggleButtons"})
-    public void foo() {
-        apisSystem.usersPage.clickActionButton(1);
+    public void clickedOnDisableAndEnableUser() {
+        for (int i = 1; i <= 2; i++) {
+            apisSystem.usersPage.clickActionButton(i);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(i);
+            Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+        }
+    }
+
+    @Test(priority = 6, dependsOnMethods = {"clickedOnDisableAndEnableUser"})
+    public void clickedOnEditUser() {
+        // select first user position
+        apisSystem.usersPage.clickActionButton(0);
+        // select 'Edit user' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
-        // TODO
+
     }
 
 }

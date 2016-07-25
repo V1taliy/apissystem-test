@@ -1,12 +1,17 @@
 package pages;
 
+import org.apache.log4j.Logger;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import utils.WebDriverWrapper;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UsersPage extends Page {
+
+    private static final Logger log = Logger.getLogger(UsersPage.class);
 
     public UsersPage(WebDriverWrapper driverWrapper) {
         super(driverWrapper);
@@ -127,6 +132,15 @@ public class UsersPage extends Page {
     }
 
     /**
+     * Check is processing element present on the page
+     *
+     * @return true if processing element present, otherwise false
+     */
+    public boolean isProcessingDisplayed() {
+        return web.isElementPresent("processing");
+    }
+
+    /**
      * Click action item from drop down menu
      *
      * @param menuItem item from menu, where
@@ -141,9 +155,29 @@ public class UsersPage extends Page {
         for (WebElement element : buttonActionDropDownList) {
             if (element.isDisplayed()) {
                 buttonActionDropDownListDisplay.add(element);
+                log.info(String.format("element < %s > added to array list",
+                        element.getTagName()));
             }
         }
         buttonActionDropDownListDisplay.get(menuItem - 1).click();
+        log.info(String.format("click on < %s >",
+                buttonActionDropDownListDisplay.get(menuItem - 1).getTagName()));
+    }
+
+    /**
+     * Check is pop up window displayed on a page
+     */
+    public boolean isPopUpEditUserPresent() {
+        return web.isElementPresent("popUpEditUser");
+    }
+
+    /**
+     * Check is pop up window 'Edit user' loaded
+     *
+     * @return true if pop up window down buttons loaded, otherwise false
+     */
+    public boolean waitPopUpEditUserLoaded() {
+        return web.waitElementToBeVisibility("popUpEditUserDown");
     }
 
 }
