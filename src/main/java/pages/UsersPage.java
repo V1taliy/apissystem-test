@@ -1,12 +1,10 @@
 package pages;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import utils.WebDriverWrapper;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class UsersPage extends Page {
@@ -168,7 +166,7 @@ public class UsersPage extends Page {
      * Check is pop up window displayed on a page
      */
     public boolean isPopUpEditUserPresent() {
-        return web.isElementPresent("popUpEditUser");
+        return web.isElementPresent("editUser");
     }
 
     /**
@@ -177,7 +175,9 @@ public class UsersPage extends Page {
      * @return true if pop up window down buttons loaded, otherwise false
      */
     public boolean waitPopUpEditUserLoaded() {
-        return web.waitElementToBeVisibility("popUpEditUserDown");
+        return web.waitElementToBeVisibility("editUserDown");
     }
+
+
 
 }
