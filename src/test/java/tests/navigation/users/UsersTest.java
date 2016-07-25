@@ -70,10 +70,23 @@ public class UsersTest extends Fixture {
     @Test(priority = 6, dependsOnMethods = {"clickedOnDisableAndEnableUser"})
     public void clickedOnEditUser() {
         // select first user position
-        apisSystem.usersPage.clickActionButton(0);
+        apisSystem.usersPage.clickActionButton(1);
         // select 'Edit user' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
-        Assert.assertTrue(apisSystem.usersPage.isPopUpEditUserPresent());
+        // wait pop up 'Edit user' loaded
+        apisSystem.editUser.waitPopUpEditUserLoaded();
+        Assert.assertTrue(apisSystem.editUser.isPopUpEditUserPresent());
+    }
+
+    @Test(priority = 7, dependsOnMethods = {"clickedOnEditUser"})
+    public void foo() {
+        apisSystem.editUser.editUserInputFistName(false, null);
+        apisSystem.editUser.editUserInputLastName(false, null);
+        apisSystem.editUser.clickAndSelectGroup();
+        apisSystem.editUser.clickButtonSaveOrCancel(true);
+        apisSystem.editUser.waitInvisibilityEditUserLoading();
+        Assert.assertTrue(apisSystem.editUser.isEditUserErrorMessagePresent());
+
     }
 
 }
