@@ -162,6 +162,8 @@ public class UsersPage extends Page {
                 buttonActionDropDownListDisplay.get(menuItem - 1).getTagName()));
     }
 
+    // methods for pop up EDIT USER
+
     /**
      * Check is pop up window displayed on a page
      */
@@ -178,6 +180,28 @@ public class UsersPage extends Page {
         return web.waitElementToBeVisibility("editUserDown");
     }
 
+    /**
+     * Check is name and email field are blocked
+     */
+    public boolean isNameAndEmailFieldsBlocked() {
+        return web.getElement("editUserNameField").getAttribute("disabled").contains("disabled") &&
+                web.getElement("editUserEmailField").getAttribute("disabled").contains("disabled");
+    }
 
+    /**
+     * Click on button 'Save' or 'Cancel'
+     *
+     * @param button where
+     *               true - button 'Save'
+     *               false - button 'Cancel'
+     */
+    public void clickButtonSaveOrCancel(boolean button) {
+        List<WebElement> buttonsList = web.getElements("editUserButtons");
+        if (button) {
+            buttonsList.get(0).click();
+        } else {
+            buttonsList.get(1).click();
+        }
+    }
 
 }
