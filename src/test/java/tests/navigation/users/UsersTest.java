@@ -53,6 +53,7 @@ public class UsersTest extends Fixture {
         for (int i = 1; i <= 2; i++) {
             apisSystem.usersPage.clickUserCheckbox(i);
             apisSystem.usersPage.clickToggleButton(button);
+            apisSystem.usersPage.waitMessageSuccessPresent();
             Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
             button = false;
         }
@@ -108,6 +109,28 @@ public class UsersTest extends Fixture {
     @Test(priority = 10, dependsOnMethods = {"inputFirstName"})
     public void inputLastName() {
         apisSystem.editUser.inputLastName(true, "lastNameTest");
+        apisSystem.editUser.clickButtonSaveOrCancel(true);
+        apisSystem.usersPage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 11, dependsOnMethods = {"inputLastName"})
+    public void changeEnabledFromEditUser() {
+        if (apisSystem.editUser.waitInvisibilityPopup()) {
+            apisSystem.editUser.waitInvisibilityPopup();
+        }
+        apisSystem.usersPage.clickActionButton(1);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+        apisSystem.editUser.waitPopupLoaded();
+        if (apisSystem.editUser.isFirstNameEmpty().isEmpty()) {
+            apisSystem.editUser.inputFistName(true, "firstNameTest");
+        } else if (apisSystem.editUser.isLastNameEmpty().isEmpty()) {
+            apisSystem.editUser.inputLastName(true, "lastNameTest");
+        }
+        apisSystem.editUser.clickOnEnabled();
+        apisSystem.editUser.clickButtonSaveOrCancel(true);
+        apisSystem.usersPage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
     }
 
 }

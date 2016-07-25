@@ -30,14 +30,6 @@ public class EditUser extends Page {
     }
 
     /**
-     * Check is name and email field are blocked
-     */
-    public boolean isNameAndEmailFieldsBlocked() {
-        return web.getElement("editUserNameField").getAttribute("disabled").contains("disabled") &&
-                web.getElement("editUserEmailField").getAttribute("disabled").contains("disabled");
-    }
-
-    /**
      * Click on button 'Save' or 'Cancel'
      *
      * @param button where
@@ -85,6 +77,14 @@ public class EditUser extends Page {
         }
     }
 
+    public String isFirstNameEmpty() {
+        return web.getElement("editUserFirstNameField").getAttribute("value");
+    }
+
+    public String isLastNameEmpty() {
+        return web.getElement("editUserLastNameField").getAttribute("value");
+    }
+
     /**
      * Select and click random position from group list
      */
@@ -130,6 +130,17 @@ public class EditUser extends Page {
 
     public boolean isErrorMessagePresent() {
         return web.isElementPresent("errorMessage");
+    }
+
+    /**
+     * Click on Enabled from popup 'Edit user'
+     */
+    public void clickOnEnabled() {
+        web.clickLink("editUserEnabled");
+    }
+
+    public boolean waitInvisibilityPopup() {
+        return web.waitDisappearElement("editUserPopup");
     }
 
 }
