@@ -137,6 +137,7 @@ public class UsersTest extends Fixture {
     @Test(priority = 12, dependsOnMethods = {"editUserChangeEnabled"})
     public void filterInputUsername() {
         String username = apisSystem.usersPage.getValue("firstUserUsername");
+        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.inputUserName(username);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
         apisSystem.usersPage.waitInvisibilityProcessing();
@@ -147,6 +148,7 @@ public class UsersTest extends Fixture {
     @Test(priority = 13, dependsOnMethods = {"filterInputUsername"})
     public void filterInputFirstName() {
         String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
+        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.inputFirstName(firstName);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
         apisSystem.usersPage.waitInvisibilityProcessing();
@@ -157,6 +159,7 @@ public class UsersTest extends Fixture {
     @Test(priority = 14, dependsOnMethods = {"filterInputFirstName"})
     public void filterInputLastName() {
         String lastName = apisSystem.usersPage.getValue("firstUserLastName");
+        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.inputLastName(lastName);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
         apisSystem.usersPage.waitInvisibilityProcessing();
@@ -167,10 +170,22 @@ public class UsersTest extends Fixture {
     @Test(priority = 15, dependsOnMethods = {"filterInputLastName"})
     public void filterInputEmail() {
         String email = apisSystem.usersPage.getValue("firstUserEmail");
+        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.inputEmail(email);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
         apisSystem.usersPage.waitInvisibilityProcessing();
         Assert.assertEquals(email, apisSystem.usersPage.getInputValue("filterEmailField"));
+        apisSystem.usersPage.clickButtonSearchOrReset(false);
+    }
+
+    @Test(priority = 16, dependsOnMethods = {"filterInputEmail"})
+    public void filterSelectGroup() {
+        String group = apisSystem.usersPage.getValue("firstUserGroup");
+        apisSystem.editUser.waitInvisibilityPopup();
+        apisSystem.usersPage.inputGroupAndClickEnter(group);
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitInvisibilityProcessing();
+        Assert.assertEquals(group, apisSystem.usersPage.getGroupValue("filterGroupValue"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 

@@ -36,14 +36,8 @@ public class UsersPage extends Page {
         web.clearAndInput("filterEmailField", email);
     }
 
-    public void clickAndSelectValueFromGroup() {
-        web.clickLink("filterGroupField");
-        // all values from group list
-        List<WebElement> groupList = web.getElements("filterGroupDropDownList");
-        // generate random value position
-        int random = (int) (Math.random() * groupList.size());
-        // click on this value
-        groupList.get(random).click();
+    public void inputGroupAndClickEnter(String group) {
+        web.clearAndInputAndClickEnter("filterGroupField", group);
     }
 
     /**
@@ -178,6 +172,10 @@ public class UsersPage extends Page {
      */
     public String getInputValue(String locator) {
         return web.getElement(locator).getAttribute("value");
+    }
+
+    public String getGroupValue(String locator) {
+        return web.getElement(locator).getText();
     }
 
 }
