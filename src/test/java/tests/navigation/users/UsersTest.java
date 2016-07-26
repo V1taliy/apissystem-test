@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
 
+import java.util.concurrent.TimeUnit;
+
 public class UsersTest extends Fixture {
 
     private static final Logger log = Logger.getLogger(UsersTest.class);
@@ -13,7 +15,6 @@ public class UsersTest extends Fixture {
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");
-
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
@@ -24,6 +25,8 @@ public class UsersTest extends Fixture {
         apisSystem.loginPage.inputPassword(ADMIN_PASSWORD);
         apisSystem.loginPage.clickLoginButton();
         Assert.assertTrue(apisSystem.mainPage.isWelcomeToApisSystemPresent());
+        impWait = PropertyLoader.loadProperty("wait.timeout1sec");
+        driverWrapper.manage().timeouts().implicitlyWait(Long.parseLong(impWait), TimeUnit.MILLISECONDS);
     }
 
     @Test(priority = 2, dependsOnMethods = {"openWebSiteAndLogin"})
@@ -47,10 +50,10 @@ public class UsersTest extends Fixture {
     @Test(priority = 4, dependsOnMethods = {"sortTabs"})
     public void selectUserCheckboxAndClickToggleButtons() {
         boolean button = true;
-        if (apisSystem.usersPage.isProcessingDisplayed()) {
-            apisSystem.usersPage.waitInvisibilityProcessing();
-        }
         for (int i = 1; i <= 2; i++) {
+            if (apisSystem.usersPage.isProcessingDisplayed()) {
+                apisSystem.usersPage.waitInvisibilityProcessing();
+            }
             apisSystem.usersPage.clickUserCheckbox(i);
             apisSystem.usersPage.clickToggleButton(button);
             apisSystem.usersPage.waitMessageSuccessPresent();
@@ -116,7 +119,6 @@ public class UsersTest extends Fixture {
 
     @Test(priority = 11, dependsOnMethods = {"editUserInputLastName"})
     public void editUserChangeEnabled() {
-        // TODO long wait
         apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.clickActionButton(1);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(4);

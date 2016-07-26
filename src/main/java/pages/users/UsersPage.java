@@ -156,24 +156,26 @@ public class UsersPage extends Page {
      *                 4 - Edit user
      */
     public void clickItemActionFromDropDownMenu(int menuItem) {
-        List<WebElement> buttonActionDropDownList = web.getElements("actionItemDropDownList");
-        List<WebElement> buttonActionDropDownListDisplay = new ArrayList<>();
-        for (WebElement element : buttonActionDropDownList) {
-            if (element.isDisplayed()) {
-                buttonActionDropDownListDisplay.add(element);
-                log.info(String.format("element < %s > added to array list",
-                        element.getTagName()));
-            }
-        }
-        buttonActionDropDownListDisplay.get(menuItem - 1).click();
+        List<WebElement> elementActionDropDownList = web.getElements("actionItemDropDownList");
+        elementActionDropDownList.get(menuItem - 1).click();
         log.info(String.format("click on < %s >",
-                buttonActionDropDownListDisplay.get(menuItem - 1).getTagName()));
+                elementActionDropDownList.get(menuItem - 1).getTagName()));
     }
 
+    /**
+     * Get value from some element
+     *
+     * @param locator element locator
+     */
     public String getValue(String locator) {
         return web.getElement(locator).getText();
     }
 
+    /**
+     * Get value from input field
+     *
+     * @param locator input field locator
+     */
     public String getInputValue(String locator) {
         return web.getElement(locator).getAttribute("value");
     }
