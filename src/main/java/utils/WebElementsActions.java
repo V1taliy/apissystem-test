@@ -368,6 +368,24 @@ public class WebElementsActions {
     }
 
     /**
+     * An expectation for checking an element is visible and enabled such that you
+     * can click it.
+     *
+     * @param webElement can this element to be clickable
+     * @return true If the WebElement once it is located and clickable (visible and enabled), otherwise false
+     * @throws NoSuchElementException If the element cannot found
+     */
+    public boolean waitElementToBeClickable(WebElement webElement) throws NoSuchElementException {
+        if (driverWait.until(ExpectedConditions.elementToBeSelected(webElement))) {
+            driverWait.until(ExpectedConditions.elementToBeClickable(webElement));
+            log.info(String.format("element < %s > to be clickable", webElement));
+            return true;
+        }
+        log.info(String.format("element < %s > not clickable", webElement));
+        return false;
+    }
+
+    /**
      * This method checks whether there is an element on the page
      * that overlaps another element
      *
@@ -454,6 +472,19 @@ public class WebElementsActions {
         } else {
             log.info(String.format("web elements actions driverWrapper: < %s > can't execute JavaScript", driverWrapper));
             return false;
+        }
+    }
+
+    /**
+     * Select/deselect the checkbox
+     *
+     * @param checkBoxLocator search check box locator
+     * @throws NoSuchElementException If the locator cannot found
+     */
+    public void selectCheckBox(String checkBoxLocator) throws NoSuchElementException {
+        if (driverWrapper.findElement(config.getLocator(checkBoxLocator)).isSelected()) {
+            driverWrapper.findElement(config.getLocator(checkBoxLocator)).click();
+            log.info(String.format("select < %s >", checkBoxLocator));
         }
     }
 
