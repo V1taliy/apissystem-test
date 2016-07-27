@@ -1,6 +1,7 @@
 package pages;
 
 import pages.brands.BrandsPage;
+import pages.brands.popup.CreateBrand;
 import pages.brands.popup.EditBrand;
 import pages.users.UsersPage;
 import pages.users.popup.EditUser;
@@ -16,6 +17,7 @@ public class ApisSystem {
     public EditUser editUser;
     public BrandsPage brandsPage;
     public EditBrand editBrand;
+    public CreateBrand createBrand;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -25,6 +27,7 @@ public class ApisSystem {
         editUser = new EditUser(driverWrapper);
         brandsPage = new BrandsPage(driverWrapper);
         editBrand = new EditBrand(driverWrapper);
+        createBrand = new CreateBrand(driverWrapper);
     }
 
 }
