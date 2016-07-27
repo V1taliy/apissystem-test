@@ -29,4 +29,9 @@ public class BrandsTest extends Fixture {
         Assert.assertEquals(apisSystem.brandsPage.getCurrentPageURL(), BRANDS_URL);
     }
 
+    @Test(priority = 3, dependsOnMethods = {"goToBrandsTab"})
+    public void foo() {
+        
+    }
+
 }

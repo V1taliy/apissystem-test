@@ -12,4 +12,8 @@ public class BrandsPage extends Page {
         super(driverWrapper);
     }
 
+    public void filterInputBrandName(String brandName) {
+        web.clearAndInput("filterBrandNameInput", brandName);
+    }
+
 }
