@@ -2,6 +2,7 @@ package tests.navigation.users;
 
 import org.apache.log4j.Logger;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
@@ -15,6 +16,11 @@ public class UsersTest extends Fixture {
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");
+    private static final String USER_NAME_TEST = PropertyLoader.loadProperty("userName.test");
+    private static final String USER_EMAIL_TEST = PropertyLoader.loadProperty("userEmail.test");
+    private static final int actionButtonPosition = 1;
+    private static final int itemEditUser = 4;
+    private static final String[] DATA_TEST = {"firstNameTest", "lastNameTest"};
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
@@ -35,7 +41,7 @@ public class UsersTest extends Fixture {
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }
 
-    @Test(priority = 3, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 3, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void sortTabs() {
         for (int i = 2; i <= 9; i++) {
             for (int j = 0; j <= 1; j++) {
@@ -50,11 +56,15 @@ public class UsersTest extends Fixture {
     @Test(priority = 4, dependsOnMethods = {"sortTabs"})
     public void selectUserCheckboxAndClickToggleButtons() {
         boolean button = true;
+        int userPosition = 1;
+        apisSystem.usersPage.inputUserName(USER_NAME_TEST);
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitInvisibilityProcessing();
         for (int i = 1; i <= 2; i++) {
             if (apisSystem.usersPage.isProcessingDisplayed()) {
                 apisSystem.usersPage.waitInvisibilityProcessing();
             }
-            apisSystem.usersPage.clickUserCheckbox(i);
+            apisSystem.usersPage.clickUserCheckbox(userPosition);
             apisSystem.usersPage.clickToggleButton(button);
             apisSystem.usersPage.waitMessageSuccessPresent();
             Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
@@ -62,28 +72,27 @@ public class UsersTest extends Fixture {
         }
     }
 
-    @Test(priority = 5, dependsOnMethods = {"selectUserCheckboxAndClickToggleButtons"})
+    @Test(priority = 5, enabled = true, dependsOnMethods = {"selectUserCheckboxAndClickToggleButtons"})
     public void clickedOnDisableAndEnableUser() {
         for (int i = 1; i <= 2; i++) {
-            apisSystem.usersPage.clickActionButton(i);
+            apisSystem.usersPage.clickActionButton(actionButtonPosition);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(i);
             apisSystem.usersPage.waitMessageSuccessPresent();
             Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
         }
     }
 
-    @Test(priority = 6, dependsOnMethods = {"clickedOnDisableAndEnableUser"})
+    @Test(priority = 6, enabled = true, dependsOnMethods = {"clickedOnDisableAndEnableUser"})
     public void clickedOnEditUser() {
-        // select first user position
-        apisSystem.usersPage.clickActionButton(1);
+        apisSystem.usersPage.clickActionButton(actionButtonPosition);
         // select 'Edit user' item from drop down menu
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(itemEditUser);
         // wait pop up 'Edit user' loaded
         apisSystem.editUser.waitPopupLoaded();
         Assert.assertTrue(apisSystem.editUser.isPopupPresent());
     }
 
-    @Test(priority = 7, dependsOnMethods = {"clickedOnEditUser"})
+    @Test(priority = 7, enabled = true, dependsOnMethods = {"clickedOnEditUser"})
     public void editUserChangeGroupWithEmptyFields() {
         apisSystem.editUser.inputFistName(false, null);
         apisSystem.editUser.inputLastName(false, null);
@@ -93,7 +102,7 @@ public class UsersTest extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 8, dependsOnMethods = {"editUserChangeGroupWithEmptyFields"})
+    @Test(priority = 8, enabled = true, dependsOnMethods = {"editUserChangeGroupWithEmptyFields"})
     public void editUserChangeRoleWithEmptyFields() {
         apisSystem.editUser.clickAndSelectRole();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -101,32 +110,32 @@ public class UsersTest extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 9, dependsOnMethods = {"editUserChangeRoleWithEmptyFields"})
+    @Test(priority = 9, enabled = true, dependsOnMethods = {"editUserChangeRoleWithEmptyFields"})
     public void editUserInputFirstName() {
-        apisSystem.editUser.inputFistName(true, "firstNameTest");
+        apisSystem.editUser.inputFistName(true, DATA_TEST[0]);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.waitInvisibilityLoading();
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 10, dependsOnMethods = {"editUserInputFirstName"})
+    @Test(priority = 10, enabled = true, dependsOnMethods = {"editUserInputFirstName"})
     public void editUserInputLastName() {
-        apisSystem.editUser.inputLastName(true, "lastNameTest");
+        apisSystem.editUser.inputLastName(true, DATA_TEST[1]);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.usersPage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 11, dependsOnMethods = {"editUserInputLastName"})
+    @Test(priority = 11, enabled = true, dependsOnMethods = {"editUserInputLastName"})
     public void editUserChangeEnabled() {
         apisSystem.editUser.waitInvisibilityPopup();
-        apisSystem.usersPage.clickActionButton(1);
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+        apisSystem.usersPage.clickActionButton(actionButtonPosition);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(itemEditUser);
         apisSystem.editUser.waitPopupLoaded();
         if (apisSystem.editUser.isFirstNameEmpty().isEmpty() ||
                 apisSystem.editUser.isLastNameEmpty().isEmpty()) {
-            apisSystem.editUser.inputFistName(true, "firstNameTest");
-            apisSystem.editUser.inputLastName(true, "lastNameTest");
+            apisSystem.editUser.inputFistName(true, DATA_TEST[0]);
+            apisSystem.editUser.inputLastName(true, DATA_TEST[1]);
         }
         apisSystem.editUser.clickOnEnabled();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -134,7 +143,7 @@ public class UsersTest extends Fixture {
         Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 12, dependsOnMethods = {"editUserChangeEnabled"})
+    @Test(priority = 12, enabled = true, dependsOnMethods = {"editUserChangeEnabled"})
     public void filterInputUsername() {
         String username = apisSystem.usersPage.getValue("firstUserUsername");
         apisSystem.editUser.waitInvisibilityPopup();
@@ -145,7 +154,7 @@ public class UsersTest extends Fixture {
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
-    @Test(priority = 13, dependsOnMethods = {"filterInputUsername"})
+    @Test(priority = 13, enabled = true, dependsOnMethods = {"filterInputUsername"})
     public void filterInputFirstName() {
         String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
         apisSystem.editUser.waitInvisibilityPopup();
@@ -156,7 +165,7 @@ public class UsersTest extends Fixture {
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
-    @Test(priority = 14, dependsOnMethods = {"filterInputFirstName"})
+    @Test(priority = 14, enabled = true, dependsOnMethods = {"filterInputFirstName"})
     public void filterInputLastName() {
         String lastName = apisSystem.usersPage.getValue("firstUserLastName");
         apisSystem.editUser.waitInvisibilityPopup();
@@ -167,7 +176,7 @@ public class UsersTest extends Fixture {
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
-    @Test(priority = 15, dependsOnMethods = {"filterInputLastName"})
+    @Test(priority = 15, enabled = true, dependsOnMethods = {"filterInputLastName"})
     public void filterInputEmail() {
         String email = apisSystem.usersPage.getValue("firstUserEmail");
         apisSystem.editUser.waitInvisibilityPopup();
@@ -178,7 +187,7 @@ public class UsersTest extends Fixture {
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
-    @Test(priority = 16, dependsOnMethods = {"filterInputEmail"})
+    @Test(priority = 16, enabled = true, dependsOnMethods = {"filterInputEmail"})
     public void filterSelectGroup() {
         String group = apisSystem.usersPage.getValue("firstUserGroup");
         apisSystem.editUser.waitInvisibilityPopup();

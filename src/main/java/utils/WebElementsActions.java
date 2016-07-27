@@ -476,6 +476,19 @@ public class WebElementsActions {
     }
 
     /**
+     * Select/deselect the checkbox
+     *
+     * @param checkBoxLocator search check box locator
+     * @throws NoSuchElementException If the locator cannot found
+     */
+    public void selectCheckBox(String checkBoxLocator) throws NoSuchElementException {
+        if (driverWrapper.findElement(config.getLocator(checkBoxLocator)).isSelected()) {
+            driverWrapper.findElement(config.getLocator(checkBoxLocator)).click();
+            log.info(String.format("select < %s >", checkBoxLocator));
+        }
+    }
+
+    /**
      * Press a button TAB {@info is recommended to enter a single value in
      * {@link WebElementsActions#pressTAB(String)}
      *

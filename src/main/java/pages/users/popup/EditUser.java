@@ -132,7 +132,7 @@ public class EditUser extends Page {
      * Click on Enabled from popup 'Edit user'
      */
     public void clickOnEnabled() {
-        web.clickLink("editUserEnabled");
+        web.selectCheckBox("editUserEnabled");
     }
 
     public boolean waitInvisibilityPopup() {
