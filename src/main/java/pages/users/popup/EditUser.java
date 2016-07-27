@@ -91,14 +91,12 @@ public class EditUser extends Page {
     public void clickAndSelectGroup() {
         web.clickLink("editUserGroupLink");
         List<WebElement> groupList = web.getElements("editUserGroupList");
-        List<WebElement> newGroupList = new ArrayList<>();
-        for (WebElement group : groupList) {
-            if (!group.getAttribute("value").contains("undefined:undefined")) {
-                newGroupList.add(group);
-            }
+        int random = (int) (Math.random() * groupList.size());
+        if (groupList.get(random).getAttribute("value").contains("undefined:undefined")) {
+            groupList.get(++random).click();
+        } else {
+            groupList.get(random).click();
         }
-        int random = (int) (Math.random() * newGroupList.size());
-        newGroupList.get(random).click();
     }
 
     /**

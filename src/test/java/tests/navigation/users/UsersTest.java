@@ -98,6 +98,7 @@ public class UsersTest extends Fixture {
         apisSystem.editUser.inputLastName(false, null);
         apisSystem.editUser.clickAndSelectGroup();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
+        apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.waitInvisibilityLoading();
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
