@@ -33,7 +33,7 @@ public class CreateBrand extends Page {
     }
 
     public void selectCheckboxEnabled() {
-        web.selectCheckBox("checkboxEnabled");
+        web.clickLink("checkboxEnabled");
     }
 
     /**
@@ -43,17 +43,35 @@ public class CreateBrand extends Page {
      *                     true - 'Save' button
      *                     false - 'Cancel' button
      */
-    public void clickSaveOrCancelButton(boolean selectButton) {
+    public boolean clickButtonSaveOrCancel(boolean selectButton) {
         List<WebElement> buttonsList = web.getElements("createBrandButtons");
         if (selectButton) {
             buttonsList.get(0).click();
+            return true;
         } else {
             buttonsList.get(1).click();
+            return true;
         }
     }
 
     public boolean isErrorMessagePresent() {
         return web.isElementPresent("errorMessage");
+    }
+
+    /**
+     * Check is pop up window displayed on a page
+     */
+    public boolean isPopupPresent() {
+        return web.isElementPresent("createBrand");
+    }
+
+    /**
+     * Check is pop up window 'Edit user' loaded
+     *
+     * @return true if pop up window down buttons loaded, otherwise false
+     */
+    public boolean waitPopupLoaded() {
+        return web.waitElementToBeVisibility("createBrandDown");
     }
 
 }

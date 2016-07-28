@@ -11,6 +11,8 @@ public class BrandsTest extends Fixture {
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
+    private static final String[] TEST_DATA = {"testAppKey", "testApiUser",
+            "testApiPassword", "testBrandName", "testDomain"};
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
@@ -54,6 +56,24 @@ public class BrandsTest extends Fixture {
             apisSystem.brandsPage.waitMessageSuccessPresent();
             Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
         }
+    }
+
+    @Test(priority = 5, dependsOnMethods = {"selectBrandAndClickToggleButtons"})
+    public void clickOnCreateBrand() {
+        apisSystem.brandsPage.createOrDeleteBrand(true);
+        apisSystem.createBrand.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.createBrand.isPopupPresent());
+    }
+
+    @Test(priority = 6, dependsOnMethods = {"clickOnCreateBrand"})
+    public void popupCreateBrandInputFieldsAndClickCancel() {
+        apisSystem.createBrand.inputAppKey(TEST_DATA[0]);
+        apisSystem.createBrand.inputApiUser(TEST_DATA[1]);
+        apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
+        apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
+        apisSystem.createBrand.inputDomain(TEST_DATA[4]);
+        apisSystem.createBrand.selectCheckboxEnabled();
+        Assert.assertEquals(apisSystem.createBrand.clickButtonSaveOrCancel(false), true);
     }
 
 }
