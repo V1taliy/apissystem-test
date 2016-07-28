@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
 
+import java.util.concurrent.TimeUnit;
+
 public class BrandsTest extends Fixture {
 
     private static final String ADMIN_NAME = PropertyLoader.loadProperty("admin.name");
@@ -24,6 +26,8 @@ public class BrandsTest extends Fixture {
         apisSystem.loginPage.inputPassword(ADMIN_PASSWORD);
         apisSystem.loginPage.clickLoginButton();
         Assert.assertTrue(apisSystem.mainPage.isWelcomeToApisSystemPresent());
+        impWait = PropertyLoader.loadProperty("wait.timeout1sec");
+        driverWrapper.manage().timeouts().implicitlyWait(Long.parseLong(impWait), TimeUnit.MILLISECONDS);
     }
 
     @Test(priority = 2, dependsOnMethods = {"openWebSiteAndLogin"})
@@ -91,6 +95,9 @@ public class BrandsTest extends Fixture {
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }
+
+    @Test(priority = 9, dependsOnMethods = {"popupCreateBrandCorrectDomain"})
+    public void createSecondBrand() {}
 
     private void clickCreateBrand() {
         apisSystem.brandsPage.createOrDeleteBrand(true);
