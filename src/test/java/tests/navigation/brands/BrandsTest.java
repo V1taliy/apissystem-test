@@ -1,6 +1,7 @@
 package tests.navigation.brands;
 
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
@@ -58,15 +59,9 @@ public class BrandsTest extends Fixture {
         }
     }
 
-    @Test(priority = 5, dependsOnMethods = {"selectBrandAndClickToggleButtons"})
-    public void clickOnCreateBrand() {
-        apisSystem.brandsPage.createOrDeleteBrand(true);
-        apisSystem.createBrand.waitPopupLoaded();
-        Assert.assertTrue(apisSystem.createBrand.isPopupPresent());
-    }
-
-    @Test(priority = 6, dependsOnMethods = {"clickOnCreateBrand"})
+    @Test(priority = 6, dependsOnMethods = {"selectBrandAndClickToggleButtons"})
     public void popupCreateBrandInputFieldsAndClickCancel() {
+        clickCreateBrand();
         apisSystem.createBrand.inputAppKey(TEST_DATA[0]);
         apisSystem.createBrand.inputApiUser(TEST_DATA[1]);
         apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
@@ -74,6 +69,26 @@ public class BrandsTest extends Fixture {
         apisSystem.createBrand.inputDomain(TEST_DATA[4]);
         apisSystem.createBrand.selectCheckboxEnabled();
         Assert.assertEquals(apisSystem.createBrand.clickButtonSaveOrCancel(false), true);
+    }
+
+    @Test(priority = 7, dependsOnMethods = {"popupCreateBrandInputFieldsAndClickCancel"})
+    public void popupCreateBrandFailedDomain() {
+        apisSystem.createBrand.waitInvisibilityPopup();
+        clickCreateBrand();
+        apisSystem.createBrand.inputAppKey(TEST_DATA[0]);
+        apisSystem.createBrand.inputApiUser(TEST_DATA[1]);
+        apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
+        apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
+        apisSystem.createBrand.inputDomain(TEST_DATA[4]);
+        apisSystem.createBrand.selectCheckboxEnabled();
+        apisSystem.createBrand.clickButtonSaveOrCancel(true);
+        Assert.assertTrue(apisSystem.createBrand.isErrorMessagePresent());
+    }
+
+    private void clickCreateBrand() {
+        apisSystem.brandsPage.createOrDeleteBrand(true);
+        apisSystem.createBrand.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.createBrand.isPopupPresent());
     }
 
 }

@@ -74,4 +74,8 @@ public class CreateBrand extends Page {
         return web.waitElementToBeVisibility("createBrandDown");
     }
 
+    public boolean waitInvisibilityPopup() {
+        return web.waitDisappearElement("createBrandDown");
+    }
+
 }
