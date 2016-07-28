@@ -85,6 +85,13 @@ public class BrandsTest extends Fixture {
         Assert.assertTrue(apisSystem.createBrand.isErrorMessagePresent());
     }
 
+    @Test(priority = 8, dependsOnMethods = {"popupCreateBrandFailedDomain"})
+    public void popupCreateBrandCorrectDomain() {
+        apisSystem.createBrand.inputDomain(TEST_DATA[4] + ".com");
+        apisSystem.createBrand.clickButtonSaveOrCancel(true);
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+    }
+
     private void clickCreateBrand() {
         apisSystem.brandsPage.createOrDeleteBrand(true);
         apisSystem.createBrand.waitPopupLoaded();
