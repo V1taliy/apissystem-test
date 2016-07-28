@@ -75,7 +75,7 @@ public class BrandsPage extends Page {
      *
      * @param userPosition user position in the desk table
      */
-    public void clickUserCheckbox(int userPosition) {
+    public void clickBrandCheckbox(int userPosition) {
         List<WebElement> checkboxList = web.getElements("checkboxList");
         checkboxList.get(userPosition - 1).click();
     }
@@ -140,6 +140,20 @@ public class BrandsPage extends Page {
      */
     public boolean isProcessingDisplayed() {
         return web.isElementPresent("processing");
+    }
+
+    /**
+     * Wait for message present on a page
+     */
+    public void waitMessageSuccessPresent() {
+        web.waitElementToBeVisibility("greenMessage");
+    }
+
+    /**
+     * Is message 'Success' present on a page
+     */
+    public boolean isMessageSuccessPresent() {
+        return web.isElementPresent("greenMessage");
     }
 
 }

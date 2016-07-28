@@ -41,4 +41,19 @@ public class BrandsTest extends Fixture {
         }
     }
 
+    @Test(priority = 4, dependsOnMethods = {"sortTabs"})
+    public void selectBrandAndClickToggleButtons() {
+        boolean button = false;
+        int brandPosition = 1;
+        for (int i = 1; i <= 2; i++) {
+            if (apisSystem.brandsPage.isProcessingDisplayed()) {
+                apisSystem.brandsPage.waitInvisibilityProcessing();
+            }
+            apisSystem.brandsPage.clickBrandCheckbox(brandPosition);
+            apisSystem.brandsPage.clickToggleButton(button);
+            apisSystem.brandsPage.waitMessageSuccessPresent();
+            Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        }
+    }
+
 }
