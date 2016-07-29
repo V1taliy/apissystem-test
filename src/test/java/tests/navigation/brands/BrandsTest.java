@@ -113,7 +113,7 @@ public class BrandsTest extends Fixture {
     @Test(priority = 10, dependsOnMethods = {"createSecondBrand"})
     public void deleteFirstTestBrandClickCancel() {
         apisSystem.brandsPage.filterInputBrandName(TEST_DATA[3]);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitInvisibilityOverlay();
         apisSystem.brandsPage.filterClickSearchOrReset(true);
         apisSystem.brandsPage.waitInvisibilityProcessing();
         apisSystem.brandsPage.clickActionButton(1);
@@ -126,17 +126,70 @@ public class BrandsTest extends Fixture {
     @Test(priority = 11, dependsOnMethods = {"deleteFirstTestBrandClickCancel"})
     public void deleteFirstTestBrandClickYes() {
         apisSystem.deleteBrand.waitInvisibilityPopup();
+        deleteBrand();
+    }
+
+    @Test(priority = 12, dependsOnMethods = {"deleteFirstTestBrandClickYes"})
+    public void editSecondTestBrand() {
         apisSystem.brandsPage.clickActionButton(1);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
-        apisSystem.deleteBrand.waitPopupLoaded();
-        apisSystem.deleteBrand.clickButtonCancelOrYes(true);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(1);
+        apisSystem.editBrand.inputApiUser(TEST_DATA[1] + "edit");
+        apisSystem.editBrand.inputBrandName(TEST_DATA[3] + "edit");
+        apisSystem.editBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        apisSystem.editBrand.waitInvisibilityPopup();
+    }
+
+    @Test(priority = 13, dependsOnMethods = {"editSecondTestBrand"})
+    public void deleteSecondTestBrandClickYes() {
+        deleteBrand();
+    }
+
+    @Test(priority = 14, dependsOnMethods = {"deleteSecondTestBrandClickYes"})
+    public void clickDisableAndEnableFromCogwheel() {
+        apisSystem.brandsPage.filterClickSearchOrReset(false);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(3);
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(4);
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 15, dependsOnMethods = {"clickDisableAndEnableFromCogwheel"})
+    public void filterBrandNameCorrect() {
+        String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("filterFirstBrandName");
+        apisSystem.brandsPage.filterInputBrandName(brandName);
+        apisSystem.brandsPage.filterClickAndSelectEnabled(true);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        Assert.assertEquals(brandName, apisSystem.brandsPage.getInputValue("filterBrandNameInput"));
+    }
+
+    @Test(priority = 16, dependsOnMethods = {"filterBrandNameCorrect"})
+    public void filterBrandNameFail() {
+        apisSystem.brandsPage.filterInputBrandName("failBrandName");
+        apisSystem.brandsPage.filterClickSearchOrReset(true);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        Assert.assertEquals(apisSystem.brandsPage.getValueFromFirstBrandName("noDataAvailable"),
+                "No data available in table");
+        apisSystem.brandsPage.filterClickSearchOrReset(false);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
     }
 
     private void clickCreateBrand() {
         apisSystem.brandsPage.createOrDeleteBrand(true);
         apisSystem.createBrand.waitPopupLoaded();
         Assert.assertTrue(apisSystem.createBrand.isPopupPresent());
+    }
+
+    private void deleteBrand() {
+        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
+        apisSystem.deleteBrand.waitPopupLoaded();
+        apisSystem.deleteBrand.clickButtonCancelOrYes(true);
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        apisSystem.deleteBrand.waitInvisibilityPopup();
     }
 
 }

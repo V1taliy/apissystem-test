@@ -164,4 +164,26 @@ public class BrandsPage extends Page {
         return web.isElementPresent("greenMessage");
     }
 
+    public void waitInvisibilityOverlay() {
+        web.waitDisappearElement("overlay");
+    }
+
+    /**
+     * get value (brand name) from first position
+     *
+     * @param locator input field locator
+     */
+    public String getValueFromFirstBrandName(String locator) {
+        return web.getElement(locator).getText();
+    }
+
+    /**
+     * Get value from input field
+     *
+     * @param locator input field locator
+     */
+    public String getInputValue(String locator) {
+        return web.getElement(locator).getAttribute("value");
+    }
+
 }
