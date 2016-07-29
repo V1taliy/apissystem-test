@@ -186,4 +186,8 @@ public class BrandsPage extends Page {
         return web.getElement(locator).getAttribute("value");
     }
 
+    public int getFirstPosition() {
+        return web.getElements("firstPositionBrand").size();
+    }
+
 }

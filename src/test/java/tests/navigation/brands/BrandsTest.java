@@ -177,6 +177,40 @@ public class BrandsTest extends Fixture {
         apisSystem.brandsPage.waitInvisibilityProcessing();
     }
 
+    @Test(priority = 17, dependsOnMethods = {"filterBrandNameFail"})
+    public void filterEnabledModeEnable() {
+        apisSystem.brandsPage.filterClickAndSelectEnabled(true);
+        apisSystem.brandsPage.filterClickSearchOrReset(true);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        if (apisSystem.brandsPage.getFirstPosition() == 1) {
+            Assert.assertEquals(apisSystem.brandsPage.
+                            getValueFromFirstBrandName("noDataAvailable"),
+                    "No data available in table");
+        } else {
+            Assert.assertEquals(apisSystem.brandsPage.
+                            getValueFromFirstBrandName("firstPositionBrandEnabled"),
+                    "true");
+        }
+        apisSystem.brandsPage.filterClickSearchOrReset(false);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+    }
+
+    @Test(priority = 18, dependsOnMethods = {"filterEnabledModeEnable"})
+    public void filterEnabledModeDisable() {
+        apisSystem.brandsPage.filterClickAndSelectEnabled(false);
+        apisSystem.brandsPage.filterClickSearchOrReset(true);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        if (apisSystem.brandsPage.getFirstPosition() == 1) {
+            Assert.assertEquals(apisSystem.brandsPage.
+                            getValueFromFirstBrandName("noDataAvailable"),
+                    "No data available in table");
+        } else {
+            Assert.assertEquals(apisSystem.brandsPage.
+                            getValueFromFirstBrandName("firstPositionBrandEnabled"),
+                    "false");
+        }
+    }
+
     private void clickCreateBrand() {
         apisSystem.brandsPage.createOrDeleteBrand(true);
         apisSystem.createBrand.waitPopupLoaded();
