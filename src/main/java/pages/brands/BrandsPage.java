@@ -54,6 +54,14 @@ public class BrandsPage extends Page {
     }
 
     /**
+     * Click action button
+     */
+    public void clickActionButton(int buttonPosition) {
+        List<WebElement> actionButtonList = web.getElements("actionButtonList");
+        actionButtonList.get(buttonPosition - 1).click();
+    }
+
+    /**
      * Click action item from drop down menu
      *
      * @param menuItem item from menu, where

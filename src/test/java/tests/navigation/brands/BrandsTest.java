@@ -110,6 +110,29 @@ public class BrandsTest extends Fixture {
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }
 
+    @Test(priority = 10, dependsOnMethods = {"createSecondBrand"})
+    public void deleteFirstTestBrandClickCancel() {
+        apisSystem.brandsPage.filterInputBrandName(TEST_DATA[3]);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.filterClickSearchOrReset(true);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
+        apisSystem.deleteBrand.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.deleteBrand.isPopupDeleteBrandPresent());
+        apisSystem.deleteBrand.clickButtonCancelOrYes(false);
+    }
+
+    @Test(priority = 11, dependsOnMethods = {"deleteFirstTestBrandClickCancel"})
+    public void deleteFirstTestBrandClickYes() {
+        apisSystem.deleteBrand.waitInvisibilityPopup();
+        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
+        apisSystem.deleteBrand.waitPopupLoaded();
+        apisSystem.deleteBrand.clickButtonCancelOrYes(true);
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+    }
+
     private void clickCreateBrand() {
         apisSystem.brandsPage.createOrDeleteBrand(true);
         apisSystem.createBrand.waitPopupLoaded();

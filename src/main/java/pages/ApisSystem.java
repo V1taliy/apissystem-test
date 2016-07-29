@@ -2,6 +2,7 @@ package pages;
 
 import pages.brands.BrandsPage;
 import pages.brands.popup.CreateBrand;
+import pages.brands.popup.DeleteBrand;
 import pages.brands.popup.EditBrand;
 import pages.users.UsersPage;
 import pages.users.popup.EditUser;
@@ -18,6 +19,7 @@ public class ApisSystem {
     public BrandsPage brandsPage;
     public EditBrand editBrand;
     public CreateBrand createBrand;
+    public DeleteBrand deleteBrand;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -28,6 +30,7 @@ public class ApisSystem {
         brandsPage = new BrandsPage(driverWrapper);
         editBrand = new EditBrand(driverWrapper);
         createBrand = new CreateBrand(driverWrapper);
+        deleteBrand = new DeleteBrand(driverWrapper);
     }
 
 }
