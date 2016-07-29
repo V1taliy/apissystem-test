@@ -191,12 +191,13 @@ public class BrandsTest extends Fixture {
                             getValueFromFirstBrandName("firstPositionBrandEnabled"),
                     "true");
         }
-        apisSystem.brandsPage.filterClickSearchOrReset(false);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
     }
 
     @Test(priority = 18, dependsOnMethods = {"filterEnabledModeEnable"})
     public void filterEnabledModeDisable() {
+        apisSystem.brandsPage.filterClickSearchOrReset(false);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.filterClickAndSelectEnabled(false);
         apisSystem.brandsPage.filterClickAndSelectEnabled(false);
         apisSystem.brandsPage.filterClickSearchOrReset(true);
         apisSystem.brandsPage.waitInvisibilityProcessing();
@@ -209,6 +210,28 @@ public class BrandsTest extends Fixture {
                             getValueFromFirstBrandName("firstPositionBrandEnabled"),
                     "false");
         }
+    }
+
+    @Test(priority = 19, dependsOnMethods = {"filterEnabledModeDisable"})
+    public void filterAllFilters() {
+        boolean enabledStatus;
+        apisSystem.brandsPage.filterClickSearchOrReset(false);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandName");
+        apisSystem.brandsPage.filterInputBrandName(brandName);
+        String enableStatusStr = apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandEnabled");
+        if (enableStatusStr.equals("true")) {
+            apisSystem.brandsPage.filterClickAndSelectEnabled(true);
+            enabledStatus = true;
+        } else {
+            apisSystem.brandsPage.filterClickAndSelectEnabled(false);
+            enabledStatus = false;
+        }
+        apisSystem.brandsPage.filterClickSearchOrReset(true);
+        apisSystem.brandsPage.waitInvisibilityProcessing();
+        Assert.assertEquals(apisSystem.brandsPage.getInputValue("filterBrandNameInput"), brandName);
+        Assert.assertEquals(apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandEnabled"),
+                String.valueOf(enabledStatus));
     }
 
     private void clickCreateBrand() {

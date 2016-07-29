@@ -174,6 +174,7 @@ public class BrandsPage extends Page {
      * @param locator input field locator
      */
     public String getValueFromFirstBrandName(String locator) {
+        log.info(web.getElement(locator).getText());
         return web.getElement(locator).getText();
     }
 
