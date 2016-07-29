@@ -97,7 +97,18 @@ public class BrandsTest extends Fixture {
     }
 
     @Test(priority = 9, dependsOnMethods = {"popupCreateBrandCorrectDomain"})
-    public void createSecondBrand() {}
+    public void createSecondBrand() {
+        apisSystem.createBrand.waitInvisibilityPopup();
+        clickCreateBrand();
+        apisSystem.createBrand.inputAppKey(TEST_DATA[0] + 2);
+        apisSystem.createBrand.inputApiUser(TEST_DATA[1] + 2);
+        apisSystem.createBrand.inputApiPassword(TEST_DATA[2] + 2);
+        apisSystem.createBrand.inputBrandName(TEST_DATA[3] + 2);
+        apisSystem.createBrand.inputDomain(TEST_DATA[4] + "2.com");
+        apisSystem.createBrand.selectCheckboxEnabled();
+        apisSystem.createBrand.clickButtonSaveOrCancel(true);
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+    }
 
     private void clickCreateBrand() {
         apisSystem.brandsPage.createOrDeleteBrand(true);
