@@ -14,7 +14,12 @@ public class WebDriverFactory {
     public static final String browserName = PropertyLoader.loadProperty("browser.name");
     public static final String browserVersion = PropertyLoader.loadProperty("browser.version");
     public static final String platform = PropertyLoader.loadProperty("browser.platform");
-//    public static final String grid = PropertyLoader.loadProperty("grid2.hub");
+
+    public static final String grid = PropertyLoader.loadProperty("grid.hub");
+
+    public static final String WINDOWS = PropertyLoader.loadProperty("platform.windows");
+    public static final String LINUX = PropertyLoader.loadProperty("platform.linux");
+    public static final String MAC = PropertyLoader.loadProperty("platform.mac");
 
     /*
     * Browsers constants
@@ -25,9 +30,9 @@ public class WebDriverFactory {
     private static final String MOBILE_EMULATOR = "mobileEmulator";
 //    private static final String PHANTOMJS = "phantomjs";
 
-    private static final String FIREFOX_PATH = "C:\\Users\\alexanderba\\AppData\\Local\\Mozilla Firefox\\firefox.exe";
-    private static final String CHROME_PATH = "C:\\Users\\alexanderba\\AppData\\Local\\Google\\Chrome\\User Data\\chromedriver.exe";
-    private static final String DEVICE_NAME = "Apple iPhone 5";
+    private static final String FIREFOX_PATH = PropertyLoader.loadProperty("firefox.path");
+    private static final String CHROME_PATH = PropertyLoader.loadProperty("chromedriver.path");
+    private static final String DEVICE_NAME = PropertyLoader.loadProperty("device.name");
     private static DesiredCapabilities capabilities = new DesiredCapabilities();
 
     public static WebDriverWrapper driverWrapper;
