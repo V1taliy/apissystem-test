@@ -24,8 +24,7 @@ public class Fixture {
 
     @BeforeSuite
     public void startBrowser() {
-        driverWrapper = WebDriverFactory.initDriver();
-        driverWrapper.manage().window().maximize();
+        driverWrapper = new WebDriverWrapper(WebDriverFactory.getInstance());
         driverWrapper.manage().timeouts().implicitlyWait(Long.parseLong(impWait), TimeUnit.SECONDS);
         try {
             apisSystem = new ApisSystem(driverWrapper);
