@@ -44,7 +44,7 @@ public class WebDriverFactory {
     * */
     private static final String FIREFOX = "firefox";
     private static final String CHROME = "chrome";
-    private static final String INTERNET_EXPLORER = "ie";
+    private static final String INTERNET_EXPLORER = "internet explorer";
     private static final String HTML_UNIT = "htmlunit";
     private static final String MOBILE_EMULATOR = "mobileEmulator";
     private static final String PHANTOMJS = "phantomjs";
@@ -52,9 +52,8 @@ public class WebDriverFactory {
     private static final String FIREFOX_PATH = PropertyLoader.loadProperty("firefox.path");
     private static final String CHROME_PATH = PropertyLoader.loadProperty("chromedriver.path");
     private static final String PHANTOMJS_PATH = PropertyLoader.loadProperty("phantomjsdriver.path");
+    private static final String INTERNET_EXPLORER_PATH = PropertyLoader.loadProperty("internetExplorer.path");
     private static final String DEVICE_NAME = PropertyLoader.loadProperty("device.name");
-    private static DesiredCapabilities capabilities = new DesiredCapabilities();
-
     public static WebDriver driver;
     private static GridInitialization gridInit = null;
 
@@ -92,26 +91,19 @@ public class WebDriverFactory {
                     Arrays.asList("--ignore-certificate-errors"));
             capabilities.setCapability(CapabilityType.SUPPORTS_APPLICATION_CACHE, true);
         } else if (FIREFOX.equals(browserName)) {
-            File pathToBinary = new File(FIREFOX_PATH);
-            FirefoxBinary firefoxBinary = new FirefoxBinary(pathToBinary);
-            FirefoxProfile firefoxProfile = new FirefoxProfile();
-            System.setProperty("webdriver.firefox.bin", FIREFOX_PATH);
+//            System.setProperty("webdriver.firefox.bin", FIREFOX_PATH);
             capabilities.setBrowserName(browserName);
             capabilities = DesiredCapabilities.firefox();
-            capabilities.setCapability(FirefoxDriver.SystemProperty.BROWSER_BINARY, true);
             capabilities.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
             capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         } else if (PHANTOMJS.equals(browserName)) {
-            /**
-             * Most likely PHANTOMJS does not work!
-             * Need debug!
-             */
             capabilities.setBrowserName(browserName);
             File phantomjs = Phanbedder.unpack();
             capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOMJS_PATH);
             /*capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
                     phantomjs.getAbsolutePath());*/
         } else if (INTERNET_EXPLORER.equals(browserName)) {
+            System.setProperty("webdriver.ie.driver", INTERNET_EXPLORER_PATH);
             capabilities.setBrowserName(browserName);
             capabilities = DesiredCapabilities.internetExplorer();
             capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
@@ -122,11 +114,11 @@ public class WebDriverFactory {
             capabilities = DesiredCapabilities.htmlUnit();
         } else if (MOBILE_EMULATOR.equals(browserName)) {
             System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+            capabilities.setBrowserName(browserName);
             Map<String, String> mobileEmulation = new HashMap<String, String>();
             mobileEmulation.put("deviceName", DEVICE_NAME);
             Map<String, Object> chromeOptions = new HashMap<String, Object>();
             chromeOptions.put("mobileEmulation", mobileEmulation);
-            capabilities.setBrowserName(browserName);
             capabilities = DesiredCapabilities.chrome();
             capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         } else {

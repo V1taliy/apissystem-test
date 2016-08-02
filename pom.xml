@@ -36,21 +36,21 @@
         <profile>
             <id>phantomjs</id>
             <properties>
-                <browser.name>phamtomjs</browser.name>
+                <browser.name>phantomjs</browser.name>
             </properties>
         </profile>
 
         <profile>
-            <id>ie</id>
+            <id>internet explorer</id>
             <properties>
-                <browser.name>ie</browser.name>
+                <browser.name>internet explorer</browser.name>
             </properties>
         </profile>
 
         <profile>
             <id>mobileEmulator</id>
             <properties>
-                <browser.name>mobileEmulator</browser.name>
+                <browser.name>chrome</browser.name>
             </properties>
         </profile>
 
@@ -125,9 +125,9 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.detro.ghostdriver/phantomjsdriver -->
         <dependency>
-            <groupId>com.github.detro.ghostdriver</groupId>
+            <groupId>com.github.detro</groupId>
             <artifactId>phantomjsdriver</artifactId>
-            <version>1.0.4</version>
+            <version>1.2.0</version>
         </dependency>
 
         <dependency>
