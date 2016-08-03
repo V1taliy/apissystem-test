@@ -2,7 +2,10 @@ package pages.brands;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.Page;
+import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
 import java.util.List;
@@ -137,8 +140,11 @@ public class BrandsPage extends Page {
     /**
      * Wait for processing disappear
      */
-    public void waitInvisibilityProcessing() {
-        web.waitDisappearElement("isLoadedElement");
+    public void waitLoadedAttributeToBeEmptyClass() {
+        WebElement element = web.getElement("isLoadedElement");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
+        wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
     }
 
     /**
@@ -146,8 +152,9 @@ public class BrandsPage extends Page {
      *
      * @return true if processing element present, otherwise false
      */
-    public boolean isProcessingDisplayed() {
-        return web.isElementPresent("isLoadedElement");
+    public boolean isLoadedClassHaveAttributeInClass() {
+        WebElement element = web.getElement("isLoadedElement");
+        return element.getAttribute("class").contains("traditional");
     }
 
     /**
