@@ -153,8 +153,18 @@ public class BrandsTest extends Fixture {
         apisSystem.brandsPage.clickActionButton(1);
         apisSystem.brandsPage.clickItemFromDropDownMenu(3);
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.brandsPage.clickActionButton(1);
         apisSystem.brandsPage.clickItemFromDropDownMenu(4);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }
 
