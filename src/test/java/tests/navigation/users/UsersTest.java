@@ -2,7 +2,6 @@ package tests.navigation.users;
 
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
@@ -43,10 +42,10 @@ public class UsersTest extends Fixture {
 
     @Test(priority = 3, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void sortTabs() {
-        for (int i = 2; i <= 9; i++) {
+        for (int i = 2; i <= 10; i++) {
             for (int j = 0; j <= 1; j++) {
-                if (apisSystem.usersPage.isProcessingDisplayed()) {
-                    apisSystem.usersPage.waitInvisibilityProcessing();
+                if (apisSystem.usersPage.isLoadedClassHaveAttributeInClass()) {
+                    apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
                 }
                 apisSystem.usersPage.selectTableSort(i);
             }
@@ -59,10 +58,10 @@ public class UsersTest extends Fixture {
         int userPosition = 1;
         apisSystem.usersPage.inputUserName(USER_NAME_TEST);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.usersPage.waitInvisibilityProcessing();
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         for (int i = 1; i <= 2; i++) {
-            if (apisSystem.usersPage.isProcessingDisplayed()) {
-                apisSystem.usersPage.waitInvisibilityProcessing();
+            if (apisSystem.usersPage.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.usersPage.clickUserCheckbox(userPosition);
             apisSystem.usersPage.clickToggleButton(button);
@@ -146,55 +145,65 @@ public class UsersTest extends Fixture {
 
     @Test(priority = 12, enabled = true, dependsOnMethods = {"editUserChangeEnabled"})
     public void filterInputUsername() {
-        String username = apisSystem.usersPage.getValue("firstUserUsername");
         apisSystem.editUser.waitInvisibilityPopup();
+        String username = apisSystem.usersPage.getValue("firstUserUsername");
         apisSystem.usersPage.inputUserName(username);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.usersPage.waitInvisibilityProcessing();
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(username, apisSystem.usersPage.getInputValue("filterUserNameField"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
     @Test(priority = 13, enabled = true, dependsOnMethods = {"filterInputUsername"})
     public void filterInputFirstName() {
-        String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
         apisSystem.editUser.waitInvisibilityPopup();
+        String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
         apisSystem.usersPage.inputFirstName(firstName);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.usersPage.waitInvisibilityProcessing();
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(firstName, apisSystem.usersPage.getInputValue("filterFirstNameField"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
     @Test(priority = 14, enabled = true, dependsOnMethods = {"filterInputFirstName"})
     public void filterInputLastName() {
-        String lastName = apisSystem.usersPage.getValue("firstUserLastName");
         apisSystem.editUser.waitInvisibilityPopup();
+        String lastName = apisSystem.usersPage.getValue("firstUserLastName");
         apisSystem.usersPage.inputLastName(lastName);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.usersPage.waitInvisibilityProcessing();
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(lastName, apisSystem.usersPage.getInputValue("filterLastNameField"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
     @Test(priority = 15, enabled = true, dependsOnMethods = {"filterInputLastName"})
     public void filterInputEmail() {
-        String email = apisSystem.usersPage.getValue("firstUserEmail");
         apisSystem.editUser.waitInvisibilityPopup();
+        String email = apisSystem.usersPage.getValue("firstUserEmail");
         apisSystem.usersPage.inputEmail(email);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.usersPage.waitInvisibilityProcessing();
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(email, apisSystem.usersPage.getInputValue("filterEmailField"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
     @Test(priority = 16, enabled = true, dependsOnMethods = {"filterInputEmail"})
     public void filterSelectGroup() {
-        String group = apisSystem.usersPage.getValue("firstUserGroup");
         apisSystem.editUser.waitInvisibilityPopup();
+        apisSystem.usersPage.selectTableSort(7);
+        if (apisSystem.usersPage.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
+        }
+        String group = apisSystem.usersPage.getValue("firstUserGroup");
         apisSystem.usersPage.inputGroupAndClickEnter(group);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.usersPage.waitInvisibilityProcessing();
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.clickOnGroupFiled();
         Assert.assertEquals(group, apisSystem.usersPage.getGroupValue("filterGroupValue"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }

@@ -138,7 +138,7 @@ public class BrandsPage extends Page {
      * Wait for processing disappear
      */
     public void waitInvisibilityProcessing() {
-        web.waitDisappearElement("processing");
+        web.waitDisappearElement("isLoadedElement");
     }
 
     /**
@@ -147,7 +147,7 @@ public class BrandsPage extends Page {
      * @return true if processing element present, otherwise false
      */
     public boolean isProcessingDisplayed() {
-        return web.isElementPresent("processing");
+        return web.isElementPresent("isLoadedElement");
     }
 
     /**

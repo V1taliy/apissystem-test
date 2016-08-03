@@ -14,8 +14,8 @@ public class CaptureScreenshot {
 
     public static void takeScreenShot(WebDriverWrapper driverWrapper, String screenShotName)
             throws IOException {
-        TakesScreenshot takesScreenshot = (TakesScreenshot) driverWrapper;
-        File source  = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        TakesScreenshot takesScreenshot = (TakesScreenshot) driverWrapper.getOriginalDriver();
+        File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(source, new File("./target/screenshots/" + screenShotName + ".jpg"));
         log.info("screenshot taken successfully!");
     }
