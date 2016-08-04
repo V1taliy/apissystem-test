@@ -4,5 +4,6 @@
         <suite-file path="login.xml"/>
         <suite-file path="users.xml"/>
         <suite-file path="brands.xml"/>
+        <suite-file path="deskExpirationTime.xml"/>
     </suite-files>
 </suite>
