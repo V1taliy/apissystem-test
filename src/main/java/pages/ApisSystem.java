@@ -4,6 +4,7 @@ import pages.brands.BrandsPage;
 import pages.brands.popup.CreateBrand;
 import pages.brands.popup.DeleteBrand;
 import pages.brands.popup.EditBrand;
+import pages.deskExpirationTime.DeskExpirationTime;
 import pages.users.UsersPage;
 import pages.users.popup.EditUser;
 import utils.WebDriverWrapper;
@@ -20,6 +21,7 @@ public class ApisSystem {
     public EditBrand editBrand;
     public CreateBrand createBrand;
     public DeleteBrand deleteBrand;
+    public DeskExpirationTime deskExpirationTime;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -31,6 +33,7 @@ public class ApisSystem {
         editBrand = new EditBrand(driverWrapper);
         createBrand = new CreateBrand(driverWrapper);
         deleteBrand = new DeleteBrand(driverWrapper);
+        deskExpirationTime = new DeskExpirationTime(driverWrapper);
     }
 
 }

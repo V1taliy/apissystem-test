@@ -3,7 +3,7 @@
     <test name="DeskExpirationTime Tests">
 
         <classes>
-            <class name="tests.navigation.deskExpirationTime.DeskExpirationTime"/>
+            <class name="pages.deskExpirationTime.DeskExpirationTime"/>
         </classes>
 
     </test>

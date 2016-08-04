@@ -1,4 +1,4 @@
-package tests.navigation.deskExpirationTime;
+package pages.deskExpirationTime;
 
 import org.apache.log4j.Logger;
 import pages.Page;
