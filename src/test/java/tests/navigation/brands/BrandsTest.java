@@ -147,28 +147,24 @@ public class BrandsTest extends Fixture {
     }
 
     @Test(priority = 14, dependsOnMethods = {"deleteSecondTestBrandClickYes"})
-    public void clickDisableAndEnableFromCogwheel() {
+    public void clickDisableFromCogwheel() {
         apisSystem.brandsPage.filterClickSearchOrReset(false);
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.brandsPage.clickActionButton(1);
         apisSystem.brandsPage.clickItemFromDropDownMenu(3);
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        apisSystem.brandsPage.clickActionButton(1);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(4);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 15, dependsOnMethods = {"clickDisableAndEnableFromCogwheel"})
+    @Test(priority = 15, dependsOnMethods = {"clickDisableFromCogwheel"})
+    public void clickEnableFromCogwheel() {
+        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(4);
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 16, dependsOnMethods = {"clickEnableFromCogwheel"})
     public void filterBrandNameCorrect() {
         String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("filterFirstBrandName");
         apisSystem.brandsPage.filterInputBrandName(brandName);
@@ -177,7 +173,7 @@ public class BrandsTest extends Fixture {
         Assert.assertEquals(brandName, apisSystem.brandsPage.getInputValue("filterBrandNameInput"));
     }
 
-    @Test(priority = 16, dependsOnMethods = {"filterBrandNameCorrect"})
+    @Test(priority = 17, dependsOnMethods = {"filterBrandNameCorrect"})
     public void filterBrandNameFail() {
         apisSystem.brandsPage.filterInputBrandName("failBrandName");
         apisSystem.brandsPage.filterClickSearchOrReset(true);
@@ -188,7 +184,7 @@ public class BrandsTest extends Fixture {
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
     }
 
-    @Test(priority = 17, dependsOnMethods = {"filterBrandNameFail"})
+    @Test(priority = 18, dependsOnMethods = {"filterBrandNameFail"})
     public void filterEnabledModeEnable() {
         apisSystem.brandsPage.filterClickAndSelectEnabled(true);
         apisSystem.brandsPage.filterClickSearchOrReset(true);
@@ -204,7 +200,7 @@ public class BrandsTest extends Fixture {
         }
     }
 
-    @Test(priority = 18, dependsOnMethods = {"filterEnabledModeEnable"})
+    @Test(priority = 19, dependsOnMethods = {"filterEnabledModeEnable"})
     public void filterEnabledModeDisable() {
         apisSystem.brandsPage.filterClickSearchOrReset(false);
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
@@ -226,7 +222,7 @@ public class BrandsTest extends Fixture {
         }
     }
 
-    @Test(priority = 19, dependsOnMethods = {"filterEnabledModeDisable"})
+    @Test(priority = 20, dependsOnMethods = {"filterEnabledModeDisable"})
     public void filterAllFilters() {
         boolean enabledStatus;
         apisSystem.brandsPage.filterClickSearchOrReset(false);
