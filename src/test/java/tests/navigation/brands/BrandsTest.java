@@ -1,7 +1,6 @@
 package tests.navigation.brands;
 
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
@@ -40,8 +39,8 @@ public class BrandsTest extends Fixture {
     public void sortTabs() {
         for (int i = 2; i <= 4; i++) {
             for (int j = 0; j <= 1; j++) {
-                if (apisSystem.brandsPage.isProcessingDisplayed()) {
-                    apisSystem.brandsPage.waitInvisibilityProcessing();
+                if (apisSystem.brandsPage.isLoadedClassHaveAttributeInClass()) {
+                    apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
                 }
                 apisSystem.brandsPage.selectTableSort(i);
             }
@@ -53,13 +52,15 @@ public class BrandsTest extends Fixture {
         boolean button = false;
         int brandPosition = 1;
         for (int i = 1; i <= 2; i++) {
-            if (apisSystem.brandsPage.isProcessingDisplayed()) {
-                apisSystem.brandsPage.waitInvisibilityProcessing();
+            if (apisSystem.brandsPage.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.brandsPage.clickBrandCheckbox(brandPosition);
             apisSystem.brandsPage.clickToggleButton(button);
             apisSystem.brandsPage.waitMessageSuccessPresent();
             Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+            button = true;
+            brandPosition++;
         }
     }
 
@@ -115,7 +116,7 @@ public class BrandsTest extends Fixture {
         apisSystem.brandsPage.filterInputBrandName(TEST_DATA[3]);
         apisSystem.brandsPage.waitInvisibilityOverlay();
         apisSystem.brandsPage.filterClickSearchOrReset(true);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.brandsPage.clickActionButton(1);
         apisSystem.brandsPage.clickItemFromDropDownMenu(6);
         apisSystem.deleteBrand.waitPopupLoaded();
@@ -146,46 +147,52 @@ public class BrandsTest extends Fixture {
     }
 
     @Test(priority = 14, dependsOnMethods = {"deleteSecondTestBrandClickYes"})
-    public void clickDisableAndEnableFromCogwheel() {
+    public void clickDisableFromCogwheel() {
         apisSystem.brandsPage.filterClickSearchOrReset(false);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.brandsPage.clickActionButton(1);
         apisSystem.brandsPage.clickItemFromDropDownMenu(3);
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
-        apisSystem.brandsPage.clickActionButton(1);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(4);
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 15, dependsOnMethods = {"clickDisableAndEnableFromCogwheel"})
+    @Test(priority = 15, dependsOnMethods = {"clickDisableFromCogwheel"})
+    public void clickEnableFromCogwheel() {
+        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(4);
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 16, dependsOnMethods = {"clickEnableFromCogwheel"})
     public void filterBrandNameCorrect() {
         String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("filterFirstBrandName");
         apisSystem.brandsPage.filterInputBrandName(brandName);
         apisSystem.brandsPage.filterClickAndSelectEnabled(true);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(brandName, apisSystem.brandsPage.getInputValue("filterBrandNameInput"));
     }
 
-    @Test(priority = 16, dependsOnMethods = {"filterBrandNameCorrect"})
+    @Test(priority = 17, dependsOnMethods = {"filterBrandNameCorrect"})
     public void filterBrandNameFail() {
         apisSystem.brandsPage.filterInputBrandName("failBrandName");
         apisSystem.brandsPage.filterClickSearchOrReset(true);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
-        Assert.assertEquals(apisSystem.brandsPage.getValueFromFirstBrandName("noDataAvailable"),
-                "No data available in table");
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertEquals(apisSystem.brandsPage.getValueFromFirstBrandName("noMatchingRecords"),
+                "No matching records found.");
         apisSystem.brandsPage.filterClickSearchOrReset(false);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
     }
 
-    @Test(priority = 17, dependsOnMethods = {"filterBrandNameFail"})
+    @Test(priority = 18, dependsOnMethods = {"filterBrandNameFail"})
     public void filterEnabledModeEnable() {
         apisSystem.brandsPage.filterClickAndSelectEnabled(true);
         apisSystem.brandsPage.filterClickSearchOrReset(true);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         if (apisSystem.brandsPage.getFirstPosition() == 1) {
             Assert.assertEquals(apisSystem.brandsPage.
-                            getValueFromFirstBrandName("noDataAvailable"),
-                    "No data available in table");
+                            getValueFromFirstBrandName("noMatchingRecords"),
+                    "No matching records found.");
         } else {
             Assert.assertEquals(apisSystem.brandsPage.
                             getValueFromFirstBrandName("firstPositionBrandEnabled"),
@@ -193,30 +200,33 @@ public class BrandsTest extends Fixture {
         }
     }
 
-    @Test(priority = 18, dependsOnMethods = {"filterEnabledModeEnable"})
+    @Test(priority = 19, dependsOnMethods = {"filterEnabledModeEnable"})
     public void filterEnabledModeDisable() {
         apisSystem.brandsPage.filterClickSearchOrReset(false);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.brandsPage.filterClickAndSelectEnabled(false);
         apisSystem.brandsPage.filterClickAndSelectEnabled(false);
         apisSystem.brandsPage.filterClickSearchOrReset(true);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         if (apisSystem.brandsPage.getFirstPosition() == 1) {
             Assert.assertEquals(apisSystem.brandsPage.
-                            getValueFromFirstBrandName("noDataAvailable"),
-                    "No data available in table");
+                            getValueFromFirstBrandName("noMatchingRecords"),
+                    "No matching records found.");
         } else {
+//            Assert.assertEquals(apisSystem.brandsPage.
+//                            getValueFromFirstBrandName("firstPositionBrandEnabled"),
+//                    "false");
             Assert.assertEquals(apisSystem.brandsPage.
                             getValueFromFirstBrandName("firstPositionBrandEnabled"),
-                    "false");
+                    "");
         }
     }
 
-    @Test(priority = 19, dependsOnMethods = {"filterEnabledModeDisable"})
+    @Test(priority = 20, dependsOnMethods = {"filterEnabledModeDisable"})
     public void filterAllFilters() {
         boolean enabledStatus;
         apisSystem.brandsPage.filterClickSearchOrReset(false);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandName");
         apisSystem.brandsPage.filterInputBrandName(brandName);
         String enableStatusStr = apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandEnabled");
@@ -228,7 +238,7 @@ public class BrandsTest extends Fixture {
             enabledStatus = false;
         }
         apisSystem.brandsPage.filterClickSearchOrReset(true);
-        apisSystem.brandsPage.waitInvisibilityProcessing();
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.brandsPage.getInputValue("filterBrandNameInput"), brandName);
         Assert.assertEquals(apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandEnabled"),
                 String.valueOf(enabledStatus));
