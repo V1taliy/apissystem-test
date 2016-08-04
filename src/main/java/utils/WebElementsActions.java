@@ -562,4 +562,38 @@ public class WebElementsActions {
         javascriptExecutor.executeScript("window.scrollBy(0," + scrollValue + ")", "");
     }
 
+    /**
+     * Scroll to element
+     *
+     * @param elementLocator element to which you want to scroll
+     */
+    public void scrollToElement(String elementLocator) {
+        WebElement element = driverWrapper.findElement(config.getLocator(elementLocator));
+        int elementCoordinateY = element.getLocation().getY();
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
+        javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
+    }
+
+    /**
+     * Scroll to element
+     *
+     * @param element element to which you want to scroll
+     */
+    public void scrollToElement(WebElement element) {
+        int elementCoordinateY = element.getLocation().getY();
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
+        javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
+    }
+
+    /**
+     * Scroll to element
+     *
+     * @param value element to which you want to scroll
+     */
+    public void scrollToElement(int value) {
+        int elementCoordinateY = value;
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
+        javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
+    }
+
 }

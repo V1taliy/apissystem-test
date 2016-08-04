@@ -33,4 +33,27 @@ public class DeskExpirationTimeTest extends Fixture {
         Assert.assertEquals(apisSystem.deskExpirationTime.getCurrentPageURL(), DESK_EXPIRATION_TIME_URL);
     }
 
+    @Test(priority = 3, dependsOnMethods = {"goToDeskExpirationTime"})
+    public void sortTabs() {
+        for (int i = 2; i <= 5; i++) {
+            for (int j = 0; j <= 1; j++) {
+                if (apisSystem.deskExpirationTime.isLoadedClassHaveAttributeInClass()) {
+                    apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
+                }
+                apisSystem.deskExpirationTime.selectTableSort(i);
+            }
+        }
+    }
+
+    @Test(priority = 4, dependsOnMethods = {"sortTabs"})
+    public void clickNavigationButtonsOnList() {
+        String[] buttonsNameArray = {"first", "previous", "next", "last"};
+        for (int i = 0; i <= buttonsNameArray.length - 1; i++) {
+            if (apisSystem.deskExpirationTime.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
+            }
+            apisSystem.deskExpirationTime.testScrollAndClick(buttonsNameArray[i]);
+        }
+    }
+
 }
