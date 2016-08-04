@@ -13,6 +13,7 @@ public class DeskExpirationTimeTest extends Fixture {
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String DESK_EXPIRATION_TIME_URL = PropertyLoader.loadProperty("deskTime.url");
+    private static final String[] BUTTONS_NAME_ARRAY = {"first", "previous", "next", "last"};
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
@@ -47,12 +48,21 @@ public class DeskExpirationTimeTest extends Fixture {
 
     @Test(priority = 4, dependsOnMethods = {"sortTabs"})
     public void clickNavigationButtonsOnList() {
-        String[] buttonsNameArray = {"first", "previous", "next", "last"};
-        for (int i = 0; i <= buttonsNameArray.length - 1; i++) {
+        for (int i = 0; i <= BUTTONS_NAME_ARRAY.length - 1; i++) {
             if (apisSystem.deskExpirationTime.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.deskExpirationTime.testScrollAndClick(buttonsNameArray[i]);
+            apisSystem.deskExpirationTime.scrollAndClickNavigationButtons(BUTTONS_NAME_ARRAY[i]);
+        }
+    }
+
+    @Test(priority = 5, dependsOnMethods = {"clickNavigationButtonsOnList"})
+    public void clickNavigationIndexButtonsOnList() {
+        for (int i = 0; i <= 3; i++) {
+            if (apisSystem.deskExpirationTime.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
+            }
+            apisSystem.deskExpirationTime.scrollAndClickNavigationIndexButton(i);
         }
     }
 
