@@ -118,6 +118,21 @@ public class DeskExpirationTimeTest extends Fixture {
         }
     }
 
+    @Test(priority = 12, dependsOnMethods = {"changeSomeBrandsEnabled"})
+    public void switchToDeskExpTime() {
+        apisSystem.mainPage.clickOnNavigationItem(5);
+        Assert.assertEquals(apisSystem.deskExpirationTime.getCurrentPageURL(), DESK_EXPIRATION_TIME_URL);
+    }
+
+    @Test(priority = 13, dependsOnMethods = {"switchToDeskExpTime"})
+    public void deskExpTimeFilterBrandsEnabledCorrect() {
+        apisSystem.deskExpirationTime.filterClickBrandField();
+        for (int i = 1; i <= 2; i++) {
+            Assert.assertEquals(BRANDS_NAME_LIST.get(i - 1),
+                    apisSystem.deskExpirationTime.getFilterBrandFiledBrandName(i));
+        }
+    }
+
     private void clickCheckbox(int checkboxPosition) {
         // select checkbox in some position and click
         apisSystem.deskExpirationTime.selectCheckboxInPosition(checkboxPosition);

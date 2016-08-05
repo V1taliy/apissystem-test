@@ -8,6 +8,8 @@ import pages.Page;
 import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DeskExpirationTime extends Page {
@@ -150,6 +152,24 @@ public class DeskExpirationTime extends Page {
     public int getExpirationTimeValue(int expirationTimePosition) {
         List<WebElement> elementList = web.getElements("expirationTimeList");
         return Integer.parseInt(elementList.get(expirationTimePosition - 1).getText());
+    }
+
+    /**
+     * Click on brand field
+     */
+    public void filterClickBrandField() {
+        web.clickLink("filterBrandField");
+    }
+
+    /**
+     * Get brand name from drop down list
+     *
+     * @param position brand position in drop down list
+     */
+    public String getFilterBrandFiledBrandName(int position) {
+        List<WebElement> brandsNameList = web.getElements("filterBrandFiledList");
+        log.info(brandsNameList.get(position - 1).getText());
+        return brandsNameList.get(position - 1).getText();
     }
 
     /**
