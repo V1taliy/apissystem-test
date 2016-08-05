@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class DeskExpirationTimeTest extends Fixture {
@@ -14,7 +15,9 @@ public class DeskExpirationTimeTest extends Fixture {
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String DESK_EXPIRATION_TIME_URL = PropertyLoader.loadProperty("deskTime.url");
+    private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
     private static final String[] BUTTONS_NAME_ARRAY = {"first", "previous", "next", "last"};
+    private static ArrayList<String> BRANDS_NAME_LIST = new ArrayList<>();
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
@@ -93,6 +96,26 @@ public class DeskExpirationTimeTest extends Fixture {
         apisSystem.edit.waitInvisibilityPopup();
         apisSystem.deskExpirationTime.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.deskExpirationTime.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 10, dependsOnMethods = {"popupEditInputValueClickSaveButton"})
+    public void switchToBrands() {
+        apisSystem.mainPage.clickOnNavigationItem(2);
+        Assert.assertEquals(apisSystem.deskExpirationTime.getCurrentPageURL(), BRANDS_URL);
+    }
+
+    @Test(priority = 11, dependsOnMethods = {"switchToBrands"})
+    public void changeSomeBrandsEnabled() {
+        apisSystem.brandsPage.selectTableSort(2);
+        for (int i = 2; i <= 3; i++) {
+            apisSystem.brandsPage.waitInvisibilityOverlay();
+            apisSystem.brandsPage.clickActionButton(i);
+            apisSystem.brandsPage.clickItemFromDropDownMenu(4);
+            apisSystem.brandsPage.waitMessageSuccessPresent();
+            Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+            BRANDS_NAME_LIST.add(apisSystem.brandsPage.getBrandNameText(i));
+            Assert.assertEquals(apisSystem.brandsPage.getBrandEnablesStatus(i), true);
+        }
     }
 
     private void clickCheckbox(int checkboxPosition) {

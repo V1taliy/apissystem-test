@@ -186,6 +186,30 @@ public class BrandsPage extends Page {
     }
 
     /**
+     * Get text from brand name in position
+     *
+     * @param brandPosition brand position in data table
+     */
+    public String getBrandNameText(int brandPosition) {
+        List<WebElement> brandsNameList = web.getElements("brandNameList");
+        log.info(String.format("get text < %s > from brand in position < %s >",
+                brandsNameList.get(brandPosition - 1).getText(), brandPosition));
+        return brandsNameList.get(brandPosition - 1).getText();
+    }
+
+    /**
+     * Get enabled status from brand name in position
+     *
+     * @param brandPosition brand position in data table
+     */
+    public boolean getBrandEnablesStatus(int brandPosition) {
+        List<WebElement> brandsEnabledStatusList = web.getElements("brandEnabledStatusList");
+        log.info(String.format("get status < %s > from brand in position < %s >",
+                brandsEnabledStatusList.get(brandPosition - 1).getText(), brandPosition));
+        return Boolean.parseBoolean(brandsEnabledStatusList.get(brandPosition - 1).getText());
+    }
+
+    /**
      * Get value from input field
      *
      * @param locator input field locator
