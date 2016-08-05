@@ -24,7 +24,7 @@ public class DeskExpirationTime extends Page {
     public void waitLoadedAttributeToBeEmptyClass() {
         WebElement element = web.getElement("isLoadedElement");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
         wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
     }
 
