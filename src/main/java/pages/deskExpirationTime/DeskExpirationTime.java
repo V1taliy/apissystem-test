@@ -142,6 +142,30 @@ public class DeskExpirationTime extends Page {
         }
     }
 
+    /**
+     * Get value from expiration time item in position
+     *
+     * @param expirationTimePosition position on a table
+     */
+    public int getExpirationTimeValue(int expirationTimePosition) {
+        List<WebElement> elementList = web.getElements("expirationTimeList");
+        return Integer.parseInt(elementList.get(expirationTimePosition - 1).getText());
+    }
+
+    /**
+     * Wait for message present on a page
+     */
+    public void waitMessageSuccessPresent() {
+        web.waitElementToBeVisibility("greenMessage");
+    }
+
+    /**
+     * Is message 'Success' present on a page
+     */
+    public boolean isMessageSuccessPresent() {
+        return web.isElementPresent("greenMessage");
+    }
+
     public void scrollPageToNavigationWrapper() {
         web.scrollToElement("navigationWrapper");
     }

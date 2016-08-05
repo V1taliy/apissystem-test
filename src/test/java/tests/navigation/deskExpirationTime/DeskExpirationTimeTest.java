@@ -1,6 +1,7 @@
 package tests.navigation.deskExpirationTime;
 
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
@@ -68,21 +69,39 @@ public class DeskExpirationTimeTest extends Fixture {
     }
 
     @Test(priority = 6, dependsOnMethods = {"clickNavigationIndexButtonsOnList"})
-    public void clickCheckbox() {
-        // select checkbox in first position and click
-        apisSystem.deskExpirationTime.selectCheckboxInPosition(1);
-        apisSystem.deskExpirationTime.clickActionButton(1);
+    public void clickCheckbox1() {
+        clickCheckbox(1);
+    }
+
+    @Test(priority = 7, dependsOnMethods = {"clickCheckbox1"})
+    public void popupEditInputValueClickCancelButton() {
+        apisSystem.edit.inputExpirationTime(11);
+        apisSystem.edit.clickButtonSaveOrCancel(false);
+        apisSystem.edit.waitInvisibilityPopup();
+        Assert.assertEquals(apisSystem.deskExpirationTime.getExpirationTimeValue(1), 10);
+    }
+
+    @Test(priority = 8, dependsOnMethods = {"popupEditInputValueClickCancelButton"})
+    public void clickCheckbox2() {
+        clickCheckbox(2);
+    }
+
+    @Test(priority = 9, dependsOnMethods = {"clickCheckbox2"})
+    public void popupEditInputValueClickSaveButton() {
+        apisSystem.edit.inputExpirationTime(12);
+        apisSystem.edit.clickButtonSaveOrCancel(true);
+        apisSystem.edit.waitInvisibilityPopup();
+        apisSystem.deskExpirationTime.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.deskExpirationTime.isMessageSuccessPresent());
+    }
+
+    private void clickCheckbox(int checkboxPosition) {
+        // select checkbox in some position and click
+        apisSystem.deskExpirationTime.selectCheckboxInPosition(checkboxPosition);
+        apisSystem.deskExpirationTime.clickActionButton(checkboxPosition);
         apisSystem.deskExpirationTime.clickItemFromDropDownMenu(1);
         apisSystem.edit.waitPopupLoaded();
         Assert.assertTrue(apisSystem.edit.isPopupPresent());
-    }
-
-    @Test(priority = 7, dependsOnMethods = {"clickCheckbox"})
-    public void popupEditInputValueClickCancelButton() {
-        apisSystem.edit.inputExpirationTime(12);
-        apisSystem.edit.clickButtonSaveOrCancel(false);
-        apisSystem.edit.waitInvisibilityPopup();
-        Assert.assertFalse(apisSystem.edit.isPopupNotPresent());
     }
 
 }
