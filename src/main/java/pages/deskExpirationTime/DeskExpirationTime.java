@@ -110,4 +110,40 @@ public class DeskExpirationTime extends Page {
         }
     }
 
+    /**
+     * Click action button
+     */
+    public void clickActionButton(int buttonPosition) {
+        List<WebElement> actionButtonList = web.getElements("actionButtonList");
+        actionButtonList.get(buttonPosition - 1).click();
+    }
+
+    /**
+     * Click action item from drop down menu
+     *
+     * @param menuItem item from menu, where
+     *                 1 - Edit
+     */
+    public void clickItemFromDropDownMenu(int menuItem) {
+        List<WebElement> elementList = web.getElements("actionItemDropDownList");
+        elementList.get(menuItem - 1).click();
+        log.info(String.format("click on < %s >", elementList.get(menuItem - 1).getTagName()));
+    }
+
+    /**
+     * Click on select checkbox
+     *
+     * @param checkboxPosition checkbox position in list table
+     */
+    public void selectCheckboxInPosition(int checkboxPosition) {
+        List<WebElement> checkboxList = web.getElements("checkboxList");
+        if (checkboxList.get(checkboxPosition).isSelected()) {
+            checkboxList.get(checkboxPosition).click();
+        }
+    }
+
+    public void scrollPageToNavigationWrapper() {
+        web.scrollToElement("navigationWrapper");
+    }
+
 }

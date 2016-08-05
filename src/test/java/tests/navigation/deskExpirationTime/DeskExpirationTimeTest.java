@@ -64,6 +64,25 @@ public class DeskExpirationTimeTest extends Fixture {
             }
             apisSystem.deskExpirationTime.scrollAndClickNavigationIndexButton(i);
         }
+        apisSystem.deskExpirationTime.scrollPageToNavigationWrapper();
+    }
+
+    @Test(priority = 6, dependsOnMethods = {"clickNavigationIndexButtonsOnList"})
+    public void clickCheckbox() {
+        // select checkbox in first position and click
+        apisSystem.deskExpirationTime.selectCheckboxInPosition(1);
+        apisSystem.deskExpirationTime.clickActionButton(1);
+        apisSystem.deskExpirationTime.clickItemFromDropDownMenu(1);
+        apisSystem.edit.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.edit.isPopupPresent());
+    }
+
+    @Test(priority = 7, dependsOnMethods = {"clickCheckbox"})
+    public void popupEditInputValueClickCancelButton() {
+        apisSystem.edit.inputExpirationTime(12);
+        apisSystem.edit.clickButtonSaveOrCancel(false);
+        apisSystem.edit.waitInvisibilityPopup();
+        Assert.assertFalse(apisSystem.edit.isPopupNotPresent());
     }
 
 }
