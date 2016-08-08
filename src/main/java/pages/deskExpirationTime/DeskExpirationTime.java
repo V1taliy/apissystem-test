@@ -162,6 +162,33 @@ public class DeskExpirationTime extends Page {
     }
 
     /**
+     * Clicked on first brand from drop down list 'Brand'
+     */
+    public void filterClickedOnSelectBrand() {
+        List<WebElement> brandsList = web.getElements("filterBrandFiledList");
+        log.info("clicked on " + brandsList.get(0).getText());
+        brandsList.get(0).click();
+    }
+
+    /**
+     * Click on button 'Reset' or 'Search'
+     *
+     * @param buttonStatus button, where
+     *                     true - 'Search' button
+     *                     false - 'Reset' button
+     */
+    public void filterClickOnSearchOrReset(boolean buttonStatus) {
+        List<WebElement> buttonsList = web.getElements("filterButtonList");
+        if (buttonStatus) {
+            log.info(String.format("clicked on button < %s >", buttonsList.get(0).getText()));
+            buttonsList.get(0).click();
+        } else {
+            log.info(String.format("clicked on button < %s >", buttonsList.get(1).getText()));
+            buttonsList.get(1).click();
+        }
+    }
+
+    /**
      * Get brand name from drop down list
      *
      * @param position brand position in drop down list
@@ -170,6 +197,15 @@ public class DeskExpirationTime extends Page {
         List<WebElement> brandsNameList = web.getElements("filterBrandFiledList");
         log.info(brandsNameList.get(position - 1).getText());
         return brandsNameList.get(position - 1).getText();
+    }
+
+    /**
+     * Get brand name from list data table
+     */
+    public String getBrandNameFromList() {
+        List<WebElement> brandsNameList = web.getElements("expirationBrandList");
+        log.info(brandsNameList.get(0).getText());
+        return brandsNameList.get(0).getText();
     }
 
     /**

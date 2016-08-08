@@ -91,7 +91,7 @@ public class DeskExpirationTimeTest extends Fixture {
 
     @Test(priority = 9, dependsOnMethods = {"clickCheckbox2"})
     public void popupEditInputValueClickSaveButton() {
-        apisSystem.edit.inputExpirationTime(12);
+        apisSystem.edit.inputExpirationTime(100);
         apisSystem.edit.clickButtonSaveOrCancel(true);
         apisSystem.edit.waitInvisibilityPopup();
         apisSystem.deskExpirationTime.waitMessageSuccessPresent();
@@ -132,6 +132,16 @@ public class DeskExpirationTimeTest extends Fixture {
                     apisSystem.deskExpirationTime.getFilterBrandFiledBrandName(i));
         }
     }
+
+    @Test(priority = 14, dependsOnMethods = {"deskExpTimeFilterBrandsEnabledCorrect"})
+    public void selectBrand() {
+        apisSystem.deskExpirationTime.filterClickedOnSelectBrand();
+        apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
+        apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertEquals(apisSystem.deskExpirationTime.getBrandNameFromList(),
+                apisSystem.deskExpirationTime.getFilterBrandFiledBrandName(1));
+    }
+
 
     private void clickCheckbox(int checkboxPosition) {
         // select checkbox in some position and click
