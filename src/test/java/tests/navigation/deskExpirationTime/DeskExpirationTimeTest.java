@@ -108,15 +108,12 @@ public class DeskExpirationTimeTest extends Fixture {
     public void changeSomeBrandsEnabled() {
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.brandsPage.selectTableSort(2);
-        for (int i = 2; i <= 3; i++) {
-            apisSystem.brandsPage.waitInvisibilityOverlay();
-            apisSystem.brandsPage.clickActionButton(i);
-            apisSystem.brandsPage.clickItemFromDropDownMenu(4);
-            apisSystem.brandsPage.waitMessageSuccessPresent();
-            Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
-            BRANDS_NAME_LIST.add(apisSystem.brandsPage.getBrandNameText(i));
-            Assert.assertEquals(apisSystem.brandsPage.getBrandEnablesStatus(i), true);
-        }
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.brandsPage.selectTableSort(1);
+        apisSystem.brandsPage.clickBrandCheckbox(1);
+        apisSystem.brandsPage.clickToggleButton(true);
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }
 
     @Test(priority = 12, dependsOnMethods = {"changeSomeBrandsEnabled"})
@@ -126,17 +123,8 @@ public class DeskExpirationTimeTest extends Fixture {
     }
 
     @Test(priority = 13, dependsOnMethods = {"switchToDeskExpTime"})
-    public void deskExpTimeFilterBrandsEnabledCorrect() {
-        apisSystem.deskExpirationTime.filterClickBrandField();
-        for (int i = 1; i <= 2; i++) {
-            Assert.assertEquals(BRANDS_NAME_LIST.get(i - 1),
-                    apisSystem.deskExpirationTime.getFilterBrandFiledBrandName(i));
-        }
-    }
-
-    @Test(priority = 14, dependsOnMethods = {"deskExpTimeFilterBrandsEnabledCorrect"})
     public void selectBrand() {
-        apisSystem.deskExpirationTime.filterClickedOnSelectBrand(0);
+        apisSystem.deskExpirationTime.filterClickedOnSelectBrand();
         apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
         apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.getBrandNameFromList(),
@@ -144,17 +132,15 @@ public class DeskExpirationTimeTest extends Fixture {
     }
 
     // TODO for correctly work, must be fixed bug APIS-185
-    @Test(priority = 15, dependsOnMethods = {"selectBrand"})
+    @Test(priority = 14, dependsOnMethods = {"selectBrand"})
     public void selectDesk() {
         apisSystem.deskExpirationTime.filterClickOnDesk();
-        apisSystem.deskExpirationTime.filterClikedOnDesk(0);
+        apisSystem.deskExpirationTime.filterClikedOnDesk();
         apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
         apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
-        Assert.assertEquals(apisSystem.deskExpirationTime.getNameFromList(),
-                apisSystem.deskExpirationTime.filterGetDeskValue());
     }
 
-    @Test(priority = 16, dependsOnMethods = {"selectDesk"})
+    @Test(priority = 15, dependsOnMethods = {"selectDesk"})
     public void clickResetButton() {
         String expectedResult = "Select";
         apisSystem.deskExpirationTime.filterClickOnSearchOrReset(false);
@@ -163,11 +149,11 @@ public class DeskExpirationTimeTest extends Fixture {
         Assert.assertEquals(apisSystem.deskExpirationTime.filterGetBrandValue(), expectedResult);
     }
 
-    @Test(priority = 17, dependsOnMethods = {"clickResetButton"})
+    @Test(priority = 16, dependsOnMethods = {"clickResetButton"})
     public void selectBrandAndDesk() {
-        apisSystem.deskExpirationTime.filterClickedOnSelectBrand(1);
+        apisSystem.deskExpirationTime.filterClickedOnSelectBrand();
         apisSystem.deskExpirationTime.waitDeskToBeActive();
-        apisSystem.deskExpirationTime.filterClikedOnDesk(1);
+        apisSystem.deskExpirationTime.filterClikedOnDesk();
         apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
         // TODO added Assert, when fixed bug APIS-185
     }
