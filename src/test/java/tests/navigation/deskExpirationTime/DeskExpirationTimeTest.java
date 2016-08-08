@@ -1,7 +1,6 @@
 package tests.navigation.deskExpirationTime;
 
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
@@ -73,6 +72,7 @@ public class DeskExpirationTimeTest extends Fixture {
 
     @Test(priority = 6, dependsOnMethods = {"clickNavigationIndexButtonsOnList"})
     public void clickCheckbox1() {
+        apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
         clickCheckbox(1);
     }
 
@@ -136,18 +136,18 @@ public class DeskExpirationTimeTest extends Fixture {
 
     @Test(priority = 14, dependsOnMethods = {"deskExpTimeFilterBrandsEnabledCorrect"})
     public void selectBrand() {
-        apisSystem.deskExpirationTime.filterClickedOnSelectBrand();
+        apisSystem.deskExpirationTime.filterClickedOnSelectBrand(0);
         apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
         apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.getBrandNameFromList(),
                 apisSystem.deskExpirationTime.getFilterBrandFiledBrandName(1));
     }
 
-    /* for correctly work, must be fixed bug APIS-185*/
+    // TODO for correctly work, must be fixed bug APIS-185
     @Test(priority = 15, dependsOnMethods = {"selectBrand"})
     public void selectDesk() {
         apisSystem.deskExpirationTime.filterClickOnDesk();
-        apisSystem.deskExpirationTime.filterSelectDesk();
+        apisSystem.deskExpirationTime.filterClikedOnDesk(0);
         apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
         apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.getNameFromList(),
@@ -161,6 +161,15 @@ public class DeskExpirationTimeTest extends Fixture {
         apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.filterGetDeskValue(), expectedResult);
         Assert.assertEquals(apisSystem.deskExpirationTime.filterGetBrandValue(), expectedResult);
+    }
+
+    @Test(priority = 17, dependsOnMethods = {"clickResetButton"})
+    public void selectBrandAndDesk() {
+        apisSystem.deskExpirationTime.filterClickedOnSelectBrand(1);
+        apisSystem.deskExpirationTime.waitDeskToBeActive();
+        apisSystem.deskExpirationTime.filterClikedOnDesk(1);
+        apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
+        // TODO added Assert, when fixed bug APIS-185
     }
 
     private void clickCheckbox(int checkboxPosition) {

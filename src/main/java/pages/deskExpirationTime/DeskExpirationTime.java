@@ -171,10 +171,10 @@ public class DeskExpirationTime extends Page {
     /**
      * Clicked on first brand from drop down list 'Brand'
      */
-    public void filterClickedOnSelectBrand() {
+    public void filterClickedOnSelectBrand(int dropDownPosition) {
         List<WebElement> brandsList = web.getElements("filterBrandFieldList");
-        log.info("clicked on " + brandsList.get(0).getText());
-        brandsList.get(0).click();
+        log.info("clicked on " + brandsList.get(dropDownPosition).getText());
+        brandsList.get(dropDownPosition).click();
     }
 
     /**
@@ -208,11 +208,13 @@ public class DeskExpirationTime extends Page {
 
     /**
      * Click on first desk value from drop down list
+     *
+     * @param deskPosition desk position on drop down list
      */
-    public void filterSelectDesk() {
+    public void filterClikedOnDesk(int deskPosition) {
         List<WebElement> deskList = web.getElements("filterDeskFieldList");
-        log.info(String.format("clicked on < %s >", deskList.get(0).getText()));
-        deskList.get(0).click();
+        log.info(String.format("clicked on < %s >", deskList.get(deskPosition).getText()));
+        deskList.get(deskPosition).click();
     }
 
     /**
@@ -245,6 +247,13 @@ public class DeskExpirationTime extends Page {
         List<WebElement> brandsNameList = web.getElements("expirationBrandList");
         log.info(brandsNameList.get(0).getText());
         return brandsNameList.get(0).getText();
+    }
+
+    public void waitDeskToBeActive() {
+        WebElement element = web.getElement("filterDeskBrand");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
+        wait.until(ExpectedConditions.attributeToBe(element, "disabled", ""));
     }
 
     /**
