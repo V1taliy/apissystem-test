@@ -2,7 +2,10 @@ package pages.brands;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.Page;
+import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
 import java.util.List;
@@ -137,8 +140,11 @@ public class BrandsPage extends Page {
     /**
      * Wait for processing disappear
      */
-    public void waitInvisibilityProcessing() {
-        web.waitDisappearElement("processing");
+    public void waitLoadedAttributeToBeEmptyClass() {
+        WebElement element = web.getElement("isLoadedElement");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
+        wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
     }
 
     /**
@@ -146,8 +152,9 @@ public class BrandsPage extends Page {
      *
      * @return true if processing element present, otherwise false
      */
-    public boolean isProcessingDisplayed() {
-        return web.isElementPresent("processing");
+    public boolean isLoadedClassHaveAttributeInClass() {
+        WebElement element = web.getElement("isLoadedElement");
+        return element.getAttribute("class").contains("traditional");
     }
 
     /**
@@ -176,6 +183,30 @@ public class BrandsPage extends Page {
     public String getValueFromFirstBrandName(String locator) {
         log.info(web.getElement(locator).getText());
         return web.getElement(locator).getText();
+    }
+
+    /**
+     * Get text from brand name in position
+     *
+     * @param brandPosition brand position in data table
+     */
+    public String getBrandNameText(int brandPosition) {
+        List<WebElement> brandsNameList = web.getElements("brandNameList");
+        log.info(String.format("get text < %s > from brand in position < %s >",
+                brandsNameList.get(brandPosition - 1).getText(), brandPosition));
+        return brandsNameList.get(brandPosition - 1).getText();
+    }
+
+    /**
+     * Get enabled status from brand name in position
+     *
+     * @param brandPosition brand position in data table
+     */
+    public boolean getBrandEnablesStatus(int brandPosition) {
+        List<WebElement> brandsEnabledStatusList = web.getElements("brandEnabledStatusList");
+        log.info(String.format("get status < %s > from brand in position < %s >",
+                brandsEnabledStatusList.get(brandPosition - 1).getText(), brandPosition));
+        return Boolean.parseBoolean(brandsEnabledStatusList.get(brandPosition - 1).getText());
     }
 
     /**

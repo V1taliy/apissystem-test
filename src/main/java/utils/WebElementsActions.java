@@ -49,6 +49,21 @@ public class WebElementsActions {
     }
 
     /**
+     * This method return the desired element with locator
+     *
+     * @param elementLocator search element locator
+     * @return element {@link WebElement} driverWrapper from
+     * configuration {@link WebElementsActions#config}
+     * @throws NoSuchElementException If the locator cannot found
+     */
+    public WebElement getElementWithWaitOneSecond(String elementLocator) throws TimeoutException {
+        driverWait = new WebDriverWait(driverWrapper,
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout1sec")));
+        log.info(String.format("get element < %s >", elementLocator));
+        return driverWrapper.findElement(config.getLocator(elementLocator));
+    }
+
+    /**
      * This method return a list of elements
      *
      * @param elementLocator search element locator
@@ -76,6 +91,9 @@ public class WebElementsActions {
             return driverWrapper.findElement(config.getLocator(elementLocator),
                     Integer.parseInt(PropertyLoader.loadProperty(String.valueOf(timeWait))));
         } catch (TimeoutException e) {
+            log.info("element not present in DOM");
+            return null;
+        } catch (NumberFormatException e) {
             log.info("element not present in DOM");
             return null;
         }
@@ -560,6 +578,40 @@ public class WebElementsActions {
         int scrollValue = elementCoordinateY - headerHeight;
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
         javascriptExecutor.executeScript("window.scrollBy(0," + scrollValue + ")", "");
+    }
+
+    /**
+     * Scroll to element
+     *
+     * @param elementLocator element to which you want to scroll
+     */
+    public void scrollToElement(String elementLocator) {
+        WebElement element = driverWrapper.findElement(config.getLocator(elementLocator));
+        int elementCoordinateY = element.getLocation().getY();
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
+        javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
+    }
+
+    /**
+     * Scroll to element
+     *
+     * @param element element to which you want to scroll
+     */
+    public void scrollToElement(WebElement element) {
+        int elementCoordinateY = element.getLocation().getY();
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
+        javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
+    }
+
+    /**
+     * Scroll to element
+     *
+     * @param value element to which you want to scroll
+     */
+    public void scrollToElement(int value) {
+        int elementCoordinateY = value;
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
+        javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
     }
 
 }
