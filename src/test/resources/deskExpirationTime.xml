@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="FunctionalSuiteForBrands" verbose="1">
+<suite name="FunctionalSuiteForDeskExpTime" verbose="1">
     <test name="DeskExpirationTime Tests">
 
         <classes>
-            <class name="pages.deskExpirationTime.DeskExpirationTime"/>
+            <class name="tests.navigation.deskExpirationTime.DeskExpirationTimeTest"/>
         </classes>
 
     </test>
