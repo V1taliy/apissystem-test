@@ -106,6 +106,7 @@ public class DeskExpirationTimeTest extends Fixture {
 
     @Test(priority = 11, dependsOnMethods = {"switchToBrands"})
     public void changeSomeBrandsEnabled() {
+        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.brandsPage.selectTableSort(2);
         for (int i = 2; i <= 3; i++) {
             apisSystem.brandsPage.waitInvisibilityOverlay();
@@ -151,6 +152,15 @@ public class DeskExpirationTimeTest extends Fixture {
         apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.getNameFromList(),
                 apisSystem.deskExpirationTime.filterGetDeskValue());
+    }
+
+    @Test(priority = 16, dependsOnMethods = {"selectDesk"})
+    public void clickResetButton() {
+        String expectedResult = "Select";
+        apisSystem.deskExpirationTime.filterClickOnSearchOrReset(false);
+        apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertEquals(apisSystem.deskExpirationTime.filterGetDeskValue(), expectedResult);
+        Assert.assertEquals(apisSystem.deskExpirationTime.filterGetBrandValue(), expectedResult);
     }
 
     private void clickCheckbox(int checkboxPosition) {
