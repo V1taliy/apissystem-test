@@ -142,6 +142,16 @@ public class DeskExpirationTimeTest extends Fixture {
                 apisSystem.deskExpirationTime.getFilterBrandFiledBrandName(1));
     }
 
+    /* for correctly work, must be fixed bug APIS-185*/
+    @Test(priority = 15, dependsOnMethods = {"selectBrand"})
+    public void selectDesk() {
+        apisSystem.deskExpirationTime.filterClickOnDesk();
+        apisSystem.deskExpirationTime.filterSelectDesk();
+        apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
+        apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertEquals(apisSystem.deskExpirationTime.getNameFromList(),
+                apisSystem.deskExpirationTime.filterGetDeskValue());
+    }
 
     private void clickCheckbox(int checkboxPosition) {
         // select checkbox in some position and click

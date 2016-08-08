@@ -8,8 +8,6 @@ import pages.Page;
 import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DeskExpirationTime extends Page {
@@ -165,7 +163,7 @@ public class DeskExpirationTime extends Page {
      * Clicked on first brand from drop down list 'Brand'
      */
     public void filterClickedOnSelectBrand() {
-        List<WebElement> brandsList = web.getElements("filterBrandFiledList");
+        List<WebElement> brandsList = web.getElements("filterBrandFieldList");
         log.info("clicked on " + brandsList.get(0).getText());
         brandsList.get(0).click();
     }
@@ -194,13 +192,45 @@ public class DeskExpirationTime extends Page {
      * @param position brand position in drop down list
      */
     public String getFilterBrandFiledBrandName(int position) {
-        List<WebElement> brandsNameList = web.getElements("filterBrandFiledList");
+        List<WebElement> brandsNameList = web.getElements("filterBrandFieldList");
         log.info(brandsNameList.get(position - 1).getText());
         return brandsNameList.get(position - 1).getText();
     }
 
     /**
-     * Get brand name from list data table
+     * Click on first desk value from drop down list
+     */
+    public void filterSelectDesk() {
+        List<WebElement> deskList = web.getElements("filterDeskFieldList");
+        log.info(String.format("clicked on < %s >", deskList.get(0).getText()));
+        deskList.get(0).click();
+    }
+
+    /**
+     * Get desk value from desk field
+     */
+    public String filterGetDeskValue() {
+        return web.getElement("filterDeskBrand").getText();
+    }
+
+    /**
+     * Click on desk filed
+     */
+    public void filterClickOnDesk() {
+        web.clickLink("filterDeskBrand");
+    }
+
+    /**
+     * Get first name from list data table
+     */
+    public String getNameFromList() {
+        List<WebElement> nameList = web.getElements("expirationNameList");
+        log.info(nameList.get(0).getText());
+        return nameList.get(0).getText();
+    }
+
+    /**
+     * Get first brand name from list data table
      */
     public String getBrandNameFromList() {
         List<WebElement> brandsNameList = web.getElements("expirationBrandList");
