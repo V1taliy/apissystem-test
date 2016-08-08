@@ -2,10 +2,12 @@ package pages.users;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.Page;
+import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UsersPage extends Page {
@@ -38,6 +40,10 @@ public class UsersPage extends Page {
 
     public void inputGroupAndClickEnter(String group) {
         web.clearAndInputAndClickEnter("filterGroupField", group);
+    }
+
+    public void clickOnGroupFiled() {
+        web.clickLink("filterGroupField");
     }
 
     /**
@@ -125,19 +131,21 @@ public class UsersPage extends Page {
     }
 
     /**
-     * Wait for processing disappear
+     * Wait for loaded element will be class empty
      */
-    public void waitInvisibilityProcessing() {
-        web.waitDisappearElement("processing");
+    public void waitLoadedAttributeToBeEmptyClass() {
+        WebElement element = web.getElement("isLoadedElement");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
+        wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
     }
 
     /**
-     * Check is processing element present on the page
-     *
-     * @return true if processing element present, otherwise false
+     * Check is loaded element have some parameters
      */
-    public boolean isProcessingDisplayed() {
-        return web.isElementPresent("processing");
+    public boolean isLoadedClassHaveAttributeInClass() {
+        WebElement element = web.getElement("isLoadedElement");
+        return element.getAttribute("class").contains("traditional");
     }
 
     /**
