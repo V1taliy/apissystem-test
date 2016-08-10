@@ -222,4 +222,5 @@ public class BrandsPage extends Page {
         return web.getElements("firstPositionBrand").size();
     }
 
+
 }

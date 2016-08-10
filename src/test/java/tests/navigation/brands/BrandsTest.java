@@ -94,6 +94,7 @@ public class BrandsTest extends Fixture {
     public void popupCreateBrandCorrectDomain() {
         apisSystem.createBrand.inputDomain(TEST_DATA[4] + ".com");
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
+        apisSystem.createBrand.waitInvisibilityPopup();
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }
 
@@ -137,6 +138,7 @@ public class BrandsTest extends Fixture {
         apisSystem.editBrand.inputApiUser(TEST_DATA[1] + "edit");
         apisSystem.editBrand.inputBrandName(TEST_DATA[3] + "edit");
         apisSystem.editBrand.clickButtonSaveOrCancel(true);
+        apisSystem.editBrand.waitInvisibilityPopup();
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
         apisSystem.editBrand.waitInvisibilityPopup();
     }
@@ -196,7 +198,7 @@ public class BrandsTest extends Fixture {
         } else {
             Assert.assertEquals(apisSystem.brandsPage.
                             getValueFromFirstBrandName("firstPositionBrandEnabled"),
-                    "true");
+                    "Enabled");
         }
     }
 
@@ -213,35 +215,31 @@ public class BrandsTest extends Fixture {
                             getValueFromFirstBrandName("noMatchingRecords"),
                     "No matching records found.");
         } else {
-//            Assert.assertEquals(apisSystem.brandsPage.
-//                            getValueFromFirstBrandName("firstPositionBrandEnabled"),
-//                    "false");
             Assert.assertEquals(apisSystem.brandsPage.
                             getValueFromFirstBrandName("firstPositionBrandEnabled"),
-                    "");
+                    "Disabled");
         }
     }
 
     @Test(priority = 20, dependsOnMethods = {"filterEnabledModeDisable"})
     public void filterAllFilters() {
-        boolean enabledStatus;
+        String enabledStatus = null;
         apisSystem.brandsPage.filterClickSearchOrReset(false);
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandName");
         apisSystem.brandsPage.filterInputBrandName(brandName);
         String enableStatusStr = apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandEnabled");
-        if (enableStatusStr.equals("true")) {
+        if (enableStatusStr.equals("Enabled")) {
             apisSystem.brandsPage.filterClickAndSelectEnabled(true);
-            enabledStatus = true;
+            enabledStatus = "Enabled";
         } else {
             apisSystem.brandsPage.filterClickAndSelectEnabled(false);
-            enabledStatus = false;
+            enabledStatus = "Disabled";
         }
         apisSystem.brandsPage.filterClickSearchOrReset(true);
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.brandsPage.getInputValue("filterBrandNameInput"), brandName);
-        Assert.assertEquals(apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandEnabled"),
-                String.valueOf(enabledStatus));
+        Assert.assertEquals(apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandEnabled"), enabledStatus);
     }
 
     private void clickCreateBrand() {
@@ -255,6 +253,7 @@ public class BrandsTest extends Fixture {
         apisSystem.brandsPage.clickItemFromDropDownMenu(6);
         apisSystem.deleteBrand.waitPopupLoaded();
         apisSystem.deleteBrand.clickButtonCancelOrYes(true);
+        apisSystem.deleteBrand.waitInvisibilityPopup();
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
         apisSystem.deleteBrand.waitInvisibilityPopup();
     }
