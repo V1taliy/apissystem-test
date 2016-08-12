@@ -8,9 +8,9 @@ import utils.PropertyLoader;
 
 import java.util.concurrent.TimeUnit;
 
-public class UsersTest extends Fixture {
+public class UsersTests extends Fixture {
 
-    private static final Logger log = Logger.getLogger(UsersTest.class);
+    private static final Logger log = Logger.getLogger(UsersTests.class);
     private static final String ADMIN_NAME = PropertyLoader.loadProperty("admin.name");
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
@@ -74,6 +74,7 @@ public class UsersTest extends Fixture {
     @Test(priority = 5, enabled = true, dependsOnMethods = {"selectUserCheckboxAndClickToggleButtons"})
     public void clickedOnDisableAndEnableUser() {
         for (int i = 1; i <= 2; i++) {
+            apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
             apisSystem.usersPage.clickActionButton(actionButtonPosition);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(i);
             apisSystem.usersPage.waitMessageSuccessPresent();
@@ -96,7 +97,8 @@ public class UsersTest extends Fixture {
         apisSystem.editUser.inputFistName(false, null);
         apisSystem.editUser.inputLastName(false, null);
         apisSystem.editUser.clickAndSelectGroup();
-        apisSystem.editUser.clickButtonSaveOrCancel(true);
+        // if running on firefox browser, need uncomment string
+//        apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.waitInvisibilityLoading();
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
