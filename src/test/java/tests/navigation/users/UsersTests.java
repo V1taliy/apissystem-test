@@ -84,6 +84,7 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 6, enabled = true, dependsOnMethods = {"clickedOnDisableAndEnableUser"})
     public void clickedOnEditUser() {
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         // select 'Edit user' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(itemEditUser);
