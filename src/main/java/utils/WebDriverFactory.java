@@ -193,7 +193,7 @@ public class WebDriverFactory {
         }
         // In case there is no Hub
         if (hubUrl == null) {
-            log.error("HUBURL == null!\n");
+            log.error("HUB_URL == null!\n");
             Assert.fail("hub URL == null");
             return null;
         } else {
