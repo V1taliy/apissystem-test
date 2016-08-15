@@ -3,7 +3,7 @@
     <test name="Users Tests">
 
         <classes>
-            <class name="tests.navigation.users.UsersTest"/>
+            <class name="tests.navigation.users.UsersTests"/>
         </classes>
 
     </test>
