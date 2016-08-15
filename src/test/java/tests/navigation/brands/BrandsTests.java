@@ -7,7 +7,7 @@ import utils.PropertyLoader;
 
 import java.util.concurrent.TimeUnit;
 
-public class BrandsTest extends Fixture {
+public class BrandsTests extends Fixture {
 
     private static final String ADMIN_NAME = PropertyLoader.loadProperty("admin.name");
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
