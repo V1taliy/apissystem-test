@@ -24,14 +24,16 @@ public class Fixture {
 
     @BeforeSuite
     public void startBrowser() {
-        driverWrapper = new WebDriverWrapper(WebDriverFactory.getInstance());
-        driverWrapper.manage().timeouts().implicitlyWait(Long.parseLong(impWait), TimeUnit.SECONDS);
-        try {
-            apisSystem = new ApisSystem(driverWrapper);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (WebDriverFactory.GRID_STATUS) {
+            driverWrapper = new WebDriverWrapper(WebDriverFactory.getGridInstance());
+            driverWrapper.manage().timeouts().implicitlyWait(Long.parseLong(impWait), TimeUnit.SECONDS);
+            createApis();
+        } else {
+            driverWrapper = WebDriverFactory.initDriver();
+            driverWrapper.manage().window().maximize();
+            driverWrapper.manage().timeouts().implicitlyWait(Long.parseLong(impWait), TimeUnit.SECONDS);
+            createApis();
         }
-        log.info(String.format("start test suit execution"));
     }
 
     @AfterSuite
@@ -49,6 +51,15 @@ public class Fixture {
         if (result.FAILURE == result.getStatus()) {
             CaptureScreenshot.takeScreenShot(driverWrapper, result.getName());
         }
+    }
+
+    private void createApis() {
+        try {
+            apisSystem = new ApisSystem(driverWrapper);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info(String.format("start test suit execution"));
     }
 
 }

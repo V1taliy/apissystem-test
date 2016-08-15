@@ -38,7 +38,7 @@ public class GridInitialization {
 
     @Override
     public String toString() {
-        return String.format("GridInitialization\nbrowser name = $s\nbrowser version = $s\nplatform = $s",
+        return String.format("GridInitialization\nbrowser name = $s\nbrowser version = $s\nPLATFORM = $s",
                 getBrowserName(), getBrowserVersion(), getPlatform());
     }
 
