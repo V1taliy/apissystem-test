@@ -21,7 +21,7 @@ public class WebElementsActions {
     public WebElementsActions(WebDriverWrapper driverWrapper) {
         this.driverWrapper = driverWrapper;
         driverWait = new WebDriverWait(driverWrapper,
-                Integer.parseInt(PropertyLoader.loadProperty("wait.timeout10sec")));
+                Integer.parseInt(PropertyLoader.loadProperty("wait.timeout20sec")));
         config = ConfigurationData.getConfigData();
     }
 

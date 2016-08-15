@@ -1,5 +1,6 @@
 package tests.navigation.deskExpirationTime;
 
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.Fixture;
@@ -78,10 +79,11 @@ public class DeskExpirationTimeTest extends Fixture {
 
     @Test(priority = 7, dependsOnMethods = {"goToDeskExpirationTime"})
     public void popupEditInputValueClickCancelButton() {
+        int expectedResult = apisSystem.deskExpirationTime.getExpirationTimeValue(1);
         apisSystem.edit.inputExpirationTime(11);
         apisSystem.edit.clickButtonSaveOrCancel(false);
         apisSystem.edit.waitInvisibilityPopup();
-        Assert.assertEquals(apisSystem.deskExpirationTime.getExpirationTimeValue(1), 10);
+        Assert.assertEquals(apisSystem.deskExpirationTime.getExpirationTimeValue(1), expectedResult);
     }
 
     @Test(priority = 8, dependsOnMethods = {"goToDeskExpirationTime"})
@@ -152,11 +154,11 @@ public class DeskExpirationTimeTest extends Fixture {
     public void selectBrandAndDesk() {
         apisSystem.deskExpirationTime.filterClickedOnSelectBrand();
         apisSystem.deskExpirationTime.waitDeskToBeActive();
-        apisSystem.deskExpirationTime.filterClikedOnDesk();
+        int expectedResult = apisSystem.deskExpirationTime.filterClikedOnDesk();
         apisSystem.deskExpirationTime.filterClickOnSearchOrReset(true);
         apisSystem.deskExpirationTime.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.listGetDeskName(),
-                apisSystem.deskExpirationTime.filterGetDeskValue());
+                apisSystem.deskExpirationTime.filterGetDeskValue(expectedResult));
     }
 
     private void clickCheckbox(int checkboxPosition) {
