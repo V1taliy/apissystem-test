@@ -130,6 +130,11 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 11, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void editUserInputLastName() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.editUser.inputLastName(true, DATA_TEST[1]);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.usersPage.waitMessageSuccessPresent();
@@ -189,6 +194,11 @@ public class UsersTests extends Fixture {
     @Test(priority = 16, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputEmail() {
         apisSystem.editUser.waitInvisibilityPopup();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String email = apisSystem.usersPage.getValue("firstUserEmail");
         apisSystem.usersPage.inputEmail(email);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
@@ -200,6 +210,11 @@ public class UsersTests extends Fixture {
     @Test(priority = 17, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterSelectGroup() {
         apisSystem.editUser.waitInvisibilityPopup();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.usersPage.selectTableSort(7);
         if (apisSystem.usersPage.isLoadedClassHaveAttributeInClass()) {
             apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
