@@ -24,7 +24,7 @@ public class DeskExpirationTime extends Page {
     public void waitLoadedAttributeToBeEmptyClass() {
         WebElement element = web.getElement("isLoadedElement");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout20sec")));
         wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
     }
 
@@ -209,21 +209,27 @@ public class DeskExpirationTime extends Page {
 
     /**
      * Click on first desk value from drop down list
-     *
-     * @param deskPosition desk position on drop down list
      */
-    public void filterClikedOnDesk() {
+    public int filterClikedOnDesk() {
         List<WebElement> deskList = web.getElements("filterDeskFieldList");
         int random = (int) (Math.random() * deskList.size());
         log.info(String.format("clicked on < %s >", deskList.get(random).getText()));
         deskList.get(random).click();
+        return random;
     }
 
     /**
      * Get desk value from desk field
      */
     public String filterGetDeskValue() {
+        log.info(String.format("value = %s", web.getElement("filterDeskBrand").getText()));
         return web.getElement("filterDeskBrand").getText();
+    }
+
+    public String filterGetDeskValue(int value) {
+        List<WebElement> elementList = web.getElements("filterDeskBrandList");
+        log.info(String.format("value = %s", elementList.get(value).getText()));
+        return elementList.get(value).getText();
     }
 
     /**
@@ -251,11 +257,31 @@ public class DeskExpirationTime extends Page {
         return brandsNameList.get(0).getText();
     }
 
+    public String listGetDeskName() {
+        log.info(String.format("value = %s", web.getElement("listDeskName").getText()));
+        return web.getElement("listDeskName").getText();
+    }
+
+    public String listGetBrandName() {
+        return web.getElement("listBrandName").getText();
+    }
+
     public void waitDeskToBeActive() {
         WebElement element = web.getElement("filterDeskBrand");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout20sec")));
         wait.until(ExpectedConditions.attributeToBe(element, "disabled", ""));
+    }
+
+    public WebElement getNoMatchingRecords() {
+        WebElement element = web.getElement("listEmpty");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public String getNoMatchingRecordsText() {
+        return web.getElement("listEmpty").getText();
     }
 
     /**
