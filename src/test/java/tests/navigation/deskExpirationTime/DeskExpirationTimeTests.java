@@ -9,7 +9,7 @@ import utils.PropertyLoader;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class DeskExpirationTimeTest extends Fixture {
+public class DeskExpirationTimeTests extends Fixture {
 
     private static final String ADMIN_NAME = PropertyLoader.loadProperty("admin.name");
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
