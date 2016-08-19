@@ -121,8 +121,10 @@ public class UsersTests extends Fixture {
     }
 
     @Test(priority = 10, dependsOnMethods = {"goToUsersTab"})
-    public void editUserSelectBrand() {
-        
+    public void editUserSelectBrandAndDelete() {
+        apisSystem.editUser.clickOnBrandsField();
+        String actualResult = apisSystem.editUser.clickOnSelectBrand(1);
+        Assert.assertEquals(actualResult, apisSystem.editUser.getAddBrandName(1));
     }
 
     @Test(priority = 10, enabled = false, dependsOnMethods = {"goToUsersTab"})

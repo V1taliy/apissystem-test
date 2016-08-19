@@ -99,13 +99,25 @@ public class EditUser extends Page {
      * Click on select brand from drop down list
      *
      * @param brandPosition brand position on drop down list
-     * @return String with brand name
      */
     public String clickOnSelectBrand(int brandPosition) {
         List<WebElement> brandsList = web.getElements("editUserBrandsList");
-        log.info(String.format("select brand < %s >", brandsList.get(brandPosition - 1).getText()));
+        String brandName = brandsList.get(brandPosition - 1).getText();
+        log.info(String.format("select brand < %s >", brandName));
         brandsList.get(brandPosition - 1).click();
-        return brandsList.get(brandPosition - 1).getText();
+        return brandName;
+    }
+
+    public void deleteSelectBrand(int brandPosition) {
+        List<WebElement> brandsList = web.getElements("editUserDeleteBrandsList");
+        log.info(String.format("delete brand < %s >", brandsList.get(brandPosition - 1).getText()));
+        brandsList.get(brandPosition - 1).click();
+    }
+
+    public String getAddBrandName(int brandPosition) {
+        List<WebElement> addBrandsNames = web.getElements("editUserAddBrandsList");
+        log.info(String.format("brand name < %s >", addBrandsNames.get(brandPosition - 1).getText()));
+        return addBrandsNames.get(brandPosition - 1).getText();
     }
 
     /**
