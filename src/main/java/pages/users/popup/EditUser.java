@@ -1,5 +1,6 @@
 package pages.users.popup;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import pages.Page;
 import utils.WebDriverWrapper;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditUser extends Page {
+
+    private static final Logger log = Logger.getLogger(EditUser.class);
 
     public EditUser(WebDriverWrapper driverWrapper) {
         super(driverWrapper);
@@ -83,6 +86,26 @@ public class EditUser extends Page {
 
     public String isLastNameEmpty() {
         return web.getElement("editUserLastNameField").getAttribute("value");
+    }
+
+    /**
+     * Click on Brands field
+     */
+    public void clickOnBrandsField() {
+        web.clickLink("editUserBrandsField");
+    }
+
+    /**
+     * Click on select brand from drop down list
+     *
+     * @param brandPosition brand position on drop down list
+     * @return String with brand name
+     */
+    public String clickOnSelectBrand(int brandPosition) {
+        List<WebElement> brandsList = web.getElements("editUserBrandsList");
+        log.info(String.format("select brand < %s >", brandsList.get(brandPosition - 1).getText()));
+        brandsList.get(brandPosition - 1).click();
+        return brandsList.get(brandPosition - 1).getText();
     }
 
     /**
