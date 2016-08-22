@@ -18,7 +18,8 @@ public class UsersTests extends Fixture {
     private static final String USER_NAME_TEST = PropertyLoader.loadProperty("userName.test");
     private static final String USER_EMAIL_TEST = PropertyLoader.loadProperty("userEmail.test");
     private static final int actionButtonPosition = 1;
-    private static final int itemEditUser = 4;
+    private static final int ITEM_EDIT_USER = 4;
+    private static final int ITEM_EDIT_DESKS = 6;
     private static final String[] DATA_TEST = {"firstNameTest", "lastNameTest"};
 
     @Test(priority = 1)
@@ -94,7 +95,7 @@ public class UsersTests extends Fixture {
         apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         // select 'Edit user' item from drop down menu
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(itemEditUser);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_USER);
         // wait pop up 'Edit user' loaded
         apisSystem.editUser.waitPopupLoaded();
         Assert.assertTrue(apisSystem.editUser.isPopupPresent());
@@ -154,11 +155,22 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
     }
 
+    @Test(priority = 14, dependsOnMethods = {"goToUsersTab"})
+    public void openEditDesksPopup() {
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.clickActionButton(actionButtonPosition);
+        // select 'Edit desks' item from drop down menu
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_DESKS);
+        // wait pop up 'Edit desks' loaded
+        apisSystem.editUser.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.editUser.isPopupPresent());
+    }
+
     @Test(priority = 12, enabled = false, dependsOnMethods = {"goToUsersTab"})
     public void editUserChangeEnabled() {
         apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(itemEditUser);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_USER);
         apisSystem.editUser.waitPopupLoaded();
         if (apisSystem.editUser.isFirstNameEmpty().isEmpty() ||
                 apisSystem.editUser.isLastNameEmpty().isEmpty()) {
@@ -244,6 +256,27 @@ public class UsersTests extends Fixture {
         apisSystem.usersPage.clickOnGroupFiled();
         Assert.assertEquals(group, apisSystem.usersPage.getGroupValue("filterGroupValue"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
+    }
+
+    // TODO change priority after finished
+    @Test(priority = 90, enabled = false, dependsOnMethods = {"goToUsersTab"})
+    public void openPopupEditUserForTestUser() {
+        apisSystem.usersPage.inputUserName(USER_NAME_TEST);
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.clickActionButton(actionButtonPosition);
+        // select 'Edit user' item from drop down menu
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_USER);
+        // wait pop up 'Edit user' loaded
+        apisSystem.editUser.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.editUser.isPopupPresent());
+    }
+
+    // TODO change priority after finished
+    @Test(priority = 91, enabled = false, dependsOnMethods = {"openPopupEditUserForTestUser"})
+    public void deleteBrandAndSave() {
+        apisSystem.editUser.deleteSelectBrand(1);
+        apisSystem.editUser.clickButtonSaveOrCancel(true);
     }
 
     private void selectBrand(int brandPositionFromDropDownList) {
