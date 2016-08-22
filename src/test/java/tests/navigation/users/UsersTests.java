@@ -112,7 +112,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 9, enabled = false, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 9, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void editUserChangeRoleWithEmptyFields() {
         apisSystem.editUser.clickAndSelectRole();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -122,12 +122,18 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 10, dependsOnMethods = {"goToUsersTab"})
     public void editUserSelectBrandAndDelete() {
-        apisSystem.editUser.clickOnBrandsField();
-        String actualResult = apisSystem.editUser.clickOnSelectBrand(1);
-        Assert.assertEquals(actualResult, apisSystem.editUser.getAddBrandName(1));
+        int brandPosition = 1;
+        selectBrand(brandPosition);
+        apisSystem.editUser.deleteSelectBrand(brandPosition);
     }
 
-    @Test(priority = 10, enabled = false, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 11, dependsOnMethods = {"goToUsersTab"})
+    public void editUserSelectBrand() {
+        int brandPosition = 1;
+        selectBrand(brandPosition);
+    }
+
+    @Test(priority = 12, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void editUserInputFirstName() {
         apisSystem.editUser.inputFistName(true, DATA_TEST[0]);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -135,7 +141,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 11, enabled = false, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 13, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void editUserInputLastName() {
         try {
             Thread.sleep(500);
@@ -238,6 +244,17 @@ public class UsersTests extends Fixture {
         apisSystem.usersPage.clickOnGroupFiled();
         Assert.assertEquals(group, apisSystem.usersPage.getGroupValue("filterGroupValue"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
+    }
+
+    private void selectBrand(int brandPositionFromDropDownList) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        apisSystem.editUser.clickOnBrandsField();
+        String actualResult = apisSystem.editUser.clickOnSelectBrand(brandPositionFromDropDownList);
+        Assert.assertEquals(actualResult, apisSystem.editUser.getAddBrandName(brandPositionFromDropDownList));
     }
 
 }
