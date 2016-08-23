@@ -26,6 +26,7 @@ public class ApisSystem {
     public DeskExpirationTime deskExpirationTime;
     public Edit edit;
     public EditDesks editDesks;
+    public ListEntity listEntity;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -40,6 +41,7 @@ public class ApisSystem {
         deskExpirationTime = new DeskExpirationTime(driverWrapper);
         edit = new Edit(driverWrapper);
         editDesks = new EditDesks(driverWrapper);
+        listEntity = new ListEntity(driverWrapper);
     }
 
 }

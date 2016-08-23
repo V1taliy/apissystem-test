@@ -297,7 +297,23 @@ public class UsersTests extends Fixture {
     }
 
     @Test(priority = 26, dependsOnMethods = {"goToUsersTab"})
+    public void selectBrand() {
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.filterClickOnBrandsField();
+        String brand = apisSystem.usersPage.filterClickAndGetBrand(1);
+        apisSystem.usersPage.clickButtonSearchOrReset(true);
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.getListResult() == 1) {
+            Assert.assertEquals(apisSystem.listEntity.getTextAboutNoResult(), "No matching records found.");
+        } else {
+            Assert.assertEquals(apisSystem.usersPage.getBrandName(), brand);
+        }
+        apisSystem.usersPage.clickButtonSearchOrReset(false);
+    }
+
+    @Test(priority = 27, dependsOnMethods = {"goToUsersTab"})
     public void openEditDesksAbdDeleteDesk() {
+        apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.inputUserName(USER_NAME_TEST);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
         apisSystem.usersPage.waitLoadedAttributeToBeEmptyClass();
@@ -311,10 +327,10 @@ public class UsersTests extends Fixture {
         apisSystem.editDesks.clickButtonSaveOrCancel(true);
     }
 
-    @Test(priority = 27, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 28, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void openPopupEditUserForTestUser() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -326,7 +342,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isPopupPresent());
     }
 
-    @Test(priority = 28, enabled = true, dependsOnMethods = {"openPopupEditUserForTestUser"})
+    @Test(priority = 29, enabled = true, dependsOnMethods = {"openPopupEditUserForTestUser"})
     public void deleteBrandAndSave() {
         apisSystem.editUser.deleteSelectBrand(1);
         apisSystem.editUser.clickButtonSaveOrCancel(true);

@@ -194,4 +194,37 @@ public class UsersPage extends Page {
         return web.getElement(locator).getText();
     }
 
+    /**
+     * Click on brands filed on filter desk
+     */
+    public void filterClickOnBrandsField() {
+        web.clickLink("filterBrandFiled");
+    }
+
+    /**
+     * Click on brand from drop down list in Brands field
+     *
+     * @param brandPosition brand position
+     * @return brand name
+     */
+    public String filterClickAndGetBrand(int brandPosition) {
+        List<WebElement> brandsList = web.getElements("filterBrandsList");
+        String brandName = null;
+        if (brandsList.size() == 1) {
+            brandName = brandsList.get(0).getText();
+            log.info(String.format("select brand < %s >", brandName));
+            brandsList.get(0).click();
+        } else {
+            brandName = brandsList.get(brandPosition - 1).getText();
+            log.info(String.format("select brand < %s >", brandName));
+            brandsList.get(brandPosition - 1).click();
+        }
+        return brandName;
+    }
+
+    public String getBrandName() {
+        List<WebElement> list = web.getElements("brandsColumnList");
+        return list.get(0).getText();
+    }
+
 }
