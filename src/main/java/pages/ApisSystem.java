@@ -7,6 +7,7 @@ import pages.brands.popup.EditBrand;
 import pages.deskExpirationTime.DeskExpirationTime;
 import pages.deskExpirationTime.popup.Edit;
 import pages.users.UsersPage;
+import pages.users.popup.EditDesks;
 import pages.users.popup.EditUser;
 import utils.WebDriverWrapper;
 import utils.WebElementsActions;
@@ -24,6 +25,8 @@ public class ApisSystem {
     public DeleteBrand deleteBrand;
     public DeskExpirationTime deskExpirationTime;
     public Edit edit;
+    public EditDesks editDesks;
+    public ListEntity listEntity;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -37,6 +40,8 @@ public class ApisSystem {
         deleteBrand = new DeleteBrand(driverWrapper);
         deskExpirationTime = new DeskExpirationTime(driverWrapper);
         edit = new Edit(driverWrapper);
+        editDesks = new EditDesks(driverWrapper);
+        listEntity = new ListEntity(driverWrapper);
     }
 
 }
