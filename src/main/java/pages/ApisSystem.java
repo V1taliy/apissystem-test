@@ -1,6 +1,7 @@
 package pages;
 
 import pages.brands.BrandsPage;
+import pages.entity.ListEntity;
 import pages.popups.MainPopup;
 import pages.popups.brands.CreateBrand;
 import pages.popups.brands.DeleteBrand;

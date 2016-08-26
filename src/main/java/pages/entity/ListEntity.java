@@ -1,7 +1,8 @@
-package pages;
+package pages.entity;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import pages.Page;
 import utils.WebDriverWrapper;
 
 import java.util.List;
