@@ -1,9 +1,6 @@
-package pages.brands.popup;
+package pages.popups.brands;
 
-import pages.Page;
 import utils.WebDriverWrapper;
-
-import java.util.List;
 
 public class EditBrand extends CreateBrand {
 

@@ -72,7 +72,7 @@ public class BrandsTests extends Fixture {
         apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
         apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
         apisSystem.createBrand.inputDomain(TEST_DATA[4]);
-        apisSystem.createBrand.selectCheckboxEnabled();
+        apisSystem.createBrand.selectCheckboxEnable();
         Assert.assertEquals(apisSystem.createBrand.clickButtonSaveOrCancel(false), true);
     }
 
@@ -85,7 +85,7 @@ public class BrandsTests extends Fixture {
         apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
         apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
         apisSystem.createBrand.inputDomain(TEST_DATA[4]);
-        apisSystem.createBrand.selectCheckboxEnabled();
+        apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.createBrand.isErrorMessagePresent());
     }
@@ -107,7 +107,7 @@ public class BrandsTests extends Fixture {
         apisSystem.createBrand.inputApiPassword(TEST_DATA[2] + 2);
         apisSystem.createBrand.inputBrandName(TEST_DATA[3] + 2);
         apisSystem.createBrand.inputDomain(TEST_DATA[4] + "2.com");
-        apisSystem.createBrand.selectCheckboxEnabled();
+        apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
     }

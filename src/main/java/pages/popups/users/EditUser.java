@@ -1,51 +1,19 @@
-package pages.users.popup;
+package pages.popups.users;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
-import pages.Page;
+import pages.popups.MainPopup;
 import utils.WebDriverWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditUser extends Page {
+public class EditUser extends MainPopup {
 
     private static final Logger log = Logger.getLogger(EditUser.class);
 
     public EditUser(WebDriverWrapper driverWrapper) {
         super(driverWrapper);
-    }
-
-    /**
-     * Check is pop up window displayed on a page
-     */
-    public boolean isPopupPresent() {
-        return web.isElementPresent("editUser");
-    }
-
-    /**
-     * Check is pop up window 'Edit user' loaded
-     *
-     * @return true if pop up window down buttons loaded, otherwise false
-     */
-    public boolean waitPopupLoaded() {
-        return web.waitElementToBeVisibility("editUserDown");
-    }
-
-    /**
-     * Click on button 'Save' or 'Cancel'
-     *
-     * @param button where
-     *               true - button 'Save'
-     *               false - button 'Cancel'
-     */
-    public void clickButtonSaveOrCancel(boolean button) {
-        List<WebElement> buttonsList = web.getElements("editUserButtons");
-        if (button) {
-            buttonsList.get(0).click();
-        } else {
-            buttonsList.get(1).click();
-        }
     }
 
     /**
@@ -166,14 +134,6 @@ public class EditUser extends Page {
      */
     public void clickOnEnabled() {
         web.selectCheckBox("editUserEnabled");
-    }
-
-    public boolean waitInvisibilityPopup() {
-        return web.waitDisappearElement("editUserPopup");
-    }
-
-    public void closeEditUserPopup() {
-        web.clickLink("editUserClose");
     }
 
 }

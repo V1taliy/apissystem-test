@@ -1,14 +1,17 @@
 package pages;
 
 import pages.brands.BrandsPage;
-import pages.brands.popup.CreateBrand;
-import pages.brands.popup.DeleteBrand;
-import pages.brands.popup.EditBrand;
+import pages.popups.MainPopup;
+import pages.popups.brands.CreateBrand;
+import pages.popups.brands.DeleteBrand;
+import pages.popups.brands.EditBrand;
 import pages.deskExpirationTime.DeskExpirationTime;
-import pages.deskExpirationTime.popup.Edit;
+import pages.popups.deskExpirationTime.Edit;
+import pages.popups.groups.CreateGroup;
+import pages.popups.groups.EditGroup;
 import pages.users.UsersPage;
-import pages.users.popup.EditDesks;
-import pages.users.popup.EditUser;
+import pages.popups.users.EditDesks;
+import pages.popups.users.EditUser;
 import utils.WebDriverWrapper;
 import utils.WebElementsActions;
 
@@ -27,6 +30,9 @@ public class ApisSystem {
     public Edit edit;
     public EditDesks editDesks;
     public ListEntity listEntity;
+    public MainPopup mainPopup;
+    public CreateGroup createGroup;
+    public EditGroup editGroup;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -42,6 +48,9 @@ public class ApisSystem {
         edit = new Edit(driverWrapper);
         editDesks = new EditDesks(driverWrapper);
         listEntity = new ListEntity(driverWrapper);
+        mainPopup = new MainPopup(driverWrapper);
+        createGroup = new CreateGroup(driverWrapper);
+        editGroup = new EditGroup(driverWrapper);
     }
 
 }
