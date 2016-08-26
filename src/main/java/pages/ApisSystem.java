@@ -1,6 +1,7 @@
 package pages;
 
 import pages.brands.BrandsPage;
+import pages.entity.FilterEntity;
 import pages.entity.ListEntity;
 import pages.popups.MainPopup;
 import pages.popups.brands.CreateBrand;
@@ -31,6 +32,7 @@ public class ApisSystem {
     public Edit edit;
     public EditDesks editDesks;
     public ListEntity listEntity;
+    public FilterEntity filterEntity;
     public MainPopup mainPopup;
     public CreateGroup createGroup;
     public EditGroup editGroup;
@@ -52,6 +54,7 @@ public class ApisSystem {
         mainPopup = new MainPopup(driverWrapper);
         createGroup = new CreateGroup(driverWrapper);
         editGroup = new EditGroup(driverWrapper);
+        filterEntity = new FilterEntity(driverWrapper);
     }
 
 }
