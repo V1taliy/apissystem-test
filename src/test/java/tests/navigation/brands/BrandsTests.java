@@ -224,7 +224,7 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 20, dependsOnMethods = {"goToBrandsTab"})
     public void filterAllFilters() {
-        String enabledStatus = null;
+        String enabledStatus;
         apisSystem.brandsPage.filterClickSearchOrReset(false);
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("firstPositionBrandName");
