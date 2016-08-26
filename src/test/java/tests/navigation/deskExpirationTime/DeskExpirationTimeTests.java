@@ -1,12 +1,10 @@
 package tests.navigation.deskExpirationTime;
 
-import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.Fixture;
 import utils.PropertyLoader;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class DeskExpirationTimeTests extends Fixture {
@@ -17,7 +15,6 @@ public class DeskExpirationTimeTests extends Fixture {
     private static final String DESK_EXPIRATION_TIME_URL = PropertyLoader.loadProperty("deskTime.url");
     private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
     private static final String[] BUTTONS_NAME_ARRAY = {"first", "previous", "next", "last"};
-    private static ArrayList<String> BRANDS_NAME_LIST = new ArrayList<>();
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
@@ -109,7 +106,7 @@ public class DeskExpirationTimeTests extends Fixture {
     @Test(priority = 11, dependsOnMethods = {"goToDeskExpirationTime"})
     public void changeSomeBrandsEnabled() {
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.brandsPage.selectTableSort(2);
+//        apisSystem.brandsPage.selectTableSort(2);
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
         apisSystem.brandsPage.selectTableSort(1);
         apisSystem.brandsPage.clickBrandCheckbox(1);
