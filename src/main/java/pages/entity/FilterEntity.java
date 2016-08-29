@@ -28,8 +28,10 @@ public class FilterEntity extends Page {
     public void clickSearchOrResetButton(boolean button) {
         List<WebElement> buttonsList = web.getElements("buttonsList");
         if (button) {
+            log.info(String.format("click button < %s >", buttonsList.get(0).getText()));
             buttonsList.get(0).click();
         } else {
+            log.info(String.format("click button < %s >", buttonsList.get(1).getText()));
             buttonsList.get(1).click();
         }
     }
