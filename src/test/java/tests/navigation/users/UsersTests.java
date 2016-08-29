@@ -20,7 +20,7 @@ public class UsersTests extends Fixture {
     private static final int actionButtonPosition = 1;
     private static final int ITEM_EDIT_USER = 4;
     private static final int ITEM_EDIT_DESKS = 6;
-    private static final String[] DATA_TEST = {"firstNameTest", "lastNameTest"};
+    private static final String[] DATA_TEST = {"First-Name-Test", "Last-Name-Test"};
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
