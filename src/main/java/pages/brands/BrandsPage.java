@@ -40,21 +40,21 @@ public class BrandsPage extends Page {
         }
     }
 
-    /**
-     * Click on button 'Search' or 'Reset'
-     *
-     * @param button where
-     *               true - Search
-     *               false - Reset
-     */
-    public void filterClickSearchOrReset(boolean button) {
-        List<WebElement> buttonsList = web.getElements("filterButtonList");
-        if (button) {
-            buttonsList.get(0).click();
-        } else {
-            buttonsList.get(1).click();
-        }
-    }
+//    /**
+//     * Click on button 'Search' or 'Reset'
+//     *
+//     * @param button where
+//     *               true - Search
+//     *               false - Reset
+//     */
+//    public void filterClickSearchOrReset(boolean button) {
+//        List<WebElement> buttonsList = web.getElements("filterButtonList");
+//        if (button) {
+//            buttonsList.get(0).click();
+//        } else {
+//            buttonsList.get(1).click();
+//        }
+//    }
 
     /**
      * Click action button

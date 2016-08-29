@@ -100,6 +100,9 @@ public class DeskExpirationTimeTests extends Fixture {
     @Test(priority = 10, dependsOnMethods = {"goToDeskExpirationTime"})
     public void switchToBrands() {
         apisSystem.mainPage.clickOnNavigationItem(2);
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
         Assert.assertEquals(apisSystem.deskExpirationTime.getCurrentPageURL(), BRANDS_URL);
     }
 
@@ -108,6 +111,11 @@ public class DeskExpirationTimeTests extends Fixture {
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
 //        apisSystem.brandsPage.selectTableSort(2);
         apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         apisSystem.brandsPage.selectTableSort(1);
         apisSystem.brandsPage.clickBrandCheckbox(1);
         apisSystem.brandsPage.clickToggleButton(true);
