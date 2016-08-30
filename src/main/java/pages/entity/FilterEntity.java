@@ -42,7 +42,7 @@ public class FilterEntity extends Page {
     public void waitLoadedAttributeToBeEmptyClass() {
         WebElement element = web.getElement("isLoadedElement");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout15sec")));
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout20sec")));
         wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
     }
 
