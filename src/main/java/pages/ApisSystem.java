@@ -3,6 +3,7 @@ package pages;
 import pages.brands.BrandsPage;
 import pages.entity.FilterEntity;
 import pages.entity.ListEntity;
+import pages.message.GreenMessage;
 import pages.popups.MainPopup;
 import pages.popups.brands.CreateBrand;
 import pages.popups.brands.DeleteBrand;
@@ -36,6 +37,7 @@ public class ApisSystem {
     public MainPopup mainPopup;
     public CreateGroup createGroup;
     public EditGroup editGroup;
+    public GreenMessage greenMessage;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -55,6 +57,7 @@ public class ApisSystem {
         createGroup = new CreateGroup(driverWrapper);
         editGroup = new EditGroup(driverWrapper);
         filterEntity = new FilterEntity(driverWrapper);
+        greenMessage = new GreenMessage(driverWrapper);
     }
 
 }

@@ -93,8 +93,8 @@ public class DeskExpirationTimeTests extends Fixture {
         apisSystem.edit.inputExpirationTime(100);
         apisSystem.edit.clickButtonSaveOrCancel(true);
         apisSystem.edit.waitInvisibilityPopup();
-        apisSystem.deskExpirationTime.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.deskExpirationTime.isMessageSuccessPresent());
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 10, dependsOnMethods = {"goToDeskExpirationTime"})
@@ -108,21 +108,22 @@ public class DeskExpirationTimeTests extends Fixture {
 
     @Test(priority = 11, dependsOnMethods = {"goToDeskExpirationTime"})
     public void changeSomeBrandsEnabled() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        try {
+            Thread.sleep(1000);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 //        apisSystem.brandsPage.selectTableSort(2);
 //        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         apisSystem.brandsPage.selectTableSort(1);
         apisSystem.brandsPage.clickBrandCheckbox(1);
         apisSystem.brandsPage.clickToggleButton(true);
-        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        // TODO
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 12, dependsOnMethods = {"goToDeskExpirationTime"})

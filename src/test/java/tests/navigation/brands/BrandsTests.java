@@ -1,5 +1,7 @@
 package tests.navigation.brands;
 
+import org.apache.log4j.Logger;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.Fixture;
@@ -8,6 +10,8 @@ import utils.PropertyLoader;
 import java.util.concurrent.TimeUnit;
 
 public class BrandsTests extends Fixture {
+
+    private static final Logger log = Logger.getLogger(BrandsTests.class);
 
     private static final String ADMIN_NAME = PropertyLoader.loadProperty("admin.name");
     private static final String ADMIN_PASSWORD = PropertyLoader.loadProperty("admin.password");
@@ -45,20 +49,24 @@ public class BrandsTests extends Fixture {
                 apisSystem.brandsPage.selectTableSort(i);
             }
         }
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.brandsPage.selectTableSort(2);
     }
 
     @Test(priority = 4, dependsOnMethods = {"goToBrandsTab"})
     public void selectBrandAndClickToggleButtons() {
         boolean button = false;
-        int brandPosition = 1;
+        int brandPosition = 2;
         for (int i = 1; i <= 2; i++) {
             if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.brandsPage.clickBrandCheckbox(brandPosition);
             apisSystem.brandsPage.clickToggleButton(button);
-            apisSystem.brandsPage.waitMessageSuccessPresent();
-            Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+            apisSystem.greenMessage.waitMessageSuccessPresent();
+            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
             button = true;
             brandPosition++;
         }
@@ -95,7 +103,7 @@ public class BrandsTests extends Fixture {
         apisSystem.createBrand.inputDomain(TEST_DATA[4] + ".com");
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         apisSystem.createBrand.waitInvisibilityPopup();
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 9, dependsOnMethods = {"goToBrandsTab"})
@@ -109,7 +117,7 @@ public class BrandsTests extends Fixture {
         apisSystem.createBrand.inputDomain(TEST_DATA[4] + "2.com");
         apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 10, dependsOnMethods = {"goToBrandsTab"})
@@ -139,7 +147,7 @@ public class BrandsTests extends Fixture {
         apisSystem.editBrand.inputBrandName(TEST_DATA[3] + "edit");
         apisSystem.editBrand.clickButtonSaveOrCancel(true);
         apisSystem.editBrand.waitInvisibilityPopup();
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
         apisSystem.editBrand.waitInvisibilityPopup();
     }
 
@@ -152,10 +160,15 @@ public class BrandsTests extends Fixture {
     public void clickDisableFromCogwheel() {
         apisSystem.filterEntity.clickSearchOrResetButton(false);
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickActionButton(2);
         apisSystem.brandsPage.clickItemFromDropDownMenu(3);
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 15, dependsOnMethods = {"goToBrandsTab"})
@@ -163,15 +176,25 @@ public class BrandsTests extends Fixture {
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        apisSystem.brandsPage.clickActionButton(1);
+        apisSystem.brandsPage.clickActionButton(2);
         apisSystem.brandsPage.clickItemFromDropDownMenu(4);
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 16, dependsOnMethods = {"goToBrandsTab"})
     public void filterBrandNameCorrect() {
-        String brandName = apisSystem.brandsPage.getValueFromFirstBrandName("filterFirstBrandName");
+        String brandName = null;
+        try {
+            brandName = apisSystem.brandsPage.getValueFromFirstBrandName("filterFirstBrandName");
+        } catch (StaleElementReferenceException e) {
+            log.error("stale element reference: element is not attached to the page document");
+        }
         apisSystem.brandsPage.filterInputBrandName(brandName);
         apisSystem.brandsPage.filterClickAndSelectEnabled(true);
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
@@ -257,7 +280,7 @@ public class BrandsTests extends Fixture {
         apisSystem.deleteBrand.waitPopupLoaded();
         apisSystem.deleteBrand.clickButtonCancelOrYes(true);
         apisSystem.deleteBrand.waitInvisibilityPopup();
-        Assert.assertTrue(apisSystem.brandsPage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
         apisSystem.deleteBrand.waitInvisibilityPopup();
     }
 

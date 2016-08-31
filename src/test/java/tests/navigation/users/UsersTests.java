@@ -67,8 +67,8 @@ public class UsersTests extends Fixture {
             }
             apisSystem.usersPage.clickUserCheckbox(userPosition);
             apisSystem.usersPage.clickToggleButton(button);
-            apisSystem.usersPage.waitMessageSuccessPresent();
-            Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+            apisSystem.greenMessage.waitMessageSuccessPresent();
+            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
             button = false;
         }
     }
@@ -76,24 +76,39 @@ public class UsersTests extends Fixture {
     @Test(priority = 5, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void clickedOnDisableUser() {
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(1);
-        apisSystem.usersPage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 6, dependsOnMethods = {"goToUsersTab"})
     public void clickedOnEnableUser() {
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
-        apisSystem.usersPage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 7, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void clickedOnEditUser() {
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         // select 'Edit user' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_USER);
@@ -147,18 +162,22 @@ public class UsersTests extends Fixture {
     public void editUserInputLastName() {
         try {
             Thread.sleep(500);
+            apisSystem.editUser.inputLastName(true, DATA_TEST[1]);
+            apisSystem.editUser.clickButtonSaveOrCancel(true);
+            Thread.sleep(300);
+            apisSystem.greenMessage.waitMessageSuccessPresent();
+            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        apisSystem.editUser.inputLastName(true, DATA_TEST[1]);
-        apisSystem.editUser.clickButtonSaveOrCancel(true);
-        apisSystem.usersPage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
     }
 
     @Test(priority = 14, dependsOnMethods = {"goToUsersTab"})
     public void openEditDesksPopup() {
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.greenMessage.waitInvisibilityOverlay();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         // select 'Edit desks' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_DESKS);
@@ -217,8 +236,8 @@ public class UsersTests extends Fixture {
         }
         apisSystem.editUser.clickOnEnabled();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
-        apisSystem.usersPage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.usersPage.isMessageSuccessPresent());
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 21, enabled = true, dependsOnMethods = {"goToUsersTab"})
