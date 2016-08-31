@@ -243,6 +243,7 @@ public class UsersTests extends Fixture {
     @Test(priority = 21, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputUsername() {
         apisSystem.editUser.waitInvisibilityPopup();
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         String username = apisSystem.usersPage.getValue("firstUserUsername");
         apisSystem.usersPage.inputUserName(username);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
@@ -253,7 +254,8 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 22, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputFirstName() {
-        apisSystem.editUser.waitInvisibilityPopup();
+//        apisSystem.editUser.waitInvisibilityPopup();
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
         apisSystem.usersPage.inputFirstName(firstName);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
@@ -264,7 +266,8 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 23, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputLastName() {
-        apisSystem.editUser.waitInvisibilityPopup();
+//        apisSystem.editUser.waitInvisibilityPopup();
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         String lastName = apisSystem.usersPage.getValue("firstUserLastName");
         apisSystem.usersPage.inputLastName(lastName);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
@@ -275,7 +278,8 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 24, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputEmail() {
-        apisSystem.editUser.waitInvisibilityPopup();
+//        apisSystem.editUser.waitInvisibilityPopup();
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -291,7 +295,8 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 25, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterSelectGroup() {
-        apisSystem.editUser.waitInvisibilityPopup();
+//        apisSystem.editUser.waitInvisibilityPopup();
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
