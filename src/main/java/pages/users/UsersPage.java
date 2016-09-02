@@ -18,8 +18,6 @@ public class UsersPage extends Page {
         super(driverWrapper);
     }
 
-    private static int userRandomCheckbox;
-
     // methods for FILTER
 
     public void inputUserName(String userName) {
@@ -109,25 +107,6 @@ public class UsersPage extends Page {
     }
 
     /**
-     * Wait for message present on a page
-     */
-    public void waitMessageSuccessPresent() {
-        web.waitElementToBeVisibility("greenMessage");
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Is message 'Success' present on a page
-     */
-    public boolean isMessageSuccessPresent() {
-        return web.isElementPresent("greenMessage");
-    }
-
-    /**
      * Click action button
      */
     public void clickActionButton(int buttonPosition) {
@@ -139,24 +118,6 @@ public class UsersPage extends Page {
     }
 
     /**
-     * Wait for loaded element will be class empty
-     */
-    public void waitLoadedAttributeToBeEmptyClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
-        wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
-    }
-
-    /**
-     * Check is loaded element have some parameters
-     */
-    public boolean isLoadedClassHaveAttributeInClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        return element.getAttribute("class").contains("traditional");
-    }
-
-    /**
      * Click action item from drop down menu
      *
      * @param menuItem item from menu, where
@@ -164,6 +125,8 @@ public class UsersPage extends Page {
      *                 2 - 'Enable user'
      *                 3 - not used
      *                 4 - Edit user
+     *                 5 - not used
+     *                 6- Edit desks
      */
     public void clickItemActionFromDropDownMenu(int menuItem) {
         List<WebElement> elementActionDropDownList = web.getElements("actionItemDropDownList");

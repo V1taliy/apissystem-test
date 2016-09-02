@@ -1,17 +1,17 @@
-package pages.users.popup;
+package pages.popups.users;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.PopupWindow;
-import pages.deskExpirationTime.popup.Edit;
+import pages.popups.MainPopup;
+import pages.popups.deskExpirationTime.Edit;
 import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
 import java.util.List;
 
-public class EditDesks extends PopupWindow {
+public class EditDesks extends MainPopup {
 
     private static final Logger log = Logger.getLogger(Edit.class);
 
@@ -114,22 +114,6 @@ public class EditDesks extends PopupWindow {
             log.info(String.format("desk name = < %s >", text));
         }
         return text;
-    }
-
-    /**
-     * Click on button 'Save' or 'Cancel'
-     *
-     * @param button where
-     *               true - button 'Save'
-     *               false - button 'Cancel'
-     */
-    public void clickButtonSaveOrCancel(boolean button) {
-        List<WebElement> buttonsList = web.getElements("editDesksButtonsList");
-        if (button) {
-            buttonsList.get(0).click();
-        } else {
-            buttonsList.get(1).click();
-        }
     }
 
     /**

@@ -19,26 +19,6 @@ public class DeskExpirationTime extends Page {
     }
 
     /**
-     * Wait for processing disappear
-     */
-    public void waitLoadedAttributeToBeEmptyClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout20sec")));
-        wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
-    }
-
-    /**
-     * Check is processing element present on the page
-     *
-     * @return true if processing element present, otherwise false
-     */
-    public boolean isLoadedClassHaveAttributeInClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        return element.getAttribute("class").contains("traditional");
-    }
-
-    /**
      * Select and click table sort
      *
      * @param tableNumber number of table, where
@@ -153,11 +133,31 @@ public class DeskExpirationTime extends Page {
     }
 
     /**
-     * Click on brand field
+     * Get first brand name from list data table
      */
-    public void filterClickBrandField() {
-        web.clickLink("filterBrandField");
+    public String getBrandNameFromList() {
+        List<WebElement> brandsNameList = web.getElements("expirationBrandList");
+        log.info(brandsNameList.get(0).getText());
+        return brandsNameList.get(0).getText();
     }
+
+    public String listGetDeskName() {
+        log.info(String.format("value = %s", web.getElement("listDeskName").getText()));
+        return web.getElement("listDeskName").getText();
+    }
+
+    public void waitDeskToBeActive() {
+        WebElement element = web.getElement("filterDeskBrand");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout20sec")));
+        wait.until(ExpectedConditions.attributeToBe(element, "disabled", ""));
+    }
+
+    public void scrollPageToNavigationWrapper() {
+        web.scrollToElement("navigationWrapper");
+    }
+
+    /* Methods for filter entity*/
 
     /**
      * Get brand value from brand field
@@ -176,24 +176,6 @@ public class DeskExpirationTime extends Page {
         int random = (int) Math.random() * brandsList.size();
         log.info("clicked on " + brandsList.get(random).getText());
         brandsList.get(random).click();
-    }
-
-    /**
-     * Click on button 'Reset' or 'Search'
-     *
-     * @param buttonStatus button, where
-     *                     true - 'Search' button
-     *                     false - 'Reset' button
-     */
-    public void filterClickOnSearchOrReset(boolean buttonStatus) {
-        List<WebElement> buttonsList = web.getElements("filterButtonList");
-        if (buttonStatus) {
-            log.info(String.format("clicked on button < %s >", buttonsList.get(0).getText()));
-            buttonsList.get(0).click();
-        } else {
-            log.info(String.format("clicked on button < %s >", buttonsList.get(1).getText()));
-            buttonsList.get(1).click();
-        }
     }
 
     /**
@@ -237,69 +219,6 @@ public class DeskExpirationTime extends Page {
      */
     public void filterClickOnDesk() {
         web.clickLink("filterDeskBrand");
-    }
-
-    /**
-     * Get first name from list data table
-     */
-    public String getNameFromList() {
-        List<WebElement> nameList = web.getElements("expirationNameList");
-        log.info(nameList.get(0).getText());
-        return nameList.get(0).getText();
-    }
-
-    /**
-     * Get first brand name from list data table
-     */
-    public String getBrandNameFromList() {
-        List<WebElement> brandsNameList = web.getElements("expirationBrandList");
-        log.info(brandsNameList.get(0).getText());
-        return brandsNameList.get(0).getText();
-    }
-
-    public String listGetDeskName() {
-        log.info(String.format("value = %s", web.getElement("listDeskName").getText()));
-        return web.getElement("listDeskName").getText();
-    }
-
-    public String listGetBrandName() {
-        return web.getElement("listBrandName").getText();
-    }
-
-    public void waitDeskToBeActive() {
-        WebElement element = web.getElement("filterDeskBrand");
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout20sec")));
-        wait.until(ExpectedConditions.attributeToBe(element, "disabled", ""));
-    }
-
-    public WebElement getNoMatchingRecords() {
-        WebElement element = web.getElement("listEmpty");
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
-        return wait.until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public String getNoMatchingRecordsText() {
-        return web.getElement("listEmpty").getText();
-    }
-
-    /**
-     * Wait for message present on a page
-     */
-    public void waitMessageSuccessPresent() {
-        web.waitElementToBeVisibility("greenMessage");
-    }
-
-    /**
-     * Is message 'Success' present on a page
-     */
-    public boolean isMessageSuccessPresent() {
-        return web.isElementPresent("greenMessage");
-    }
-
-    public void scrollPageToNavigationWrapper() {
-        web.scrollToElement("navigationWrapper");
     }
 
 }

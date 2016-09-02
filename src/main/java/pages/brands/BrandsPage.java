@@ -18,44 +18,6 @@ public class BrandsPage extends Page {
         super(driverWrapper);
     }
 
-    public void filterInputBrandName(String brandName) {
-        web.clearAndInput("filterBrandNameInput", brandName);
-    }
-
-    /**
-     * Click enabled field and select 'Enabled' or 'Disabled'
-     *
-     * @param status where
-     *               true - enabled
-     *               false - disabled
-     * @info elementList.get(0) - Select (don't click)
-     */
-    public void filterClickAndSelectEnabled(boolean status) {
-        web.clickLink("filterEnabledLink");
-        List<WebElement> elementList = web.getElements("filterEnabledList");
-        if (status) {
-            elementList.get(1).click();
-        } else {
-            elementList.get(2).click();
-        }
-    }
-
-    /**
-     * Click on button 'Search' or 'Reset'
-     *
-     * @param button where
-     *               true - Search
-     *               false - Reset
-     */
-    public void filterClickSearchOrReset(boolean button) {
-        List<WebElement> buttonsList = web.getElements("filterButtonList");
-        if (button) {
-            buttonsList.get(0).click();
-        } else {
-            buttonsList.get(1).click();
-        }
-    }
-
     /**
      * Click action button
      */
@@ -92,21 +54,6 @@ public class BrandsPage extends Page {
     }
 
     /**
-     * Click button 'Create' or 'Delete' brand
-     *
-     * @param selectButton where
-     *                     true - 'Create brand' button
-     *                     false - 'Delete brand' button
-     */
-    public void createOrDeleteBrand(boolean selectButton) {
-        if (selectButton) {
-            web.clickButton("createBrandButton");
-        } else {
-            web.clickButton("deleteBrandButton");
-        }
-    }
-
-    /**
      * Click button 'Disable user' or 'Enable user'
      *
      * @param selectButton button, where
@@ -119,6 +66,21 @@ public class BrandsPage extends Page {
             buttonList.get(1).click();
         } else {
             buttonList.get(0).click();
+        }
+    }
+
+    /**
+     * Click button 'Create' or 'Delete' brand
+     *
+     * @param selectButton where
+     *                     true - 'Create brand' button
+     *                     false - 'Delete brand' button
+     */
+    public void createOrDeleteBrand(boolean selectButton) {
+        if (selectButton) {
+            web.clickButton("createBrandButton");
+        } else {
+            web.clickButton("deleteBrandButton");
         }
     }
 
@@ -137,40 +99,6 @@ public class BrandsPage extends Page {
         tableList.get(tableNumber - 1).click();
     }
 
-    /**
-     * Wait for processing disappear
-     */
-    public void waitLoadedAttributeToBeEmptyClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
-        wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
-    }
-
-    /**
-     * Check is processing element present on the page
-     *
-     * @return true if processing element present, otherwise false
-     */
-    public boolean isLoadedClassHaveAttributeInClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        return element.getAttribute("class").contains("traditional");
-    }
-
-    /**
-     * Wait for message present on a page
-     */
-    public void waitMessageSuccessPresent() {
-        web.waitElementToBeVisibility("greenMessage");
-    }
-
-    /**
-     * Is message 'Success' present on a page
-     */
-    public boolean isMessageSuccessPresent() {
-        return web.isElementPresent("greenMessage");
-    }
-
     public void waitInvisibilityOverlay() {
         web.waitDisappearElement("overlay");
     }
@@ -186,30 +114,6 @@ public class BrandsPage extends Page {
     }
 
     /**
-     * Get text from brand name in position
-     *
-     * @param brandPosition brand position in data table
-     */
-    public String getBrandNameText(int brandPosition) {
-        List<WebElement> brandsNameList = web.getElements("brandNameList");
-        log.info(String.format("get text < %s > from brand in position < %s >",
-                brandsNameList.get(brandPosition - 1).getText(), brandPosition));
-        return brandsNameList.get(brandPosition - 1).getText();
-    }
-
-    /**
-     * Get enabled status from brand name in position
-     *
-     * @param brandPosition brand position in data table
-     */
-    public boolean getBrandEnablesStatus(int brandPosition) {
-        List<WebElement> brandsEnabledStatusList = web.getElements("brandEnabledStatusList");
-        log.info(String.format("get status < %s > from brand in position < %s >",
-                brandsEnabledStatusList.get(brandPosition - 1).getText(), brandPosition));
-        return Boolean.parseBoolean(brandsEnabledStatusList.get(brandPosition - 1).getText());
-    }
-
-    /**
      * Get value from input field
      *
      * @param locator input field locator
@@ -222,5 +126,28 @@ public class BrandsPage extends Page {
         return web.getElements("firstPositionBrand").size();
     }
 
+    /* methods for filter entity*/
+
+    public void filterInputBrandName(String brandName) {
+        web.clearAndInput("filterBrandNameInput", brandName);
+    }
+
+    /**
+     * Click enabled field and select 'Enabled' or 'Disabled'
+     *
+     * @param status where
+     *               true - enabled
+     *               false - disabled
+     * @info elementList.get(0) - Select (don't click)
+     */
+    public void filterClickAndSelectEnabled(boolean status) {
+        web.clickLink("filterEnabledLink");
+        List<WebElement> elementList = web.getElements("filterEnabledList");
+        if (status) {
+            elementList.get(1).click();
+        } else {
+            elementList.get(2).click();
+        }
+    }
 
 }

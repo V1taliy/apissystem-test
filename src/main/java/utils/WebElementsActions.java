@@ -463,7 +463,7 @@ public class WebElementsActions {
     public boolean waitElementToBeVisibility(String visibilityLocator) throws NoSuchElementException {
         WebElement element = driverWrapper.findElement(config.getLocator(visibilityLocator));
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout20sec")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(config.getLocator(visibilityLocator)));
         return element.isDisplayed();
     }

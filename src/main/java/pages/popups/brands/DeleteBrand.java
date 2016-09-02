@@ -1,4 +1,4 @@
-package pages.brands.popup;
+package pages.popups.brands;
 
 import org.openqa.selenium.WebElement;
 import pages.Page;

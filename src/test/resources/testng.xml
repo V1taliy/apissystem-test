@@ -3,7 +3,7 @@
     <suite-files>
         <suite-file path="login.xml"/>
         <suite-file path="users.xml"/>
-        <suite-file path="brands.xml"/>
         <suite-file path="deskExpirationTime.xml"/>
+        <suite-file path="brands.xml"/>
     </suite-files>
 </suite>
