@@ -15,6 +15,7 @@ import pages.popups.groups.EditGroup;
 import pages.users.UsersPage;
 import pages.popups.users.EditDesks;
 import pages.popups.users.EditUser;
+import pages.withdrawal.WithdrawalPage;
 import utils.WebDriverWrapper;
 import utils.WebElementsActions;
 
@@ -38,6 +39,7 @@ public class ApisSystem {
     public CreateGroup createGroup;
     public EditGroup editGroup;
     public GreenMessage greenMessage;
+    public WithdrawalPage withdrawalPage;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -58,6 +60,7 @@ public class ApisSystem {
         editGroup = new EditGroup(driverWrapper);
         filterEntity = new FilterEntity(driverWrapper);
         greenMessage = new GreenMessage(driverWrapper);
+        withdrawalPage = new WithdrawalPage(driverWrapper);
     }
 
 }
