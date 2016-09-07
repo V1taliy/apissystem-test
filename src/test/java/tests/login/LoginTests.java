@@ -57,7 +57,7 @@ public class LoginTests extends Fixture {
     }
 
     @Test(priority = 6, dependsOnMethods = {"openWebSite"})
-    public void adminLogin() {
+    public static void adminLogin() {
         apisSystem.loginPage.inputUserName(ADMIN_NAME);
         apisSystem.loginPage.inputPassword(ADMIN_PASSWORD);
         apisSystem.loginPage.clickLoginButton();
