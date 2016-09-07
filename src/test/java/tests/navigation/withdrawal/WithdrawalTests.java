@@ -28,4 +28,21 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.brandsPage.getCurrentPageURL(), BRANDS_URL);
     }
 
+    @Test(priority = 4)
+    public void enableBrands() {
+        try {
+            Thread.sleep(1000);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        apisSystem.brandsPage.selectTableSort(1);
+        apisSystem.brandsPage.clickBrandCheckbox(1);
+        apisSystem.brandsPage.clickToggleButton(true);
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
 }
