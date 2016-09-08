@@ -16,6 +16,9 @@ public class WithdrawalTests extends Fixture {
     private static final String TEST_USER_7 = PropertyLoader.loadProperty("testUser7.name");
     private static final String TEST_USER_8 = PropertyLoader.loadProperty("testUser8.name");
 
+    private static int userIndex1 = 0;
+    private static int userIndex2 = 0;
+
     @Test(priority = 1, enabled = true)
     public void testUsersLogin() {
         TestUserLogin.openWebSiteAndLoginTestsUsers();
@@ -60,24 +63,54 @@ public class WithdrawalTests extends Fixture {
     }
 
     @Test(priority = 6)
-    public void editTestUser7selectGroupAndBrand() {
-        int userIndex;
+    public void testUser7_editUser_selectGroupAndBrand() {
         try {
             Thread.sleep(1000);
             apisSystem.usersPage.scrollDown();
+            userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
+            log.info(String.format("user index = %s", userIndex1));
+            apisSystem.usersPage.clickActionButton(++userIndex1);
+            // click edit user
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.editUser.waitPopupLoaded();
+            // select Retention TL
+            apisSystem.editUser.clickAndSelectGroup("Retention TL");
+            apisSystem.editUser.clickOnBrandsField();
+            // select toroption
+            apisSystem.editUser.clickOnSelectBrand(3);
+            apisSystem.editUser.clickButtonSaveOrCancel(true);
+            apisSystem.editUser.waitInvisibilityPopup();
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        userIndex = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
-        log.info(String.format("user index = %s", userIndex));
-        apisSystem.usersPage.clickActionButton(userIndex);
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
-        apisSystem.editUser.waitPopupLoaded();
-        // select Retention RL
-        apisSystem.editUser.clickAndSelectGroup(9);
-        apisSystem.editUser.clickOnBrandsField();
-        apisSystem.editUser.clickOnSelectBrand(3);
-        apisSystem.editUser.clickButtonSaveOrCancel(true);
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 7)
+    public void editUser7_editDesks_addDesk() {
+        apisSystem.usersPage.clickActionButton(userIndex1);
+        // click edit desks
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(6);
+        apisSystem.editDesks.waitPopupLoaded();
+        apisSystem.editDesks.clickOnBrandField();
+        String brandName = apisSystem.editDesks.selectBrandFromDropDownList(1);
+        apisSystem.editDesks.waitForDeskToBeActive();
+        // select Default Desk
+        String deskName = apisSystem.editDesks.selectDeskFromDropDownList(1);
+        apisSystem.editDesks.clickAddButton();
+        Assert.assertEquals(brandName, "toroption");
+        Assert.assertEquals(deskName, "Default Desk");
+        apisSystem.editDesks.clickButtonSaveOrCancel(true);
+        apisSystem.editDesks.waitInvisibilityPopup();
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
 }
