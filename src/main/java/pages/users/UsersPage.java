@@ -190,4 +190,8 @@ public class UsersPage extends Page {
         return list.get(0).getText();
     }
 
+    public void scrollDown() {
+        web.scrollToElement("footerApissystem");
+    }
+
 }

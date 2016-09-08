@@ -588,6 +588,7 @@ public class WebElementsActions {
     public void scrollToElement(String elementLocator) {
         WebElement element = driverWrapper.findElement(config.getLocator(elementLocator));
         int elementCoordinateY = element.getLocation().getY();
+        log.info(String.format("scroll to element coordinate to Y: %s", elementCoordinateY));
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
         javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
     }
