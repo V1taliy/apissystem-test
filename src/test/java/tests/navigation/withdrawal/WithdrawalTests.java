@@ -14,6 +14,7 @@ public class WithdrawalTests extends Fixture {
     private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");
     private static final String GROUPS_URL = PropertyLoader.loadProperty("groups.url");
+    private static final String WITHDRAWAL_URL = PropertyLoader.loadProperty("withdrawal.url");
     private static final String TEST_USER_7 = PropertyLoader.loadProperty("testUser7.name");
     private static final String TEST_USER_8 = PropertyLoader.loadProperty("testUser8.name");
 
@@ -172,6 +173,12 @@ public class WithdrawalTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test(priority = 12)
+    public void switchToWithdrawal() {
+        apisSystem.mainPage.clickOnNavigationItem(1);
+        Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
     }
 
 }
