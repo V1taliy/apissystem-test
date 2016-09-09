@@ -13,13 +13,14 @@ public class WithdrawalTests extends Fixture {
     private static final Logger log = Logger.getLogger(WithdrawalTests.class);
     private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");
+    private static final String GROUPS_URL = PropertyLoader.loadProperty("groups.url");
     private static final String TEST_USER_7 = PropertyLoader.loadProperty("testUser7.name");
     private static final String TEST_USER_8 = PropertyLoader.loadProperty("testUser8.name");
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
 
-    @Test(priority = 1, enabled = true)
+    @Test(priority = 1)
     public void testUsersLogin() {
         TestUserLogin.openWebSiteAndLoginTestsUsers();
     }
@@ -29,13 +30,13 @@ public class WithdrawalTests extends Fixture {
         LoginTests.loginForAdmin(false);
     }
 
-    @Test(priority = 3, enabled = true)
+    @Test(priority = 3)
     public void switchToBrands() {
         apisSystem.mainPage.clickOnNavigationItem(2);
         Assert.assertEquals(apisSystem.brandsPage.getCurrentPageURL(), BRANDS_URL);
     }
 
-    @Test(priority = 4, enabled = true)
+    @Test(priority = 4)
     public void enableBrands() {
         try {
             Thread.sleep(1000);
@@ -62,7 +63,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }
 
-    @Test(priority = 6)
+    @Test(priority = 6, enabled = false)
     public void testUser7EditUserSelectGroupAndBrand() {
         try {
             Thread.sleep(1000);
@@ -88,7 +89,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 7)
+    @Test(priority = 7, enabled = false)
     public void testUser7EditDesksAddDesk() {
         apisSystem.usersPage.clickActionButton(userIndex1);
         // click edit desks
@@ -113,7 +114,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 8)
+    @Test(priority = 8, enabled = false)
     public void testUser8EditUserSelectGroupAndBrand() {
         apisSystem.greenMessage.waitMessageInvisibility();
         userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
@@ -135,7 +136,42 @@ public class WithdrawalTests extends Fixture {
             e.printStackTrace();
         }
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
 
+    @Test(priority = 9)
+    public void switchToGroups() {
+        apisSystem.mainPage.clickOnNavigationItem(4);
+        Assert.assertEquals(apisSystem.groupsPage.getCurrentPageURL(), GROUPS_URL);
+    }
+
+    @Test(priority = 10)
+    public void selectRetentionTL() {
+        apisSystem.groupsPage.selectGroup("Retention TL");
+        apisSystem.withdrawalEntity.selectDeselectCheckBoxViewAll(true);
+        apisSystem.pagesEntity.selectCheckBoxWithdrawal();
+        apisSystem.groupsPage.clickButtonSave();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 11)
+    public void selectFinance() {
+        apisSystem.groupsPage.selectGroup("Finance");
+        try {
+            Thread.sleep(300);
+            apisSystem.withdrawalEntity.selectDeselectCheckBoxViewAll(false);
+            apisSystem.pagesEntity.selectCheckBoxWithdrawal();
+            apisSystem.groupsPage.clickButtonSave();
+            Thread.sleep(500);
+            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

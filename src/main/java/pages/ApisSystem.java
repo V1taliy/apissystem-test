@@ -4,6 +4,8 @@ import pages.brands.BrandsPage;
 import pages.entity.FilterEntity;
 import pages.entity.ListEntity;
 import pages.groups.GroupsPage;
+import pages.entity.groups.PagesEntity;
+import pages.entity.groups.WithdrawalEntity;
 import pages.message.GreenMessage;
 import pages.popups.MainPopup;
 import pages.popups.brands.CreateBrand;
@@ -42,6 +44,8 @@ public class ApisSystem {
     public GreenMessage greenMessage;
     public WithdrawalPage withdrawalPage;
     public GroupsPage groupsPage;
+    public PagesEntity pagesEntity;
+    public WithdrawalEntity withdrawalEntity;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -64,6 +68,8 @@ public class ApisSystem {
         greenMessage = new GreenMessage(driverWrapper);
         withdrawalPage = new WithdrawalPage(driverWrapper);
         groupsPage = new GroupsPage(driverWrapper);
+        pagesEntity = new PagesEntity(driverWrapper);
+        withdrawalEntity = new WithdrawalEntity(driverWrapper);
     }
 
 }
