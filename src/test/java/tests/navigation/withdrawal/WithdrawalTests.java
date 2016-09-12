@@ -17,6 +17,7 @@ public class WithdrawalTests extends Fixture {
     private static final String WITHDRAWAL_URL = PropertyLoader.loadProperty("withdrawal.url");
     private static final String TEST_USER_7 = PropertyLoader.loadProperty("testUser7.name");
     private static final String TEST_USER_8 = PropertyLoader.loadProperty("testUser8.name");
+    private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
@@ -169,7 +170,6 @@ public class WithdrawalTests extends Fixture {
             apisSystem.groupsPage.clickButtonSave();
             Thread.sleep(500);
             Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
-            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -179,6 +179,20 @@ public class WithdrawalTests extends Fixture {
     public void switchToWithdrawal() {
         apisSystem.mainPage.clickOnNavigationItem(1);
         Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
+    }
+
+    @Test(priority = 13)
+    public void selectCustomerIDandBrand() {
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        apisSystem.withdrawalPage.inputCustomerID(TEST_CUSTOMER_ID);
+        apisSystem.withdrawalPage.deleteAllBrands();
     }
 
 }
