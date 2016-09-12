@@ -183,16 +183,44 @@ public class WithdrawalTests extends Fixture {
 
     @Test(priority = 13)
     public void selectCustomerIDandBrand() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        }
         try {
-            Thread.sleep(15000);
+            Thread.sleep(5000);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         apisSystem.withdrawalPage.inputCustomerID(TEST_CUSTOMER_ID);
         apisSystem.withdrawalPage.deleteAllBrands();
+        apisSystem.withdrawalPage.inputBrand("toroption");
+        apisSystem.withdrawalPage.selectStatus(1);
+        apisSystem.filterEntity.clickSearchOrResetButton(true);
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID_fromFirstRow(), TEST_CUSTOMER_ID);
+    }
+
+    @Test(priority = 14)
+    public void clickOnPlusIcon() {
+        apisSystem.withdrawalPage.clickOnPlusOnFirstRow();
+        apisSystem.withdrawalPage.waitForLoaders("customer");
+        apisSystem.withdrawalPage.scrollToElement("withdrawalDepositsLink");
+        apisSystem.withdrawalPage.clickDepositsLink();
+        apisSystem.withdrawalPage.waitForLoaders("deposits");
+        apisSystem.withdrawalPage.scrollToElement("withdrawalWithdrawalsLink");
+        apisSystem.withdrawalPage.clickWithdrawalsLink();
+        apisSystem.withdrawalPage.waitForLoaders("withdrawal");
+        apisSystem.withdrawalPage.scrollToElementBack("withdrawalWithdrawalsLink");
+        apisSystem.withdrawalPage.clickWithdrawalsLink();
+        apisSystem.withdrawalPage.scrollToElementBack("withdrawalDepositsLink");
+        apisSystem.withdrawalPage.clickDepositsLink();
+        for (int i = 3; i > 0; i--) {
+            apisSystem.withdrawalPage.clickOnItemsFromUser(i);
+        }
+        apisSystem.withdrawalPage.clickOnPlusOnFirstRow();
+        Assert.assertTrue(apisSystem.withdrawalPage.isPlusItemActive());
     }
 
 }
