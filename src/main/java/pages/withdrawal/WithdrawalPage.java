@@ -115,27 +115,14 @@ public class WithdrawalPage extends Page {
         itemsList.get(linkPosition - 1).click();
     }
 
-//    public void waitCustomerLoaderDisappear() {
-//        WebElement element = web.getElement("withdrawalCustomerLoader");
-//        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-//                Long.parseLong(PropertyLoader.loadProperty("wait.timeout15sec")));
-//        wait.until(ExpectedConditions.attributeContains(element, "class", "loader-hide"));
-//    }
-//
-//    public void waitDepositsLoaderDisappear() {
-//        WebElement element = web.getElement("withdrawalDepositsLoader");
-//        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-//                Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
-//        wait.until(ExpectedConditions.attributeContains(element, "class", "loader-hide"));
-//    }
-//
-//    public void waitWithdrawalLoaderDisappear() {
-//        WebElement element = web.getElement("withdrawalWithdrawalsLoader");
-//        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-//                Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
-//        wait.until(ExpectedConditions.attributeContains(element, "class", "loader-hide"));
-//    }
-
+    /**
+     * Wait for loaders
+     *
+     * @param selectLoader where
+     *                     customer - loader for customer
+     *                     deposits - loader for deposits
+     *                     withdrawal - loader for withdrawal
+     */
     public void waitForLoaders(String selectLoader) {
         WebElement element = null;
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
@@ -150,16 +137,32 @@ public class WithdrawalPage extends Page {
         wait.until(ExpectedConditions.attributeContains(element, "class", "loader-hide"));
     }
 
+    /**
+     * Scroll to element(+) without header
+     */
     public void scrollToElement(String elementLocator) {
         web.scrollToElement(elementLocator, "navigationWrapper");
     }
 
+    /**
+     * Scroll to element(-) without header
+     */
     public void scrollToElementBack(String elementLocator) {
         web.scrollToElementBack(elementLocator, "navigationWrapper");
     }
 
+    /**
+     * Is button plus (+) to be clicked
+     */
     public boolean isPlusItemActive() {
         return web.isElementPresent("withdrawalCustomerPlus_1row", 500);
+    }
+
+    /**
+     * Click on button 'Assign'
+     */
+    public void clickButtonAssign() {
+        web.clickLink("assignButtonPosition1");
     }
 
 }

@@ -18,6 +18,7 @@ public class WithdrawalTests extends Fixture {
     private static final String TEST_USER_7 = PropertyLoader.loadProperty("testUser7.name");
     private static final String TEST_USER_8 = PropertyLoader.loadProperty("testUser8.name");
     private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
+    private static final String TEST_COMMENT_1 = "TEST_COMMENT_1";
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
@@ -65,7 +66,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }
 
-    @Test(priority = 6, enabled = false)
+    @Test(priority = 6, enabled = true)
     public void testUser7EditUserSelectGroupAndBrand() {
         try {
             Thread.sleep(1000);
@@ -91,7 +92,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 7, enabled = false)
+    @Test(priority = 7, enabled = true)
     public void testUser7EditDesksAddDesk() {
         apisSystem.usersPage.clickActionButton(userIndex1);
         // click edit desks
@@ -116,7 +117,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 8, enabled = false)
+    @Test(priority = 8, enabled = true)
     public void testUser8EditUserSelectGroupAndBrand() {
         apisSystem.greenMessage.waitMessageInvisibility();
         userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
@@ -221,6 +222,24 @@ public class WithdrawalTests extends Fixture {
         }
         apisSystem.withdrawalPage.clickOnPlusOnFirstRow();
         Assert.assertTrue(apisSystem.withdrawalPage.isPlusItemActive());
+    }
+
+    @Test(priority = 15)
+    public void clickOnAssignButton() {
+        apisSystem.withdrawalPage.clickButtonAssign();
+        apisSystem.assignPopup.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.assignPopup.isPopupPresent());
+    }
+
+    @Test(priority = 16, enabled = true)
+    public void changeDataOnAssignPopup() {
+        apisSystem.assignPopup.clickOnGroupFiled();
+        apisSystem.assignPopup.selectGroup(5);
+        apisSystem.assignPopup.clickOnUserField();
+        apisSystem.assignPopup.selectUser(TEST_USER_7);
+        // TODO fixed problem
+        apisSystem.assignPopup.clickOnAddComment();
+        apisSystem.assignPopup.inputComment(TEST_COMMENT_1);
     }
 
 }
