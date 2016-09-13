@@ -237,9 +237,24 @@ public class WithdrawalTests extends Fixture {
         apisSystem.assignPopup.selectGroup(5);
         apisSystem.assignPopup.clickOnUserField();
         apisSystem.assignPopup.selectUser(TEST_USER_7);
-        // TODO fixed problem
         apisSystem.assignPopup.clickOnAddComment();
         apisSystem.assignPopup.inputComment(TEST_COMMENT_1);
+        apisSystem.assignPopup.clickButtonSaveOrCancel(true);
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 17)
+    public void clickOnViewAndCheckComment() {
+        apisSystem.greenMessage.waitInvisibilityOverlay();
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        // select view in 1-st position
+        apisSystem.withdrawalPage.clickViewButton(1);
+        apisSystem.withdrawalPage.clickOnViewForComment();
+        apisSystem.viewComment.isCommentDisplayed();
+        Assert.assertEquals(apisSystem.viewComment.getCommentText(), TEST_COMMENT_1);
     }
 
 }

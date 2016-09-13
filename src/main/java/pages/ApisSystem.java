@@ -12,6 +12,7 @@ import pages.popups.brands.CreateBrand;
 import pages.popups.brands.DeleteBrand;
 import pages.popups.brands.EditBrand;
 import pages.deskExpirationTime.DeskExpirationTime;
+import pages.popups.comment.ViewComment;
 import pages.popups.deskExpirationTime.Edit;
 import pages.popups.groups.CreateGroup;
 import pages.popups.groups.EditGroup;
@@ -48,6 +49,7 @@ public class ApisSystem {
     public PagesEntity pagesEntity;
     public WithdrawalEntity withdrawalEntity;
     public AssignPopup assignPopup;
+    public ViewComment viewComment;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -73,6 +75,7 @@ public class ApisSystem {
         pagesEntity = new PagesEntity(driverWrapper);
         withdrawalEntity = new WithdrawalEntity(driverWrapper);
         assignPopup = new AssignPopup(driverWrapper);
+        viewComment = new ViewComment(driverWrapper);
     }
 
 }

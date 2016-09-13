@@ -138,6 +138,35 @@ public class WithdrawalPage extends Page {
     }
 
     /**
+     * Click on 'View' button in some position
+     *
+     * @param viewPosition view position on a page
+     */
+    public void clickViewButton(int viewPosition) {
+        List<WebElement> viewList = web.getElements("withdrawalActivityViewList");
+        if (viewList.size() == 0) {
+            log.info("'View' buttons missing on a page");
+        } else if (viewList.size() == 1) {
+            log.info(String.format("select 'View' on < %s > position", viewList.size()));
+            viewList.get(0).click();
+        } else {
+            log.info(String.format("select 'View' on < %s > position", viewPosition));
+            viewList.get(viewPosition - 1).click();
+        }
+    }
+
+    /**
+     * Click on 'View' link for comment
+     */
+    public void clickOnViewForComment() {
+        WebElement viewElement = web.getElement("withdrawalCommentView");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
+        wait.until(ExpectedConditions.elementToBeClickable(viewElement));
+        viewElement.click();
+    }
+
+    /**
      * Scroll to element(+) without header
      */
     public void scrollToElement(String elementLocator) {
