@@ -252,9 +252,18 @@ public class WithdrawalTests extends Fixture {
         }
         // select view in 1-st position
         apisSystem.withdrawalPage.clickViewButton(1);
-        apisSystem.withdrawalPage.clickOnViewForComment();
+        apisSystem.withdrawalPage.clickOnViewForComment(1);
         apisSystem.viewComment.isCommentDisplayed();
         Assert.assertEquals(apisSystem.viewComment.getCommentText(), TEST_COMMENT_1);
+        apisSystem.withdrawalPage.closeCommentMessage();
+        try {
+            Thread.sleep(1000);
+            apisSystem.withdrawalPage.clickViewButton(1);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.withdrawalPage.checkViewButton(1));
     }
 
 }

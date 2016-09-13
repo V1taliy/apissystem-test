@@ -157,13 +157,21 @@ public class WithdrawalPage extends Page {
 
     /**
      * Click on 'View' link for comment
+     *
+     * @param viewPosition view position op table
      */
-    public void clickOnViewForComment() {
-        WebElement viewElement = web.getElement("withdrawalCommentView");
+    public void clickOnViewForComment(int viewPosition) {
+        List<WebElement> viewList = web.getElements("withdrawalCommentView");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
-        wait.until(ExpectedConditions.elementToBeClickable(viewElement));
-        viewElement.click();
+        wait.until(ExpectedConditions.elementToBeClickable(viewList.get(viewPosition - 1)));
+        viewList.get(viewPosition - 1).click();
+    }
+
+    public boolean checkViewButton(int viewPosition) {
+        List<WebElement> viewList = web.getElements("withdrawalActivityViewList");
+        return viewList.get(viewPosition - 1).getAttribute("class")
+                .equals("scope-directive-withdrawal-activity before-click");
     }
 
     /**
@@ -192,6 +200,10 @@ public class WithdrawalPage extends Page {
      */
     public void clickButtonAssign() {
         web.clickLink("assignButtonPosition1");
+    }
+
+    public void closeCommentMessage() {
+        web.clickLink("withdrawalCommentModal");
     }
 
 }
