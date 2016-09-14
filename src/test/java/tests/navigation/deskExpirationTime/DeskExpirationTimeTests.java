@@ -153,13 +153,14 @@ public class DeskExpirationTimeTests extends Fixture {
 
     @Test(priority = 15, dependsOnMethods = {"goToDeskExpirationTime"})
     public void clickResetButton() {
-        String expectedResult = "Select";
+        String expectedResultForBrand = "All Brands";
+        String expectedResultForDesk = "All Desk";
         apisSystem.filterEntity.clickSearchOrResetButton(false);
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        Assert.assertEquals(apisSystem.deskExpirationTime.filterGetDeskValue(), expectedResult);
-        Assert.assertEquals(apisSystem.deskExpirationTime.filterGetBrandValue(), expectedResult);
+        Assert.assertEquals(apisSystem.deskExpirationTime.filterGetDeskValue(), expectedResultForDesk);
+        Assert.assertEquals(apisSystem.deskExpirationTime.filterGetBrandValue(), expectedResultForBrand);
     }
 
     @Test(priority = 16, dependsOnMethods = {"goToDeskExpirationTime"})

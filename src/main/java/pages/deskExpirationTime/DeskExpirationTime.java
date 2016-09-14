@@ -163,9 +163,9 @@ public class DeskExpirationTime extends Page {
      * Get brand value from brand field
      */
     public String filterGetBrandValue() {
-        List<WebElement> brandFieldList = web.getElements("filterBrandField");
-        log.info(brandFieldList.get(0).getText().substring(0, 6));
-        return brandFieldList.get(0).getText().substring(0, 6);
+        List<WebElement> brandFieldList = web.getElements("filterBrandFiledDefault");
+        log.info(brandFieldList.get(0).getText());
+        return brandFieldList.get(0).getText();
     }
 
     /**
