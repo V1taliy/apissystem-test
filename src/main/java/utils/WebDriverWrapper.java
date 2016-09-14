@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class WebDriverWrapper implements WebDriver, TakesScreenshot {
 
-    private static final int TIME_TO_WAIT = Integer.parseInt(PropertyLoader.loadProperty("wait.timeout10sec"));
+    private static final int TIME_TO_WAIT = Integer.parseInt(PropertyLoader.loadProperty("wait.timeout15sec"));
     private static WebDriver driver;
 
     /**

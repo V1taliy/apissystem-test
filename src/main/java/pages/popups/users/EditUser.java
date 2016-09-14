@@ -103,6 +103,37 @@ public class EditUser extends MainPopup {
     }
 
     /**
+     * Select group by index and click
+     *
+     * @param groupPosition group position from drop down list
+     */
+    public void clickAndSelectGroup(int groupPosition) {
+        web.clickLink("editUserGroupLink");
+        List<WebElement> groupList = web.getElements("editUserGroupList");
+        log.info(String.format("group select < %s >",
+                groupList.get(groupPosition - 1).getText()));
+        groupList.get(groupPosition - 1).click();
+    }
+
+    /**
+     * Select group by group name and click
+     *
+     * @param groupName group name from drop down list
+     */
+    public void clickAndSelectGroup(String groupName) {
+        web.clickLink("editUserGroupLink");
+        List<WebElement> groupList = web.getElements("editUserGroupList");
+        for (WebElement element : groupList) {
+            log.info(String.format("group: < %s >", element.getText()));
+            if (element.getText().equals(groupName)) {
+                log.info(String.format("group select < %s >", element.getText()));
+                element.click();
+                return;
+            }
+        }
+    }
+
+    /**
      * Select and click random position from role list
      */
     public void clickAndSelectRole() {

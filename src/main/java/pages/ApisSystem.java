@@ -3,18 +3,24 @@ package pages;
 import pages.brands.BrandsPage;
 import pages.entity.FilterEntity;
 import pages.entity.ListEntity;
+import pages.groups.GroupsPage;
+import pages.entity.groups.PagesEntity;
+import pages.entity.groups.WithdrawalEntity;
 import pages.message.GreenMessage;
 import pages.popups.MainPopup;
 import pages.popups.brands.CreateBrand;
 import pages.popups.brands.DeleteBrand;
 import pages.popups.brands.EditBrand;
 import pages.deskExpirationTime.DeskExpirationTime;
+import pages.popups.comment.ViewComment;
 import pages.popups.deskExpirationTime.Edit;
 import pages.popups.groups.CreateGroup;
 import pages.popups.groups.EditGroup;
+import pages.popups.withdrawal.AssignPopup;
 import pages.users.UsersPage;
 import pages.popups.users.EditDesks;
 import pages.popups.users.EditUser;
+import pages.withdrawal.WithdrawalPage;
 import utils.WebDriverWrapper;
 import utils.WebElementsActions;
 
@@ -38,6 +44,12 @@ public class ApisSystem {
     public CreateGroup createGroup;
     public EditGroup editGroup;
     public GreenMessage greenMessage;
+    public WithdrawalPage withdrawalPage;
+    public GroupsPage groupsPage;
+    public PagesEntity pagesEntity;
+    public WithdrawalEntity withdrawalEntity;
+    public AssignPopup assignPopup;
+    public ViewComment viewComment;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -58,6 +70,12 @@ public class ApisSystem {
         editGroup = new EditGroup(driverWrapper);
         filterEntity = new FilterEntity(driverWrapper);
         greenMessage = new GreenMessage(driverWrapper);
+        withdrawalPage = new WithdrawalPage(driverWrapper);
+        groupsPage = new GroupsPage(driverWrapper);
+        pagesEntity = new PagesEntity(driverWrapper);
+        withdrawalEntity = new WithdrawalEntity(driverWrapper);
+        assignPopup = new AssignPopup(driverWrapper);
+        viewComment = new ViewComment(driverWrapper);
     }
 
 }

@@ -50,6 +50,7 @@ public class WebDriverFactory {
     private static final String PHANTOMJS = "phantomjs";
 
     private static final String FIREFOX_PATH = PropertyLoader.loadProperty("firefox.path");
+    private static final String GECKO_PATH = PropertyLoader.loadProperty("geckodriver.path");
     private static final String CHROME_PATH = PropertyLoader.loadProperty("chromedriver.path");
     private static final String PHANTOMJS_PATH = PropertyLoader.loadProperty("phantomjsdriver.path");
     private static final String INTERNET_EXPLORER_PATH = PropertyLoader.loadProperty("internetExplorer.path");
@@ -74,7 +75,7 @@ public class WebDriverFactory {
         log.info(String.format("<---successful set up PLATFORM = %s --->", capabilities));
         driver = new RemoteWebDriver(getHubURL(), capabilities);
         driver.manage().deleteAllCookies();
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+//        driver.manage().window().setSize(new Dimension(1920, 1080));
         driver.manage().window().maximize();
         log.info(String.format("Screen resolution - %s", driver.manage().window().getSize()));
         return driver;
@@ -91,8 +92,11 @@ public class WebDriverFactory {
 
         if (FIREFOX.equals(BROWSER_NAME)) {
 
-            System.setProperty("webdriver.firefox.bin", FIREFOX_PATH);
-            driverWrapper = new WebDriverWrapper(new FirefoxDriver());
+//            System.setProperty("webdriver.firefox.bin", FIREFOX_PATH);
+            System.setProperty("webdriver.gecko.driver", GECKO_PATH);
+            DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
+            desiredCapabilities.setCapability("marionette", true);
+            driverWrapper = new WebDriverWrapper(new FirefoxDriver(desiredCapabilities));
 
         } else if (CHROME.equals(BROWSER_NAME)) {
 
@@ -140,10 +144,12 @@ public class WebDriverFactory {
             capabilities.setCapability(CapabilityType.SUPPORTS_APPLICATION_CACHE, true);
         } else if (FIREFOX.equals(BROWSER_NAME)) {
 //            System.setProperty("webdriver.firefox.bin", FIREFOX_PATH);
+            System.setProperty("webdriver.gecko.driver", GECKO_PATH);
             capabilities.setBrowserName(BROWSER_NAME);
             capabilities = DesiredCapabilities.firefox();
             capabilities.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
             capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+            capabilities.setCapability("marionette", true);
         } else if (PHANTOMJS.equals(BROWSER_NAME)) {
             capabilities.setBrowserName(BROWSER_NAME);
             File phantomjs = Phanbedder.unpack();
