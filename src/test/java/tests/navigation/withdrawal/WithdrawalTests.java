@@ -11,6 +11,7 @@ import utils.PropertyLoader;
 public class WithdrawalTests extends Fixture {
 
     private static final Logger log = Logger.getLogger(WithdrawalTests.class);
+    private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");
     private static final String GROUPS_URL = PropertyLoader.loadProperty("groups.url");
@@ -33,13 +34,13 @@ public class WithdrawalTests extends Fixture {
         LoginTests.loginForAdmin(false);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = false)
     public void switchToBrands() {
         apisSystem.mainPage.clickOnNavigationItem(2);
         Assert.assertEquals(apisSystem.brandsPage.getCurrentPageURL(), BRANDS_URL);
     }
 
-    @Test(priority = 4)
+    @Test(priority = 4, enabled = false)
     public void enableBrands() {
         try {
             Thread.sleep(1000);
@@ -57,7 +58,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 5)
+    @Test(priority = 5, enabled = false)
     public void switchToUsers() {
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
@@ -66,7 +67,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }
 
-    @Test(priority = 6, enabled = true)
+    @Test(priority = 6, enabled = false)
     public void testUser7EditUserSelectGroupAndBrand() {
         try {
             Thread.sleep(1000);
@@ -92,7 +93,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 7, enabled = true)
+    @Test(priority = 7, enabled = false)
     public void testUser7EditDesksAddDesk() {
         apisSystem.usersPage.clickActionButton(userIndex1);
         // click edit desks
@@ -117,7 +118,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 8, enabled = true)
+    @Test(priority = 8, enabled = false)
     public void testUser8EditUserSelectGroupAndBrand() {
         apisSystem.greenMessage.waitMessageInvisibility();
         userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
@@ -141,13 +142,13 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 9)
+    @Test(priority = 9, enabled = false)
     public void switchToGroups() {
         apisSystem.mainPage.clickOnNavigationItem(4);
         Assert.assertEquals(apisSystem.groupsPage.getCurrentPageURL(), GROUPS_URL);
     }
 
-    @Test(priority = 10)
+    @Test(priority = 10, enabled = false)
     public void selectRetentionTL() {
         apisSystem.groupsPage.selectGroup("Retention TL");
         apisSystem.withdrawalEntity.selectDeselectCheckBoxViewAll(true);
@@ -161,7 +162,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 11)
+    @Test(priority = 11, enabled = false)
     public void selectFinance() {
         apisSystem.groupsPage.selectGroup("Finance");
         try {
@@ -176,13 +177,13 @@ public class WithdrawalTests extends Fixture {
         }
     }
 
-    @Test(priority = 12)
+    @Test(priority = 12, enabled = false)
     public void switchToWithdrawal() {
         apisSystem.mainPage.clickOnNavigationItem(1);
         Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
     }
 
-    @Test(priority = 13)
+    @Test(priority = 13, enabled = false)
     public void selectCustomerIDandBrand() {
         try {
             Thread.sleep(5000);
@@ -203,7 +204,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID_fromFirstRow(), TEST_CUSTOMER_ID);
     }
 
-    @Test(priority = 14)
+    @Test(priority = 14, enabled = false)
     public void clickOnPlusIcon() {
         apisSystem.withdrawalPage.clickOnPlusOnFirstRow();
         apisSystem.withdrawalPage.waitForLoaders("customer");
@@ -224,14 +225,14 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.withdrawalPage.isPlusItemActive());
     }
 
-    @Test(priority = 15)
+    @Test(priority = 15, enabled = false)
     public void clickOnAssignButton() {
         apisSystem.withdrawalPage.clickButtonAssign();
         apisSystem.assignPopup.waitPopupLoaded();
         Assert.assertTrue(apisSystem.assignPopup.isPopupPresent());
     }
 
-    @Test(priority = 16, enabled = true)
+    @Test(priority = 16, enabled = false)
     public void changeDataOnAssignPopup() {
         apisSystem.assignPopup.clickOnGroupFiled();
         apisSystem.assignPopup.selectGroup(5);
@@ -244,7 +245,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 17)
+    @Test(priority = 17, enabled = false)
     public void clickOnViewAndCheckComment() {
         apisSystem.greenMessage.waitInvisibilityOverlay();
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
@@ -264,6 +265,27 @@ public class WithdrawalTests extends Fixture {
             e.printStackTrace();
         }
         Assert.assertTrue(apisSystem.withdrawalPage.checkViewButton(1));
+    }
+
+    @Test(priority = 18)
+    public void logoutFromAdmin() {
+        apisSystem.mainPage.clickLogoutButton();
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(apisSystem.mainPage.getCurrentPageURL(), LOGIN_URL);
+    }
+
+    @Test(priority = 19)
+    public void loginTestUser7() {
+        TestUserLogin.testUser7Login();
+    }
+
+    @Test(priority = 20)
+    public void switchToWithdrawalPage() {
+
     }
 
 }

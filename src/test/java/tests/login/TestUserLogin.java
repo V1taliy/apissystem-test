@@ -24,6 +24,14 @@ public class TestUserLogin extends Fixture {
         testUsersLogin();
     }
 
+    public static void testUser7Login() {
+        apisSystem.loginPage.inputUserName(TEST_USER_7);
+        apisSystem.loginPage.inputPassword(TEST_USER_PASSWORD);
+        apisSystem.loginPage.clickLoginButton();
+        apisSystem.loginPage.waitInvisibilityPanelBody();
+        Assert.assertTrue(apisSystem.mainPage.isWelcomeToApisSystemPresent());
+    }
+
     private static void testUsersLogin() {
         for (int i = 0; i <= 1; i++) {
             if (i == 0) {
