@@ -33,11 +33,12 @@ public class ViewComment extends Page {
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
         wait.until(ExpectedConditions.visibilityOf(comment));
-        if (comment.isDisplayed()) {
-            return true;
-        } else {
-            return false;
-        }
+//        if (comment.isDisplayed()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return comment.isDisplayed();
     }
 
 }

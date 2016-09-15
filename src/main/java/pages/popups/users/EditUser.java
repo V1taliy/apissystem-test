@@ -2,7 +2,11 @@ package pages.popups.users;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.popups.MainPopup;
+import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
 import java.util.ArrayList;
@@ -154,6 +158,14 @@ public class EditUser extends MainPopup {
      */
     public void waitInvisibilityLoading() {
         web.waitDisappearElement("editUserLoading");
+    }
+
+    public void waitInvisibilityToaster() {
+        WebElement element = web.getElement("editUserToaster");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
+//        web.waitDisappearElement("editUserToaster");
     }
 
     public boolean isErrorMessagePresent() {

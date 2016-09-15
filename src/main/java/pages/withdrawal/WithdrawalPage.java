@@ -178,7 +178,8 @@ public class WithdrawalPage extends Page {
      * Scroll to element(+) without header
      */
     public void scrollToElement(String elementLocator) {
-        web.scrollToElement(elementLocator, "navigationWrapper");
+         web.scrollToElementTo(elementLocator, "navigationWrapper");
+//        web.scrollToElementBy(elementLocator, "withdrawalToggleBlock");
     }
 
     /**

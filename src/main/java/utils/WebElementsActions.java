@@ -570,14 +570,33 @@ public class WebElementsActions {
      *
      * @param elementLocator element to which you want to scroll
      */
-    public void scrollToElement(String elementLocator, String someElement) {
+    public void scrollToElementBy(String elementLocator, String someElement) {
         WebElement element = driverWrapper.findElement(config.getLocator(elementLocator));
         WebElement element2 = driverWrapper.findElement(config.getLocator(someElement));
         int elementCoordinateY = element.getLocation().getY();
         int headerHeight = element2.getSize().getHeight();
+        log.info("headerHeight " + headerHeight);
         int scrollValue = elementCoordinateY - headerHeight;
+        log.info(String.format("scroll to %s position", scrollValue));
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
         javascriptExecutor.executeScript("window.scrollBy(0," + scrollValue + ")", "");
+    }
+
+    /**
+     * Scroll to element taking into account the height of the header
+     *
+     * @param elementLocator element to which you want to scroll
+     */
+    public void scrollToElementTo(String elementLocator, String someElement) {
+        WebElement element = driverWrapper.findElement(config.getLocator(elementLocator));
+        WebElement element2 = driverWrapper.findElement(config.getLocator(someElement));
+        int elementCoordinateY = element.getLocation().getY();
+        int headerHeight = element2.getSize().getHeight();
+        log.info("headerHeight " + headerHeight);
+        int scrollValue = elementCoordinateY - headerHeight;
+        log.info(String.format("scroll to %s position", scrollValue));
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
+        javascriptExecutor.executeScript("window.scrollTo(0," + scrollValue + ")", "");
     }
 
     /**
@@ -600,7 +619,7 @@ public class WebElementsActions {
      *
      * @param elementLocator element to which you want to scroll
      */
-    public void scrollToElement(String elementLocator) {
+    public void scrollToElementBy(String elementLocator) {
         WebElement element = driverWrapper.findElement(config.getLocator(elementLocator));
         int elementCoordinateY = element.getLocation().getY();
         log.info(String.format("scroll to element coordinate to Y: %s", elementCoordinateY));
@@ -613,7 +632,7 @@ public class WebElementsActions {
      *
      * @param element element to which you want to scroll
      */
-    public void scrollToElement(WebElement element) {
+    public void scrollToElementBy(WebElement element) {
         int elementCoordinateY = element.getLocation().getY();
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
         javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");
@@ -624,7 +643,7 @@ public class WebElementsActions {
      *
      * @param value element to which you want to scroll
      */
-    public void scrollToElement(int value) {
+    public void scrollToElementBy(int value) {
         int elementCoordinateY = value;
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driverWrapper.getOriginalDriver();
         javascriptExecutor.executeScript("window.scrollBy(0," + elementCoordinateY + ")", "");

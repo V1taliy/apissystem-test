@@ -191,7 +191,7 @@ public class UsersPage extends Page {
     }
 
     public void scrollDown() {
-        web.scrollToElement("footerApissystem");
+        web.scrollToElementBy("footerApissystem");
     }
 
 }

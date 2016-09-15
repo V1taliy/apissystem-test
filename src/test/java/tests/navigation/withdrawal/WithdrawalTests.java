@@ -23,6 +23,7 @@ public class WithdrawalTests extends Fixture {
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
+    private static final boolean testStatus = true;
 
     @Test(priority = 1)
     public void testUsersLogin() {
@@ -34,13 +35,13 @@ public class WithdrawalTests extends Fixture {
         LoginTests.loginForAdmin(false);
     }
 
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3, enabled = testStatus)
     public void switchToBrands() {
         apisSystem.mainPage.clickOnNavigationItem(2);
         Assert.assertEquals(apisSystem.brandsPage.getCurrentPageURL(), BRANDS_URL);
     }
 
-    @Test(priority = 4, enabled = false)
+    @Test(priority = 4, enabled = testStatus)
     public void enableBrands() {
         try {
             Thread.sleep(1000);
@@ -58,7 +59,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 5, enabled = false)
+    @Test(priority = 5, enabled = testStatus)
     public void switchToUsers() {
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
@@ -67,7 +68,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }
 
-    @Test(priority = 6, enabled = false)
+    @Test(priority = 6, enabled = testStatus)
     public void testUser7EditUserSelectGroupAndBrand() {
         try {
             Thread.sleep(1000);
@@ -93,8 +94,9 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 7, enabled = false)
+    @Test(priority = 7, enabled = testStatus)
     public void testUser7EditDesksAddDesk() {
+        apisSystem.greenMessage.waitMessageInvisibility();
         apisSystem.usersPage.clickActionButton(userIndex1);
         // click edit desks
         apisSystem.usersPage.clickItemActionFromDropDownMenu(6);
@@ -118,7 +120,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 8, enabled = false)
+    @Test(priority = 8, enabled = testStatus)
     public void testUser8EditUserSelectGroupAndBrand() {
         apisSystem.greenMessage.waitMessageInvisibility();
         userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
@@ -142,13 +144,13 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 9, enabled = false)
+    @Test(priority = 9, enabled = testStatus)
     public void switchToGroups() {
         apisSystem.mainPage.clickOnNavigationItem(4);
         Assert.assertEquals(apisSystem.groupsPage.getCurrentPageURL(), GROUPS_URL);
     }
 
-    @Test(priority = 10, enabled = false)
+    @Test(priority = 10, enabled = testStatus)
     public void selectRetentionTL() {
         apisSystem.groupsPage.selectGroup("Retention TL");
         apisSystem.withdrawalEntity.selectDeselectCheckBoxViewAll(true);
@@ -162,7 +164,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 11, enabled = false)
+    @Test(priority = 11, enabled = testStatus)
     public void selectFinance() {
         apisSystem.groupsPage.selectGroup("Finance");
         try {
@@ -177,13 +179,13 @@ public class WithdrawalTests extends Fixture {
         }
     }
 
-    @Test(priority = 12, enabled = false)
+    @Test(priority = 12, enabled = testStatus)
     public void switchToWithdrawal() {
         apisSystem.mainPage.clickOnNavigationItem(1);
         Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
     }
 
-    @Test(priority = 13, enabled = false)
+    @Test(priority = 13, enabled = testStatus)
     public void selectCustomerIDandBrand() {
         try {
             Thread.sleep(5000);
@@ -204,7 +206,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID_fromFirstRow(), TEST_CUSTOMER_ID);
     }
 
-    @Test(priority = 14, enabled = false)
+    @Test(priority = 14, enabled = testStatus)
     public void clickOnPlusIcon() {
         apisSystem.withdrawalPage.clickOnPlusOnFirstRow();
         apisSystem.withdrawalPage.waitForLoaders("customer");
@@ -212,6 +214,11 @@ public class WithdrawalTests extends Fixture {
         apisSystem.withdrawalPage.clickDepositsLink();
         apisSystem.withdrawalPage.waitForLoaders("deposits");
         apisSystem.withdrawalPage.scrollToElement("withdrawalWithdrawalsLink");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         apisSystem.withdrawalPage.clickWithdrawalsLink();
         apisSystem.withdrawalPage.waitForLoaders("withdrawal");
         apisSystem.withdrawalPage.scrollToElementBack("withdrawalWithdrawalsLink");
@@ -225,14 +232,14 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.withdrawalPage.isPlusItemActive());
     }
 
-    @Test(priority = 15, enabled = false)
+    @Test(priority = 15, enabled = testStatus)
     public void clickOnAssignButton() {
         apisSystem.withdrawalPage.clickButtonAssign();
         apisSystem.assignPopup.waitPopupLoaded();
         Assert.assertTrue(apisSystem.assignPopup.isPopupPresent());
     }
 
-    @Test(priority = 16, enabled = false)
+    @Test(priority = 16, enabled = testStatus)
     public void changeDataOnAssignPopup() {
         apisSystem.assignPopup.clickOnGroupFiled();
         apisSystem.assignPopup.selectGroup(5);
@@ -245,7 +252,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 17, enabled = false)
+    @Test(priority = 17, enabled = testStatus)
     public void clickOnViewAndCheckComment() {
         apisSystem.greenMessage.waitInvisibilityOverlay();
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
@@ -285,7 +292,9 @@ public class WithdrawalTests extends Fixture {
 
     @Test(priority = 20)
     public void switchToWithdrawalPage() {
-
+        apisSystem.mainPage.clickOnNavigationItem(1);
+        Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
     }
+
 
 }

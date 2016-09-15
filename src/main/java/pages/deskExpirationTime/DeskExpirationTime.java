@@ -41,7 +41,7 @@ public class DeskExpirationTime extends Page {
      */
     public void scrollAndClickNavigationIndexButton(int buttonIndex) {
         List<WebElement> buttonsList = web.getElements("listNavigationButtons");
-        web.scrollToElement(buttonsList.get(buttonIndex).getLocation().getY());
+        web.scrollToElementBy(buttonsList.get(buttonIndex).getLocation().getY());
         log.info(String.format("scroll to < %s >", buttonsList.get(buttonIndex).getText()));
         ExpectedConditions.elementToBeClickable(buttonsList.get(buttonIndex));
         log.info(String.format("click on < %s > button", buttonsList.get(buttonIndex).getText()));
@@ -60,28 +60,28 @@ public class DeskExpirationTime extends Page {
     public void scrollAndClickNavigationButtons(String buttonName) {
         switch (buttonName) {
             case "first":
-                web.scrollToElement("buttonFirst");
+                web.scrollToElementBy("buttonFirst");
                 log.info(String.format("scroll to < %s >", web.getElement("buttonFirst").getText()));
                 ExpectedConditions.elementToBeClickable(web.getElement("buttonFirst"));
                 web.clickLink("buttonFirst");
                 log.info(String.format("click on < %s > button", web.getElement("buttonFirst").getText()));
                 break;
             case "previous":
-                web.scrollToElement("buttonPrevious");
+                web.scrollToElementBy("buttonPrevious");
                 log.info(String.format("scroll to < %s >", web.getElement("buttonPrevious").getText()));
                 ExpectedConditions.elementToBeClickable(web.getElement("buttonPrevious"));
                 web.clickLink("buttonPrevious");
                 log.info(String.format("click on < %s > button", web.getElement("buttonPrevious").getText()));
                 break;
             case "next":
-                web.scrollToElement("buttonNext");
+                web.scrollToElementBy("buttonNext");
                 log.info(String.format("scroll to < %s >", web.getElement("buttonNext").getText()));
                 ExpectedConditions.elementToBeClickable(web.getElement("buttonNext"));
                 web.clickLink("buttonNext");
                 log.info(String.format("click on < %s > button", web.getElement("buttonNext").getText()));
                 break;
             case "last":
-                web.scrollToElement("buttonLast");
+                web.scrollToElementBy("buttonLast");
                 log.info(String.format("scroll to < %s >", web.getElement("buttonLast").getText()));
                 ExpectedConditions.elementToBeClickable(web.getElement("buttonLast"));
                 web.clickLink("buttonLast");
@@ -154,7 +154,7 @@ public class DeskExpirationTime extends Page {
     }
 
     public void scrollPageToNavigationWrapper() {
-        web.scrollToElement("navigationWrapper");
+        web.scrollToElementBy("navigationWrapper");
     }
 
     /* Methods for filter entity*/
