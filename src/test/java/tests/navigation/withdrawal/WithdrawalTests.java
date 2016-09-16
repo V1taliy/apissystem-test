@@ -23,7 +23,7 @@ public class WithdrawalTests extends Fixture {
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
-    private static final boolean testStatus = true;
+    private static final boolean testStatus = false;
 
     @Test(priority = 1)
     public void testUsersLogin() {
@@ -297,7 +297,40 @@ public class WithdrawalTests extends Fixture {
     }
 
     @Test(priority = 21)
-    public void findUser() {}
+    public void findUserByCustomerID() {
+        try {
+            Thread.sleep(5000);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        apisSystem.withdrawalPage.inputCustomerID(TEST_CUSTOMER_ID);
+        apisSystem.filterEntity.clickSearchOrResetButton(true);
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        Assert.assertEquals(apisSystem.withdrawalPage.getCustomerDataFromColumn(3), TEST_CUSTOMER_ID);
+    }
+
+    @Test(priority = 22)
+    public void clickOnDecline() {
+        apisSystem.withdrawalPage.clickOnDecline(1);
+        apisSystem.declinePopup.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.declinePopup.isPopupPresent());
+    }
+
+    @Test(priority = 23)
+    public void changeDataOnDeclinePopup() {
+        apisSystem.declinePopup.clickOnUserField();
+        apisSystem.declinePopup.selectUserFromUserField(TEST_USER_8);
+        apisSystem.declinePopup.clickOnReasonField();
+        apisSystem.declinePopup.selectReasonValueFromReasonField("noDocs");
+        apisSystem.declinePopup.clickOnAddComment();
+        apisSystem.declinePopup.inputComment(TEST_COMMENT_1 + "_DECLINE");
+        apisSystem.declinePopup.clickButtonSaveOrCancel(true);
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
 
 
 }

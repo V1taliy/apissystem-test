@@ -16,6 +16,19 @@ public class WithdrawalMainPopup extends MainPopup {
         super(driverWrapper);
     }
 
+    public void clickOnAddComment() {
+        web.clickLink("addCommentLink");
+    }
+
+    /**
+     * Input data to comment field
+     *
+     * @param commentText text for comment
+     */
+    public void inputComment(String commentText) {
+        web.clearAndInput("addCommentField", commentText);
+    }
+
     @Override
     public boolean clickButtonSaveOrCancel(boolean button) {
         return clickButtonOkOrCancel(button);

@@ -22,10 +22,6 @@ public class AssignPopup extends WithdrawalMainPopup {
         web.clickLink("userLink");
     }
 
-    public void clickOnAddComment() {
-        web.clickLink("addCommentLink");
-    }
-
     /**
      * Select group from drop down list
      *
@@ -61,15 +57,6 @@ public class AssignPopup extends WithdrawalMainPopup {
                 user.click();
             }
         }
-    }
-
-    /**
-     * Input data to comment field
-     *
-     * @param commentText text for comment
-     */
-    public void inputComment(String commentText) {
-        web.clearAndInput("addCommentField", commentText);
     }
 
 }

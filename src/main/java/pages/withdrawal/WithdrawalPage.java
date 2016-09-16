@@ -178,7 +178,7 @@ public class WithdrawalPage extends Page {
      * Scroll to element(+) without header
      */
     public void scrollToElement(String elementLocator) {
-         web.scrollToElementTo(elementLocator, "navigationWrapper");
+        web.scrollToElementTo(elementLocator, "navigationWrapper");
 //        web.scrollToElementBy(elementLocator, "withdrawalToggleBlock");
     }
 
@@ -205,6 +205,39 @@ public class WithdrawalPage extends Page {
 
     public void closeCommentMessage() {
         web.clickLink("withdrawalCommentModal");
+    }
+
+    /**
+     * Get user data from column
+     *
+     * @param columnPosition column position from user row, where
+     *                       1 - ID
+     *                       2 - Brand
+     *                       3 - Customer ID
+     *                       4 - Date
+     *                       5 - Days of expire
+     *                       6 - Assignee
+     *                       7 - Desk
+     *                       8 - Verification status
+     *                       9 - Amount
+     *                       10 - Customer (not used)
+     *                       11 - Status
+     */
+    public String getCustomerDataFromColumn(int columnPosition) {
+        List<WebElement> userDataList = web.getElements("userRowListPosition1");
+        String result = userDataList.get(columnPosition - 1).getText();
+        log.info(String.format("customer ID: %s", result));
+        return result;
+    }
+
+    /**
+     *
+     * */
+    public void clickOnDecline(int declinePosition) {
+        List<WebElement> declineList = web.getElements("withdrawalDeclineList");
+        log.info(String.format("click on < %s > in position %s",
+                declineList.get(declinePosition - 1).getText(), declinePosition));
+        declineList.get(declinePosition - 1).click();
     }
 
 }
