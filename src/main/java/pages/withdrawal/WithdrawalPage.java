@@ -240,4 +240,19 @@ public class WithdrawalPage extends Page {
         declineList.get(declinePosition - 1).click();
     }
 
+    /**
+     * Get user ID from list data table
+     *
+     * @param userID user ID from ID row
+     */
+    public int getUserID(String userID) {
+        List<WebElement> id_list = web.getElements("withdrawalUsersID_list");
+        for (WebElement ID : id_list) {
+            if (ID.equals(userID)) {
+                return Integer.parseInt(ID.getText());
+            }
+        }
+        return -1;
+    }
+
 }

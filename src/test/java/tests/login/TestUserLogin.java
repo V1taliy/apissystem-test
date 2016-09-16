@@ -24,8 +24,13 @@ public class TestUserLogin extends Fixture {
         testUsersLogin();
     }
 
-    public static void testUser7Login() {
-        apisSystem.loginPage.inputUserName(TEST_USER_7);
+    /**
+     * Login as test user
+     *
+     * @param testUserName test user name
+     */
+    public static void testUserLogin(String testUserName) {
+        apisSystem.loginPage.inputUserName(testUserName);
         apisSystem.loginPage.inputPassword(TEST_USER_PASSWORD);
         apisSystem.loginPage.clickLoginButton();
         apisSystem.loginPage.waitInvisibilityPanelBody();

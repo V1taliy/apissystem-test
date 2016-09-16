@@ -23,7 +23,7 @@ public class WithdrawalTests extends Fixture {
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
-    private static final boolean testStatus = false;
+    private static final boolean testStatus = true;
 
     @Test(priority = 1)
     public void testUsersLogin() {
@@ -274,8 +274,102 @@ public class WithdrawalTests extends Fixture {
         Assert.assertTrue(apisSystem.withdrawalPage.checkViewButton(1));
     }
 
-    @Test(priority = 18)
+    @Test(priority = 18, enabled = testStatus)
     public void logoutFromAdmin() {
+        logoutFromUser();
+    }
+
+    @Test(priority = 19, enabled = testStatus)
+    public void loginTestUser7() {
+        TestUserLogin.testUserLogin(TEST_USER_7);
+    }
+
+    @Test(priority = 20, enabled = testStatus)
+    public void switchToWithdrawalPageForTestUser7() {
+        switchToWithdrawalPage();
+    }
+
+    @Test(priority = 21, enabled = testStatus)
+    public void findUserForTestUser7() {
+        findTestUserByCustomerID();
+    }
+
+    @Test(priority = 22, enabled = testStatus)
+    public void clickOnDeclineTestUser7() {
+        clickOnDecline();
+    }
+
+    @Test(priority = 23, enabled = testStatus)
+    public void changeDataOnDeclinePopupForTestUser7() {
+        apisSystem.declinePopup.clickOnUserField();
+        apisSystem.declinePopup.selectUserFromUserField(TEST_USER_8);
+        apisSystem.declinePopup.clickOnReasonField();
+        apisSystem.declinePopup.selectReasonValueFromReasonField("noDocs");
+        apisSystem.declinePopup.clickOnAddComment();
+        apisSystem.declinePopup.inputComment("DECLINE_TEST_USER_7");
+        apisSystem.declinePopup.clickButtonSaveOrCancel(true);
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 24)
+    public void logoutFromTestUser7() {
+        logoutFromUser();
+    }
+
+    @Test(priority = 25)
+    public void loginTestUser8() {
+        TestUserLogin.testUserLogin(TEST_USER_8);
+    }
+
+    @Test(priority = 26)
+    public void switchToWithdrawalPageForTestUser8() {
+        switchToWithdrawalPage();
+    }
+
+    @Test(priority = 27)
+    public void findUserForTestUser8() {
+        findTestUserByCustomerID();
+    }
+
+    @Test(priority = 28)
+    public void clickOnDeclineTestUser8() {
+        clickOnDecline();
+    }
+
+    @Test(priority = 29)
+    public void changeDataOnDeclinePopupForTestUser8() {
+        apisSystem.declinePopup.clickOnReasonField();
+        apisSystem.declinePopup.selectReasonValueFromReasonField("noDocs");
+        apisSystem.declinePopup.clickOnAddComment();
+        apisSystem.declinePopup.inputComment("DECLINE_TEST_USER_8");
+        apisSystem.declinePopup.clickButtonSaveOrCancel(true);
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 30)
+    public void logoutFromTestUser8() {
+        logoutFromUser();
+    }
+
+    @Test(priority = 31)
+    public void loginAsAdmin() {
+        LoginTests.loginForAdmin(false);
+    }
+
+    @Test(priority = 32)
+    public void switchToWithdrawalAsAdmin() {
+        switchToWithdrawalPage();
+    }
+
+    private static void switchToWithdrawalPage() {
+        apisSystem.mainPage.clickOnNavigationItem(1);
+        Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
+    }
+
+    private static void logoutFromUser() {
+        apisSystem.greenMessage.waitInvisibilityOverlay();
         apisSystem.mainPage.clickLogoutButton();
         try {
             Thread.sleep(500);
@@ -285,19 +379,13 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(apisSystem.mainPage.getCurrentPageURL(), LOGIN_URL);
     }
 
-    @Test(priority = 19)
-    public void loginTestUser7() {
-        TestUserLogin.testUser7Login();
+    private static void clickOnDecline() {
+        apisSystem.withdrawalPage.clickOnDecline(1);
+        apisSystem.declinePopup.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.declinePopup.isPopupPresent());
     }
 
-    @Test(priority = 20)
-    public void switchToWithdrawalPage() {
-        apisSystem.mainPage.clickOnNavigationItem(1);
-        Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
-    }
-
-    @Test(priority = 21)
-    public void findUserByCustomerID() {
+    private static void findTestUserByCustomerID() {
         try {
             Thread.sleep(5000);
             if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
@@ -311,26 +399,5 @@ public class WithdrawalTests extends Fixture {
         apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerDataFromColumn(3), TEST_CUSTOMER_ID);
     }
-
-    @Test(priority = 22)
-    public void clickOnDecline() {
-        apisSystem.withdrawalPage.clickOnDecline(1);
-        apisSystem.declinePopup.waitPopupLoaded();
-        Assert.assertTrue(apisSystem.declinePopup.isPopupPresent());
-    }
-
-    @Test(priority = 23)
-    public void changeDataOnDeclinePopup() {
-        apisSystem.declinePopup.clickOnUserField();
-        apisSystem.declinePopup.selectUserFromUserField(TEST_USER_8);
-        apisSystem.declinePopup.clickOnReasonField();
-        apisSystem.declinePopup.selectReasonValueFromReasonField("noDocs");
-        apisSystem.declinePopup.clickOnAddComment();
-        apisSystem.declinePopup.inputComment(TEST_COMMENT_1 + "_DECLINE");
-        apisSystem.declinePopup.clickButtonSaveOrCancel(true);
-        apisSystem.greenMessage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
-    }
-
 
 }
