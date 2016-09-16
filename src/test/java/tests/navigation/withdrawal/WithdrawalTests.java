@@ -278,7 +278,7 @@ public class WithdrawalTests extends Fixture {
     public void logoutFromAdmin() {
         apisSystem.mainPage.clickLogoutButton();
         try {
-            Thread.sleep(300);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -295,6 +295,9 @@ public class WithdrawalTests extends Fixture {
         apisSystem.mainPage.clickOnNavigationItem(1);
         Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
     }
+
+    @Test(priority = 21)
+    public void findUser() {}
 
 
 }
