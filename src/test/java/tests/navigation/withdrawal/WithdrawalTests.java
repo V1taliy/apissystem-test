@@ -260,6 +260,7 @@ public class WithdrawalTests extends Fixture {
         }
         // select view in 1-st position
         apisSystem.withdrawalPage.clickViewButton(1);
+        // if need check view comment
         apisSystem.withdrawalPage.clickOnViewForComment(1);
         apisSystem.viewComment.isCommentDisplayed();
         Assert.assertEquals(apisSystem.viewComment.getCommentText(), TEST_COMMENT_1);
@@ -310,6 +311,9 @@ public class WithdrawalTests extends Fixture {
         apisSystem.declinePopup.clickButtonSaveOrCancel(true);
         apisSystem.greenMessage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
     }
 
     @Test(priority = 24)
@@ -346,6 +350,9 @@ public class WithdrawalTests extends Fixture {
         apisSystem.declinePopup.clickButtonSaveOrCancel(true);
         apisSystem.greenMessage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
     }
 
     @Test(priority = 30)
