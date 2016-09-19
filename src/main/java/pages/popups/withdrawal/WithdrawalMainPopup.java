@@ -60,7 +60,7 @@ public class WithdrawalMainPopup extends MainPopup {
     private void waitButtonOkToBeClickable() {
         WebElement buttonOK = web.getElement("assignButtonOK");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout10sec")));
         wait.until(ExpectedConditions.elementToBeClickable(buttonOK));
     }
 

@@ -19,6 +19,27 @@ public class WithdrawalPage extends Page {
     }
 
     /**
+     * Sort data table by some tab
+     *
+     * @param tabIndex tab index on list data table, where
+     *                 0 - ID (not used)
+     *                 1 - Brand
+     *                 2 - Customer ID
+     *                 3 - Date
+     *                 4 - Days of expire (not used)
+     *                 5 - Assignee (not used)
+     *                 6 - Desk (not used)
+     *                 7 - Verification status (not used)
+     *                 8 - Amount
+     *                 9 - Customer (not used)
+     *                 10 - Status (not used)
+     */
+    public void sortTab(int tabIndex) {
+        List<WebElement> tabsList = web.getElements("listDataTableMainTabs");
+        tabsList.get(tabIndex).click();
+    }
+
+    /**
      * Input data in customer ID field from filter entity
      *
      * @param customerID customer id
@@ -67,16 +88,16 @@ public class WithdrawalPage extends Page {
      * Select status from drop down list
      *
      * @param statusPosition status, where
-     *                       1 - Pending
-     *                       2 - Approved
-     *                       3 - Canceled
+     *                       0 - Pending
+     *                       1 - Approved
+     *                       2 - Canceled
      */
     public void selectStatus(int statusPosition) {
         // click on status field
         web.getElement("filterStatus");
         List<WebElement> statusList = web.getElements("filterStatusList");
-        log.info(String.format("select status: %s", statusList.get(statusPosition - 1).getText()));
-        statusList.get(statusPosition - 1).click();
+        log.info(String.format("select status: %s", statusList.get(statusPosition).getText()));
+        statusList.get(statusPosition).click();
     }
 
     /**
@@ -211,21 +232,21 @@ public class WithdrawalPage extends Page {
      * Get user data from column
      *
      * @param columnPosition column position from user row, where
-     *                       1 - ID
-     *                       2 - Brand
-     *                       3 - Customer ID
-     *                       4 - Date
-     *                       5 - Days of expire
-     *                       6 - Assignee
-     *                       7 - Desk
-     *                       8 - Verification status
-     *                       9 - Amount
-     *                       10 - Customer (not used)
-     *                       11 - Status
+     *                       0 - ID
+     *                       1 - Brand
+     *                       2 - Customer ID
+     *                       3 - Date
+     *                       4 - Days of expire
+     *                       5 - Assignee
+     *                       6 - Desk
+     *                       7 - Verification status
+     *                       8 - Amount
+     *                       9 - Customer (not used)
+     *                       10 - Status
      */
     public String getCustomerDataFromColumn(int columnPosition) {
         List<WebElement> userDataList = web.getElements("userRowListPosition1");
-        String result = userDataList.get(columnPosition - 1).getText();
+        String result = userDataList.get(columnPosition).getText();
         log.info(String.format("customer ID: %s", result));
         return result;
     }
@@ -236,22 +257,26 @@ public class WithdrawalPage extends Page {
     public void clickOnDecline(int declinePosition) {
         List<WebElement> declineList = web.getElements("withdrawalDeclineList");
         log.info(String.format("click on < %s > in position %s",
-                declineList.get(declinePosition - 1).getText(), declinePosition));
-        declineList.get(declinePosition - 1).click();
+                declineList.get(declinePosition).getText(), declinePosition));
+        declineList.get(declinePosition).click();
     }
 
-    /**
-     * Get user ID from list data table
-     *
-     * @param userID user ID from ID row
-     */
-    public int getUserID(String userID) {
+    public int getUserID(int userPosition) {
         List<WebElement> id_list = web.getElements("withdrawalUsersID_list");
-        for (WebElement ID : id_list) {
-            if (ID.equals(userID)) {
-                return Integer.parseInt(ID.getText());
+        String userID = id_list.get(userPosition).getText();
+        log.info(String.format("user ID: < %s >", userID));
+        return Integer.parseInt(userID);
+    }
+
+    public int getUserIndex(int userID) {
+        List<WebElement> usersID_list = web.getElements("usersRowsIdList");
+        for (int i = 0; i < usersID_list.size(); i++) {
+            if (userID == Integer.parseInt(usersID_list.get(i).getText())) {
+                log.info(String.format("user index: " + i));
+                return i;
             }
         }
+        log.info("user index: -1");
         return -1;
     }
 
