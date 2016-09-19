@@ -265,15 +265,15 @@ public class WithdrawalTests extends Fixture {
             apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         }
         // select view in 1-st position
-        apisSystem.withdrawalPage.clickViewButton(1);
+        apisSystem.withdrawalPage.clickViewButton(0);
         // if need check view comment
-        apisSystem.withdrawalPage.clickOnViewForComment(1);
+        apisSystem.withdrawalPage.clickOnViewForComment(0);
         apisSystem.viewComment.isCommentDisplayed();
         Assert.assertEquals(apisSystem.viewComment.getCommentText(), TEST_COMMENT_1);
         apisSystem.withdrawalPage.closeCommentMessage();
         try {
             Thread.sleep(1000);
-            apisSystem.withdrawalPage.clickViewButton(1);
+            apisSystem.withdrawalPage.clickViewButton(0);
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -400,7 +400,37 @@ public class WithdrawalTests extends Fixture {
         } else {
             Assert.fail("not finding user ID");
         }
+    }
 
+    @Test(priority = 32)
+    public void clickViewAndComments() {
+        apisSystem.withdrawalPage.clickViewButton(user_ID_position);
+        String comment1 = null;
+        String comment2 = null;
+        String comment3 = null;
+        for (int i = 0; i < apisSystem.withdrawalPage.getCommentViewSize(); i++) {
+            apisSystem.withdrawalPage.clickOnViewForComment(i);
+            apisSystem.viewComment.isCommentDisplayed();
+            switch (i) {
+                case 0:
+                    comment1 = apisSystem.viewComment.getCommentText();
+                    break;
+                case 1:
+                    comment2 = apisSystem.viewComment.getCommentText();
+                    break;
+                case 2:
+                    comment3 = apisSystem.viewComment.getCommentText();
+            }
+            apisSystem.withdrawalPage.closeCommentMessage();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        Assert.assertEquals(comment1, TEST_COMMENT_1);
+        Assert.assertEquals(comment2, TEST_COMMENT_2);
+        Assert.assertEquals(comment3, TEST_COMMENT_2 + "_2");
     }
 
     private static void switchToWithdrawalPage() {

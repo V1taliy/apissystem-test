@@ -172,7 +172,7 @@ public class WithdrawalPage extends Page {
             viewList.get(0).click();
         } else {
             log.info(String.format("select 'View' on < %s > position", viewPosition));
-            viewList.get(viewPosition - 1).click();
+            viewList.get(viewPosition).click();
         }
     }
 
@@ -185,8 +185,8 @@ public class WithdrawalPage extends Page {
         List<WebElement> viewList = web.getElements("withdrawalCommentView");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
-        wait.until(ExpectedConditions.elementToBeClickable(viewList.get(viewPosition - 1)));
-        viewList.get(viewPosition - 1).click();
+        wait.until(ExpectedConditions.elementToBeClickable(viewList.get(viewPosition)));
+        viewList.get(viewPosition).click();
     }
 
     public boolean checkViewButton(int viewPosition) {
@@ -278,6 +278,15 @@ public class WithdrawalPage extends Page {
         }
         log.info("user index: -1");
         return -1;
+    }
+
+    public void clickOnCommentView(int viewPosition) {
+        List<WebElement> commentViewList = web.getElements("withdrawalCommentViewList");
+        commentViewList.get(viewPosition).click();
+    }
+
+    public int getCommentViewSize() {
+        return web.getElements("withdrawalCommentViewList").size();
     }
 
 }
