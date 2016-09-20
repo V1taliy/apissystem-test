@@ -17,7 +17,7 @@ public class UsersTests extends Fixture {
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");
     private static final String USER_NAME_TEST = PropertyLoader.loadProperty("userName.test");
     private static final String USER_EMAIL_TEST = PropertyLoader.loadProperty("userEmail.test");
-    private static final int actionButtonPosition = 1;
+    private static final int actionButtonPosition = 0;
     private static final int ITEM_EDIT_USER = 4;
     private static final int ITEM_EDIT_DESKS = 6;
     private static final String[] DATA_TEST = {"First-Name-Test", "Last-Name-Test"};

@@ -76,7 +76,7 @@ public class WithdrawalTests extends Fixture {
             apisSystem.usersPage.scrollDown();
             userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
             log.info(String.format("user index = %s", userIndex1));
-            apisSystem.usersPage.clickActionButton(++userIndex1);
+            apisSystem.usersPage.clickActionButton(userIndex1);
             // click edit user
             apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
             apisSystem.editUser.waitPopupLoaded();
@@ -126,7 +126,7 @@ public class WithdrawalTests extends Fixture {
         apisSystem.greenMessage.waitMessageInvisibility();
         userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
         log.info(String.format("user index = %s", userIndex2));
-        apisSystem.usersPage.clickActionButton(++userIndex2);
+        apisSystem.usersPage.clickActionButton(userIndex2);
         // click edit user
         apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
         apisSystem.editUser.waitPopupLoaded();
@@ -314,28 +314,28 @@ public class WithdrawalTests extends Fixture {
         }
     }
 
-    @Test(priority = 23)
+    @Test(priority = 23, enabled = TEST_STATUS)
     public void logoutFromTestUser7() {
         logoutFromUser();
         wait90seconds();
     }
 
-    @Test(priority = 24)
+    @Test(priority = 24, enabled = TEST_STATUS)
     public void loginTestUser8() {
         TestUserLogin.testUserLogin(TEST_USER_8);
     }
 
-    @Test(priority = 25)
+    @Test(priority = 25, enabled = TEST_STATUS)
     public void switchToWithdrawalPageForTestUser8() {
         switchToWithdrawalPage();
     }
 
-    @Test(priority = 26)
+    @Test(priority = 26, enabled = TEST_STATUS)
     public void clickOnDeclineTestUser8() {
         clickOnDecline();
     }
 
-    @Test(priority = 27)
+    @Test(priority = 27, enabled = TEST_STATUS)
     public void changeDataOnDeclinePopupForTestUser8() {
         apisSystem.declinePopup.clickOnReasonField();
         apisSystem.declinePopup.selectReasonValueFromReasonField("noDocs");
@@ -349,23 +349,23 @@ public class WithdrawalTests extends Fixture {
         }
     }
 
-    @Test(priority = 28)
+    @Test(priority = 28, enabled = TEST_STATUS)
     public void logoutFromTestUser8() {
         logoutFromUser();
         wait90seconds();
     }
 
-    @Test(priority = 29)
+    @Test(priority = 29, enabled = TEST_STATUS)
     public void loginAsAdmin() {
         LoginTests.loginForAdmin(false);
     }
 
-    @Test(priority = 30)
+    @Test(priority = 30, enabled = TEST_STATUS)
     public void switchToWithdrawalAsAdmin() {
         switchToWithdrawalPage();
     }
 
-    @Test(priority = 31)
+    @Test(priority = 31, enabled = TEST_STATUS)
     public void searchUserAfterCanceled() {
         try {
             Thread.sleep(5000);
@@ -398,7 +398,7 @@ public class WithdrawalTests extends Fixture {
         }
     }
 
-    @Test(priority = 32)
+    @Test(priority = 32, enabled = TEST_STATUS)
     public void clickViewAndComments() {
         apisSystem.withdrawalPage.clickViewButton(user_ID_position);
         String comment1 = null;
@@ -427,7 +427,7 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(comment1, TEST_COMMENT_1);
         Assert.assertEquals(comment2, TEST_COMMENT_2);
         Assert.assertEquals(comment3, TEST_COMMENT_2 + "_2");
-        apisSystem.withdrawalPage.closeCommentMessage();
+        apisSystem.withdrawalPage.clickViewButton(user_ID_position);
     }
 
     @Test(priority = 33)
@@ -445,7 +445,7 @@ public class WithdrawalTests extends Fixture {
             apisSystem.usersPage.scrollDown();
             userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
             log.info(String.format("user index = %s", userIndex1));
-            apisSystem.usersPage.clickActionButton(++userIndex1);
+            apisSystem.usersPage.clickActionButton(userIndex1);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(6);
             apisSystem.editDesks.waitPopupLoaded();
             apisSystem.editDesks.clickButtonRemove();
@@ -454,23 +454,25 @@ public class WithdrawalTests extends Fixture {
             if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
             }
+            apisSystem.greenMessage.waitMessageInvisibility();
+            apisSystem.usersPage.clickActionButton(userIndex1);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
             apisSystem.editUser.waitPopupLoaded();
             apisSystem.editUser.clickAndSelectGroup("Select user group");
             apisSystem.editUser.deleteSelectBrand(1);
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-            }
+//            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+//                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+//            }
             apisSystem.usersPage.scrollDown();
             userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
             log.info(String.format("user index = %s", userIndex2));
-            apisSystem.usersPage.clickActionButton(++userIndex2);
+            apisSystem.usersPage.clickActionButton(userIndex2);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
             apisSystem.editUser.waitPopupLoaded();
-            apisSystem.editUser.clickAndSelectGroup("Select user group");
             apisSystem.editUser.deleteSelectBrand(1);
+            apisSystem.editUser.clickAndSelectGroup("Select user group");
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
             if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
@@ -513,9 +515,10 @@ public class WithdrawalTests extends Fixture {
     }
 
     private static void switchToUsersPage() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        }
+        // TODO  need uncomment
+//        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+//            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+//        }
         apisSystem.mainPage.clickOnNavigationItem(3);
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }

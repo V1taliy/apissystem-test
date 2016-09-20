@@ -113,8 +113,19 @@ public class UsersPage extends Page {
         List<WebElement> actionButtonList = web.getElements("actionButtonList");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
-        wait.until(ExpectedConditions.visibilityOf(actionButtonList.get(buttonPosition - 1)));
-        actionButtonList.get(buttonPosition - 1).click();
+        wait.until(ExpectedConditions.visibilityOf(actionButtonList.get(buttonPosition)));
+        actionButtonList.get(buttonPosition).click();
+    }
+
+    /**
+     * Click action button
+     */
+    public void clickActionButtonTest(int buttonPosition) {
+        List<WebElement> actionButtonList = web.getElements("actionButtonList");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
+        wait.until(ExpectedConditions.visibilityOf(actionButtonList.get(buttonPosition)));
+        actionButtonList.get(buttonPosition).click();
     }
 
     /**
