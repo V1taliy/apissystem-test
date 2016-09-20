@@ -2,10 +2,7 @@ package pages.brands;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.Page;
-import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
 import java.util.List;
@@ -23,19 +20,19 @@ public class BrandsPage extends Page {
      */
     public void clickActionButton(int buttonPosition) {
         List<WebElement> actionButtonList = web.getElements("actionButtonList");
-        actionButtonList.get(buttonPosition - 1).click();
+        actionButtonList.get(buttonPosition).click();
     }
 
     /**
      * Click action item from drop down menu
      *
      * @param menuItem item from menu, where
-     *                 1 - Edit brand
-     *                 2 - not used
-     *                 3 - Disable brand
-     *                 4 - Enable brand
-     *                 5 - not used
-     *                 6 - Delete brand
+     *                 0 - Edit brand
+     *                 1 - not used
+     *                 2 - Disable brand
+     *                 3 - Enable brand
+     *                 4 - not used
+     *                 5 - Delete brand
      */
     public void clickItemFromDropDownMenu(int menuItem) {
         List<WebElement> elementList = web.getElements("actionItemDropDownList");
@@ -148,6 +145,24 @@ public class BrandsPage extends Page {
         } else {
             elementList.get(2).click();
         }
+    }
+
+    /**
+     * Get brand index from list entity
+     *
+     * @param brandName brand name
+     * @return if brand name finding return brand index, otherwise return -1
+     */
+    public int getBrandIndex(String brandName) {
+        List<WebElement> brandsNameList = web.getElements("brandNameList");
+        for (int i = 0; i < brandsNameList.size(); i++) {
+            if (brandsNameList.get(i).getText().equals(brandName)) {
+                log.info(String.format("brand index: " + i));
+                return i;
+            }
+        }
+        log.error("brand not found");
+        return -1;
     }
 
 }
