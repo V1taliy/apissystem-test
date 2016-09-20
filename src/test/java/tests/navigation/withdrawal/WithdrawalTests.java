@@ -66,11 +66,7 @@ public class WithdrawalTests extends Fixture {
 
     @Test(priority = 5, enabled = TEST_STATUS)
     public void switchToUsers() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        }
-        apisSystem.mainPage.clickOnNavigationItem(3);
-        Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
+        switchToUsersPage();
     }
 
     @Test(priority = 6, enabled = TEST_STATUS)
@@ -431,6 +427,59 @@ public class WithdrawalTests extends Fixture {
         Assert.assertEquals(comment1, TEST_COMMENT_1);
         Assert.assertEquals(comment2, TEST_COMMENT_2);
         Assert.assertEquals(comment3, TEST_COMMENT_2 + "_2");
+        apisSystem.withdrawalPage.closeCommentMessage();
+    }
+
+    @Test(priority = 33)
+    public void switchToUsers2() {
+        switchToUsersPage();
+    }
+
+    @Test(priority = 34)
+    public void changeTestUsers() {
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        try {
+            Thread.sleep(500);
+            apisSystem.usersPage.scrollDown();
+            userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
+            log.info(String.format("user index = %s", userIndex1));
+            apisSystem.usersPage.clickActionButton(++userIndex1);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(6);
+            apisSystem.editDesks.waitPopupLoaded();
+            apisSystem.editDesks.clickButtonRemove();
+            apisSystem.editDesks.clickButtonSaveOrCancel(true);
+            apisSystem.editDesks.waitInvisibilityPopup();
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.editUser.waitPopupLoaded();
+            apisSystem.editUser.clickAndSelectGroup("Select user group");
+            apisSystem.editUser.deleteSelectBrand(1);
+            apisSystem.editUser.clickButtonSaveOrCancel(true);
+            apisSystem.editUser.waitInvisibilityPopup();
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+            apisSystem.usersPage.scrollDown();
+            userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
+            log.info(String.format("user index = %s", userIndex2));
+            apisSystem.usersPage.clickActionButton(++userIndex2);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.editUser.waitPopupLoaded();
+            apisSystem.editUser.clickAndSelectGroup("Select user group");
+            apisSystem.editUser.deleteSelectBrand(1);
+            apisSystem.editUser.clickButtonSaveOrCancel(true);
+            apisSystem.editUser.waitInvisibilityPopup();
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     private static void switchToWithdrawalPage() {
@@ -461,6 +510,14 @@ public class WithdrawalTests extends Fixture {
         apisSystem.withdrawalPage.clickOnDecline(0);
         apisSystem.declinePopup.waitPopupLoaded();
         Assert.assertTrue(apisSystem.declinePopup.isPopupPresent());
+    }
+
+    private static void switchToUsersPage() {
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.mainPage.clickOnNavigationItem(3);
+        Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }
 
     private static void wait90seconds() {
