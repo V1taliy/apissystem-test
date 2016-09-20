@@ -19,6 +19,27 @@ public class WithdrawalPage extends Page {
     }
 
     /**
+     * Sort data table by some tab
+     *
+     * @param tabIndex tab index on list data table, where
+     *                 0 - ID (not used)
+     *                 1 - Brand
+     *                 2 - Customer ID
+     *                 3 - Date
+     *                 4 - Days of expire (not used)
+     *                 5 - Assignee (not used)
+     *                 6 - Desk (not used)
+     *                 7 - Verification status (not used)
+     *                 8 - Amount
+     *                 9 - Customer (not used)
+     *                 10 - Status (not used)
+     */
+    public void sortTab(int tabIndex) {
+        List<WebElement> tabsList = web.getElements("listDataTableMainTabs");
+        tabsList.get(tabIndex).click();
+    }
+
+    /**
      * Input data in customer ID field from filter entity
      *
      * @param customerID customer id
@@ -67,16 +88,16 @@ public class WithdrawalPage extends Page {
      * Select status from drop down list
      *
      * @param statusPosition status, where
-     *                       1 - Pending
-     *                       2 - Approved
-     *                       3 - Canceled
+     *                       0 - Pending
+     *                       1 - Approved
+     *                       2 - Canceled
      */
     public void selectStatus(int statusPosition) {
         // click on status field
         web.getElement("filterStatus");
         List<WebElement> statusList = web.getElements("filterStatusList");
-        log.info(String.format("select status: %s", statusList.get(statusPosition - 1).getText()));
-        statusList.get(statusPosition - 1).click();
+        log.info(String.format("select status: %s", statusList.get(statusPosition).getText()));
+        statusList.get(statusPosition).click();
     }
 
     /**
@@ -151,7 +172,7 @@ public class WithdrawalPage extends Page {
             viewList.get(0).click();
         } else {
             log.info(String.format("select 'View' on < %s > position", viewPosition));
-            viewList.get(viewPosition - 1).click();
+            viewList.get(viewPosition).click();
         }
     }
 
@@ -164,8 +185,8 @@ public class WithdrawalPage extends Page {
         List<WebElement> viewList = web.getElements("withdrawalCommentView");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
-        wait.until(ExpectedConditions.elementToBeClickable(viewList.get(viewPosition - 1)));
-        viewList.get(viewPosition - 1).click();
+        wait.until(ExpectedConditions.elementToBeClickable(viewList.get(viewPosition)));
+        viewList.get(viewPosition).click();
     }
 
     public boolean checkViewButton(int viewPosition) {
@@ -178,7 +199,8 @@ public class WithdrawalPage extends Page {
      * Scroll to element(+) without header
      */
     public void scrollToElement(String elementLocator) {
-        web.scrollToElement(elementLocator, "navigationWrapper");
+        web.scrollToElementTo(elementLocator, "navigationWrapper");
+//        web.scrollToElementBy(elementLocator, "withdrawalToggleBlock");
     }
 
     /**
@@ -204,6 +226,67 @@ public class WithdrawalPage extends Page {
 
     public void closeCommentMessage() {
         web.clickLink("withdrawalCommentModal");
+    }
+
+    /**
+     * Get user data from column
+     *
+     * @param columnPosition column position from user row, where
+     *                       0 - ID
+     *                       1 - Brand
+     *                       2 - Customer ID
+     *                       3 - Date
+     *                       4 - Days of expire
+     *                       5 - Assignee
+     *                       6 - Desk
+     *                       7 - Verification status
+     *                       8 - Amount
+     *                       9 - Customer (not used)
+     *                       10 - Status
+     */
+    public String getCustomerDataFromColumn(int columnPosition) {
+        List<WebElement> userDataList = web.getElements("userRowListPosition1");
+        String result = userDataList.get(columnPosition).getText();
+        log.info(String.format("customer ID: %s", result));
+        return result;
+    }
+
+    /**
+     *
+     * */
+    public void clickOnDecline(int declinePosition) {
+        List<WebElement> declineList = web.getElements("withdrawalDeclineList");
+        log.info(String.format("click on < %s > in position %s",
+                declineList.get(declinePosition).getText(), declinePosition));
+        declineList.get(declinePosition).click();
+    }
+
+    public int getUserID(int userPosition) {
+        List<WebElement> id_list = web.getElements("withdrawalUsersID_list");
+        String userID = id_list.get(userPosition).getText();
+        log.info(String.format("user ID: < %s >", userID));
+        return Integer.parseInt(userID);
+    }
+
+    public int getUserIndex(int userID) {
+        List<WebElement> usersID_list = web.getElements("usersRowsIdList");
+        for (int i = 0; i < usersID_list.size(); i++) {
+            if (userID == Integer.parseInt(usersID_list.get(i).getText())) {
+                log.info(String.format("user index: " + i));
+                return i;
+            }
+        }
+        log.info("user index: -1");
+        return -1;
+    }
+
+    public void clickOnCommentView(int viewPosition) {
+        List<WebElement> commentViewList = web.getElements("withdrawalCommentViewList");
+        commentViewList.get(viewPosition).click();
+    }
+
+    public int getCommentViewSize() {
+        return web.getElements("withdrawalCommentViewList").size();
     }
 
 }

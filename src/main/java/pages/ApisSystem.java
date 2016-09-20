@@ -17,6 +17,8 @@ import pages.popups.deskExpirationTime.Edit;
 import pages.popups.groups.CreateGroup;
 import pages.popups.groups.EditGroup;
 import pages.popups.withdrawal.AssignPopup;
+import pages.popups.withdrawal.DeclinePopup;
+import pages.popups.withdrawal.WithdrawalMainPopup;
 import pages.users.UsersPage;
 import pages.popups.users.EditDesks;
 import pages.popups.users.EditUser;
@@ -50,6 +52,8 @@ public class ApisSystem {
     public WithdrawalEntity withdrawalEntity;
     public AssignPopup assignPopup;
     public ViewComment viewComment;
+    public WithdrawalMainPopup withdrawalMainPopup;
+    public DeclinePopup declinePopup;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -76,6 +80,8 @@ public class ApisSystem {
         withdrawalEntity = new WithdrawalEntity(driverWrapper);
         assignPopup = new AssignPopup(driverWrapper);
         viewComment = new ViewComment(driverWrapper);
+        withdrawalMainPopup = new WithdrawalMainPopup(driverWrapper);
+        declinePopup = new DeclinePopup(driverWrapper);
     }
 
 }

@@ -44,8 +44,8 @@ public class ListEntity extends Page {
         List<WebElement> userNameList = web.getElements("userNameList");
         for (int i = 0; i < userNameList.size(); i++) {
             // for debug
-//            log.info(userNameList.get(i).getText());
-//            log.info(String.format("user name: %s", userName));
+            log.info(userNameList.get(i).getText());
+            log.info(String.format("user name: %s", userName));
             if (userNameList.get(i).getText().equals(userName)) {
                 return i;
             }
