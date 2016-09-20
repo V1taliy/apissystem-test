@@ -5,5 +5,6 @@
         <suite-file path="users.xml"/>
         <suite-file path="deskExpirationTime.xml"/>
         <suite-file path="brands.xml"/>
+        <!--<suite-file path="withdrawal.xml"/>-->
     </suite-files>
 </suite>

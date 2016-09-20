@@ -119,7 +119,7 @@ public class BrandsPage extends Page {
      * @param locator input field locator
      */
     public String getInputValue(String locator) {
-        return web.getElement(locator).getAttribute("value");
+        return web.getElement(locator).getText();
     }
 
     public int getFirstPosition() {
@@ -129,7 +129,7 @@ public class BrandsPage extends Page {
     /* methods for filter entity*/
 
     public void filterInputBrandName(String brandName) {
-        web.clearAndInput("filterBrandNameInput", brandName);
+        web.clearAndInputAndClickEnter("filterBrandNameInput", brandName);
     }
 
     /**

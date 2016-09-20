@@ -67,6 +67,7 @@ public class UsersTests extends Fixture {
             }
             apisSystem.usersPage.clickUserCheckbox(userPosition);
             apisSystem.usersPage.clickToggleButton(button);
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
             apisSystem.greenMessage.waitMessageSuccessPresent();
             Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
             button = false;
@@ -83,6 +84,7 @@ public class UsersTests extends Fixture {
         }
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(1);
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.greenMessage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
@@ -97,6 +99,7 @@ public class UsersTests extends Fixture {
         }
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
+        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.greenMessage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
