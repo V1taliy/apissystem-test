@@ -2,7 +2,7 @@ package tests.login;
 
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import tests.Fixture;
 import utils.PropertyLoader;
 
@@ -57,13 +57,8 @@ public class LoginTests extends Fixture {
     }
 
     @Test(priority = 6, dependsOnMethods = {"openWebSite"})
-    public void adminLogin() {
-        apisSystem.loginPage.inputUserName(ADMIN_NAME);
-        apisSystem.loginPage.inputPassword(ADMIN_PASSWORD);
-        apisSystem.loginPage.clickLoginButton();
-        apisSystem.loginPage.waitInvisibilityPanelBody();
-        Assert.assertTrue(apisSystem.mainPage.isWelcomeToApisSystemPresent());
-        apisSystem.mainPage.clickLogoutButton();
+    public static void adminLogin() {
+        loginForAdmin(true);
     }
 
     private void fakeLoginTestCase(String fakeName, String fakePassword) {
@@ -73,6 +68,22 @@ public class LoginTests extends Fixture {
         apisSystem.loginPage.waitInvisibilityPanelBody();
         apisSystem.loginPage.waitAlertInvalidUserOrPass();
         Assert.assertTrue(apisSystem.loginPage.isAlertInvalidUserOrPassPresent());
+    }
+
+    /**
+     * @param loginStatus where
+     *                    true - logout
+     *                    false - not logout
+     */
+    public static void loginForAdmin(boolean loginStatus) {
+        apisSystem.loginPage.inputUserName(ADMIN_NAME);
+        apisSystem.loginPage.inputPassword(ADMIN_PASSWORD);
+        apisSystem.loginPage.clickLoginButton();
+        apisSystem.loginPage.waitInvisibilityPanelBody();
+        Assert.assertTrue(apisSystem.mainPage.isWelcomeToApisSystemPresent());
+        if (loginStatus) {
+            apisSystem.mainPage.clickLogoutButton();
+        }
     }
 
 }

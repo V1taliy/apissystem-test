@@ -2,7 +2,11 @@ package pages.popups.users;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.popups.MainPopup;
+import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
 import java.util.ArrayList;
@@ -103,6 +107,37 @@ public class EditUser extends MainPopup {
     }
 
     /**
+     * Select group by index and click
+     *
+     * @param groupPosition group position from drop down list
+     */
+    public void clickAndSelectGroup(int groupPosition) {
+        web.clickLink("editUserGroupLink");
+        List<WebElement> groupList = web.getElements("editUserGroupList");
+        log.info(String.format("group select < %s >",
+                groupList.get(groupPosition - 1).getText()));
+        groupList.get(groupPosition - 1).click();
+    }
+
+    /**
+     * Select group by group name and click
+     *
+     * @param groupName group name from drop down list
+     */
+    public void clickAndSelectGroup(String groupName) {
+        web.clickLink("editUserGroupLink");
+        List<WebElement> groupList = web.getElements("editUserGroupList");
+        for (WebElement element : groupList) {
+            log.info(String.format("group: < %s >", element.getText()));
+            if (element.getText().equals(groupName)) {
+                log.info(String.format("group select < %s >", element.getText()));
+                element.click();
+                return;
+            }
+        }
+    }
+
+    /**
      * Select and click random position from role list
      */
     public void clickAndSelectRole() {
@@ -123,6 +158,14 @@ public class EditUser extends MainPopup {
      */
     public void waitInvisibilityLoading() {
         web.waitDisappearElement("editUserLoading");
+    }
+
+    public void waitInvisibilityToaster() {
+        WebElement element = web.getElement("editUserToaster");
+        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
+                Long.parseLong(PropertyLoader.loadProperty("wait.timeout3sec")));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
+//        web.waitDisappearElement("editUserToaster");
     }
 
     public boolean isErrorMessagePresent() {
