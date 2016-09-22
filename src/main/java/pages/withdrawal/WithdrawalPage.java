@@ -395,4 +395,31 @@ public class WithdrawalPage extends Page {
         return brandNameList.get(brandPosition).getText();
     }
 
+    /**
+     * Get navigation size of clickable elements on list entity
+     *
+     * @return count elements on a page
+     */
+    public int getNavigationSize() {
+        List<WebElement> navigationList = web.getElements("withdrawalNavigationList");
+        log.info(String.format("navigation elements size: ", navigationList.size()));
+        return navigationList.size();
+    }
+
+    /**
+     * Click on navigation element
+     *
+     * @param navElementPosition navigation elements on list entity, where
+     *                           0 - Brand
+     *                           1 - CustomerID
+     *                           2 - Date
+     *                           3 - Amount
+     */
+    public void clickOnNavigationElement(int navElementPosition) {
+        List<WebElement> navigationList = web.getElements("withdrawalNavigationList");
+        log.info(String.format("click on navigation < %s > element",
+                navigationList.get(navElementPosition).getText()));
+        navigationList.get(navElementPosition);
+    }
+
 }

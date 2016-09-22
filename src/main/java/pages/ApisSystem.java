@@ -3,6 +3,7 @@ package pages;
 import pages.brands.BrandsPage;
 import pages.entity.FilterEntity;
 import pages.entity.ListEntity;
+import pages.entity.buttons.ListNavigationButtons;
 import pages.groups.GroupsPage;
 import pages.entity.groups.PagesEntity;
 import pages.entity.groups.WithdrawalEntity;
@@ -54,6 +55,7 @@ public class ApisSystem {
     public ViewComment viewComment;
     public WithdrawalMainPopup withdrawalMainPopup;
     public DeclinePopup declinePopup;
+    public ListNavigationButtons listNavigationButtons;
 
     public ApisSystem(WebDriverWrapper driverWrapper) {
         web = new WebElementsActions(driverWrapper);
@@ -82,6 +84,7 @@ public class ApisSystem {
         viewComment = new ViewComment(driverWrapper);
         withdrawalMainPopup = new WithdrawalMainPopup(driverWrapper);
         declinePopup = new DeclinePopup(driverWrapper);
+        listNavigationButtons = new ListNavigationButtons(driverWrapper);
     }
 
 }

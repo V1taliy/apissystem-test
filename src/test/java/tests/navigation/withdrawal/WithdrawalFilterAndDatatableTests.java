@@ -16,8 +16,10 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String WITHDRAWAL_URL = PropertyLoader.loadProperty("withdrawal.url");
     private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
+    private static final String[] BUTTONS_NAME_ARRAY = {"first", "next", "previous", "last"};
 
     private static final int newImpWait = 300;
+    private static final boolean testStatus = true;
 
     @Test(priority = 1)
     public void adminLogin() {
@@ -35,7 +37,7 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = testStatus)
     public void inputIncorrectCustomerID() {
         try {
             Thread.sleep(5000);
@@ -53,7 +55,7 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         Assert.assertTrue(apisSystem.withdrawalPage.isCustomerIdErrorMessagePresent());
     }
 
-    @Test(priority = 4)
+    @Test(priority = 4, enabled = testStatus)
     public void inputCorrectCustomerID() {
         int test_customerID = apisSystem.withdrawalPage.getCustomerID(0);
         apisSystem.withdrawalPage.inputCustomerID(String.valueOf(test_customerID));
@@ -64,12 +66,12 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID(0), test_customerID);
     }
 
-    @Test(priority = 5)
+    @Test(priority = 5, enabled = testStatus)
     public void clickButtonReset() {
         clickResetButton();
     }
 
-    @Test(priority = 6)
+    @Test(priority = 6, enabled = testStatus)
     public void selectVerificationStatus() {
         String verificationStatus = "Partial";
         apisSystem.withdrawalPage.clickOnVerificationStatusField();
@@ -81,12 +83,12 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         Assert.assertEquals(apisSystem.withdrawalPage.getVerificationStatus(0), verificationStatus);
     }
 
-    @Test(priority = 7)
+    @Test(priority = 7, enabled = testStatus)
     public void clickButtonReset2() {
         clickResetButton();
     }
 
-    @Test(priority = 8)
+    @Test(priority = 8, enabled = testStatus)
     public void selectStatus() {
         String status = "Pending";
         apisSystem.withdrawalPage.selectStatus(status);
@@ -97,12 +99,12 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         Assert.assertEquals(apisSystem.withdrawalPage.getStatus(0), status.toLowerCase());
     }
 
-    @Test(priority = 9)
+    @Test(priority = 9, enabled = testStatus)
     public void clickButtonReset3() {
         clickResetButton();
     }
 
-    @Test(priority = 10)
+    @Test(priority = 10, enabled = testStatus)
     public void findTestUser() {
         String status = "Approved";
         String brand = "toroption";
@@ -124,7 +126,47 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         clickResetButton();
     }
 
+    @Test(priority = 12)
+    public void sortListEntity() {
+        int size = apisSystem.withdrawalPage.getNavigationSize();
+        for (int i = 0; i < size; i++) {
+            apisSystem.withdrawalPage.clickOnNavigationElement(i);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        }
+    }
+
+    @Test(priority = 13)
+    public void clickListNavigationButtons() {
+        for (int i = 0; i <= BUTTONS_NAME_ARRAY.length - 1; i++) {
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+            apisSystem.listNavigationButtons.scrollAndClickNavigationButtons(BUTTONS_NAME_ARRAY[i]);
+        }
+        for (int i = 0; i <= 3; i++) {
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+            apisSystem.listNavigationButtons.scrollAndClickNavigationIndexButton(i);
+        }
+        apisSystem.listNavigationButtons.scrollPageToNavigationWrapper();
+    }
+
     private static void clickResetButton() {
+        // for debug
+        {
+            try {
+                Thread.sleep(5000);
+                if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                    apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //
         apisSystem.filterEntity.clickSearchOrResetButton(false);
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
