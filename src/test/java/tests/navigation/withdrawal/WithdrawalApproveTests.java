@@ -180,8 +180,7 @@ public class WithdrawalApproveTests extends Fixture {
 
     @Test(priority = 12, enabled = TEST_STATUS)
     public void switchToWithdrawal() {
-        apisSystem.mainPage.clickOnNavigationItem(1);
-        Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
+        switchToWithdrawalPage();
     }
 
     @Test(priority = 13, enabled = TEST_STATUS)
@@ -208,7 +207,7 @@ public class WithdrawalApproveTests extends Fixture {
 
     @Test(priority = 14)
     public void clickOnAssignButton() {
-        apisSystem.withdrawalPage.clickOnAssign(0);
+        apisSystem.withdrawalPage.clickActionButton("Assign", 0);
         apisSystem.assignPopup.waitPopupLoaded();
         Assert.assertTrue(apisSystem.assignPopup.isPopupPresent());
     }
@@ -255,6 +254,26 @@ public class WithdrawalApproveTests extends Fixture {
         wait90seconds();
     }
 
+    @Test(priority = 18)
+    public void loginTestUser7() {
+        TestUserLogin.testUserLogin(TEST_USER_7);
+    }
+
+    @Test(priority = 19)
+    public void switchToWithdrawalPageForTestUser7() {
+        switchToWithdrawalPage();
+    }
+
+    @Test(priority = 20)
+    public void clickOnApproveForTestUser7() {
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.withdrawalPage.clickActionButton("Approve", 0);
+        apisSystem.approvePopup.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.approvePopup.isPopupPresent());
+    }
+
     private static void switchToUsersPage() {
         // TODO  need uncomment
 //        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
@@ -262,6 +281,11 @@ public class WithdrawalApproveTests extends Fixture {
 //        }
         apisSystem.mainPage.clickOnNavigationItem(3);
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
+    }
+
+    private static void switchToWithdrawalPage() {
+        apisSystem.mainPage.clickOnNavigationItem(1);
+        Assert.assertEquals(apisSystem.withdrawalPage.getCurrentPageURL(), WITHDRAWAL_URL);
     }
 
     private static void logoutFromUser() {
