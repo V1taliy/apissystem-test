@@ -3,7 +3,9 @@
     <test name="Withdrawal Tests">
 
         <classes>
-            <class name="tests.navigation.withdrawal.WithdrawalDeclineTests"/>
+            <class name="tests.navigation.withdrawal.WithdrawalFilterAndDatatableTests"/>
+            <!--<class name="tests.navigation.withdrawal.WithdrawalDeclineTests"/>-->
+            <!--<class name="tests.navigation.withdrawal.WithdrawalApproveTests"/>-->
         </classes>
 
     </test>
