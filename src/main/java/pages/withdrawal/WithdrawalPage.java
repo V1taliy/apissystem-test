@@ -258,7 +258,7 @@ public class WithdrawalPage extends Page {
     }
 
     /**
-     * Click on button 'Assign'
+     * Click on button 'Assign' in first position
      */
     public void clickButtonAssign() {
         web.clickLink("assignButtonPosition1");
@@ -292,13 +292,27 @@ public class WithdrawalPage extends Page {
     }
 
     /**
+     * Click on 'Decline' button from list entity on withdrawal page
      *
-     * */
+     * @param declinePosition 'decline' button position on list entity
+     */
     public void clickOnDecline(int declinePosition) {
         List<WebElement> declineList = web.getElements("withdrawalDeclineList");
         log.info(String.format("click on < %s > in position %s",
                 declineList.get(declinePosition).getText(), declinePosition));
         declineList.get(declinePosition).click();
+    }
+
+    /**
+     * Click on 'Assign' button from list entity on withdrawal page
+     *
+     * @param assignPosition 'decline' button position on list entity
+     */
+    public void clickOnAssign(int assignPosition) {
+        List<WebElement> assignList = web.getElements("withdrawalAssignButtonList");
+        log.info(String.format("click on < %s > in position %s",
+                assignList.get(assignPosition).getText(), assignPosition));
+        assignList.get(assignPosition).click();
     }
 
     public int getUserID(int userPosition) {

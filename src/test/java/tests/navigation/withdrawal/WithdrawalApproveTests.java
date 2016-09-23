@@ -206,6 +206,55 @@ public class WithdrawalApproveTests extends Fixture {
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID_fromFirstRow(), TEST_CUSTOMER_ID);
     }
 
+    @Test(priority = 14)
+    public void clickOnAssignButton() {
+        apisSystem.withdrawalPage.clickOnAssign(0);
+        apisSystem.assignPopup.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.assignPopup.isPopupPresent());
+    }
+
+    @Test(priority = 15, enabled = TEST_STATUS)
+    public void changeDataOnAssignPopup() {
+        apisSystem.assignPopup.clickOnGroupFiled();
+        apisSystem.assignPopup.selectGroup(5);
+        apisSystem.assignPopup.clickOnUserField();
+        apisSystem.assignPopup.selectUser(TEST_USER_7);
+        apisSystem.assignPopup.clickOnAddComment();
+        apisSystem.assignPopup.inputComment(TEST_COMMENT_1);
+        apisSystem.assignPopup.clickButtonSaveOrCancel(true);
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 16, enabled = TEST_STATUS)
+    public void clickOnViewAndCheckComment() {
+        apisSystem.greenMessage.waitInvisibilityOverlay();
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        // select view in 1-st position
+        apisSystem.withdrawalPage.clickViewButton(0);
+        // if need check view comment
+        apisSystem.withdrawalPage.clickOnViewForComment(0);
+        apisSystem.viewComment.isCommentDisplayed();
+        Assert.assertEquals(apisSystem.viewComment.getCommentText(), TEST_COMMENT_1);
+        apisSystem.withdrawalPage.closeCommentMessage();
+        try {
+            Thread.sleep(1000);
+            apisSystem.withdrawalPage.clickViewButton(0);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.withdrawalPage.checkViewButton(1));
+    }
+
+    @Test(priority = 17, enabled = TEST_STATUS)
+    public void logoutFromAdmin() {
+        logoutFromUser();
+        wait90seconds();
+    }
+
     private static void switchToUsersPage() {
         // TODO  need uncomment
 //        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
@@ -213,6 +262,28 @@ public class WithdrawalApproveTests extends Fixture {
 //        }
         apisSystem.mainPage.clickOnNavigationItem(3);
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
+    }
+
+    private static void logoutFromUser() {
+        apisSystem.greenMessage.waitInvisibilityOverlay();
+        apisSystem.mainPage.clickLogoutButton();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(apisSystem.mainPage.getCurrentPageURL(), LOGIN_URL);
+    }
+
+    private static void wait90seconds() {
+        for (int i = 90; i > 0; i--) {
+            try {
+                log.info(i);
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
