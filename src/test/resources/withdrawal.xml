@@ -3,7 +3,7 @@
     <test name="Withdrawal Tests">
 
         <classes>
-            <class name="tests.navigation.withdrawal.WithdrawalTests"/>
+            <class name="tests.navigation.withdrawal.WithdrawalDeclineTests"/>
         </classes>
 
     </test>

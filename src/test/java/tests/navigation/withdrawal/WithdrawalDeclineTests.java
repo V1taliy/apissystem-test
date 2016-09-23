@@ -8,11 +8,9 @@ import tests.login.LoginTests;
 import tests.login.TestUserLogin;
 import utils.PropertyLoader;
 
-import java.util.concurrent.TimeUnit;
+public class WithdrawalDeclineTests extends Fixture {
 
-public class WithdrawalTests extends Fixture {
-
-    private static final Logger log = Logger.getLogger(WithdrawalTests.class);
+    private static final Logger log = Logger.getLogger(WithdrawalDeclineTests.class);
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");

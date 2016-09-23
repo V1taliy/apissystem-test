@@ -49,6 +49,13 @@ public class WithdrawalPage extends Page {
     }
 
     /**
+     * Wait and check present error message for customer id
+     */
+    public boolean isCustomerIdErrorMessagePresent() {
+        return web.waitForElementPresent("filterFieldErrorMessage");
+    }
+
+    /**
      * Input brand name in brand field
      *
      * @param brandName brand name
@@ -98,6 +105,39 @@ public class WithdrawalPage extends Page {
         List<WebElement> statusList = web.getElements("filterStatusList");
         log.info(String.format("select status: %s", statusList.get(statusPosition).getText()));
         statusList.get(statusPosition).click();
+    }
+
+    /**
+     * Get status from list entity
+     *
+     * @param statusPosition status position on list entity
+     */
+    public String getStatus(int statusPosition) {
+        List<WebElement> statusList = web.getElements("withdrawalStatusList");
+        return statusList.get(statusPosition).getText();
+    }
+
+    /**
+     * Select status from status field
+     *
+     * @param statusName where you can input
+     *                   - All Statuses
+     *                   - Pending
+     *                   - Approved
+     *                   - Canceled
+     */
+    public void selectStatus(String statusName) {
+        // click on status field
+        web.getElement("filterStatus").click();
+        List<WebElement> statusList = web.getElements("filterStatusList");
+        for (WebElement status : statusList) {
+            if (status.getText().equals(statusName)) {
+                log.info(String.format("select status: < %s >", status.getText()));
+                status.click();
+            } else {
+                log.info(String.format("< %s > not found", statusName));
+            }
+        }
     }
 
     /**
@@ -280,13 +320,106 @@ public class WithdrawalPage extends Page {
         return -1;
     }
 
+    /**
+     * Click on 'View' for comment
+     *
+     * @param viewPosition view position on list entity
+     */
     public void clickOnCommentView(int viewPosition) {
         List<WebElement> commentViewList = web.getElements("withdrawalCommentViewList");
         commentViewList.get(viewPosition).click();
     }
 
+    /**
+     * Get view comment size
+     */
     public int getCommentViewSize() {
         return web.getElements("withdrawalCommentViewList").size();
+    }
+
+    /**
+     * Get customer id in some position
+     *
+     * @param position position on list entity
+     */
+    public int getCustomerID(int position) {
+        List<WebElement> customerID_list = web.getElements("withdrawalCustomerID_list");
+        log.info(String.format("customerID: < %s >", customerID_list.get(position).getText()));
+        return Integer.parseInt(customerID_list.get(position).getText());
+    }
+
+    /**
+     * Click on field 'Verification status'
+     */
+    public void clickOnVerificationStatusField() {
+        web.clickLink("filterVerificationStatusField");
+    }
+
+    /**
+     * Select verification status from 'Verification status' field
+     *
+     * @param verificationStatus finding verification status
+     */
+    public void selectVerificationStatus(String verificationStatus) {
+        List<WebElement> verificationStatusList = web.getElements("filterVerificationStatusList");
+        for (WebElement verStatus : verificationStatusList) {
+            if (verStatus.getText().equals(verificationStatus)) {
+                log.info(String.format("select verification status < %s >", verStatus.getText()));
+                verStatus.click();
+            } else {
+                log.error(String.format("not found < %s > verification status", verificationStatus));
+            }
+        }
+    }
+
+    /**
+     * Get verification status from list entity
+     *
+     * @param verificationStatusPosition verification status position on list data table
+     */
+    public String getVerificationStatus(int verificationStatusPosition) {
+        List<WebElement> verificationStatusList = web.getElements("withdrawalVerificationStatusList");
+        log.info(String.format("verification status: %s",
+                verificationStatusList.get(verificationStatusPosition).getText()));
+        return verificationStatusList.get(verificationStatusPosition).getText();
+    }
+
+    /**
+     * Get brand name from list entity
+     *
+     * @param brandPosition brand position on list entity
+     */
+    public String getBrandName(int brandPosition) {
+        List<WebElement> brandNameList = web.getElements("withdrawalBrandList");
+        log.info(String.format("brand name: < %s >", brandNameList.get(brandPosition).getText()));
+        return brandNameList.get(brandPosition).getText();
+    }
+
+    /**
+     * Get navigation size of clickable elements on list entity
+     *
+     * @return count elements on a page
+     */
+    public int getNavigationSize() {
+        List<WebElement> navigationList = web.getElements("withdrawalNavigationList");
+        log.info(String.format("navigation elements size: ", navigationList.size()));
+        return navigationList.size();
+    }
+
+    /**
+     * Click on navigation element
+     *
+     * @param navElementPosition navigation elements on list entity, where
+     *                           0 - Brand
+     *                           1 - CustomerID
+     *                           2 - Date
+     *                           3 - Amount
+     */
+    public void clickOnNavigationElement(int navElementPosition) {
+        List<WebElement> navigationList = web.getElements("withdrawalNavigationList");
+        log.info(String.format("click on navigation < %s > element",
+                navigationList.get(navElementPosition).getText()));
+        navigationList.get(navElementPosition);
     }
 
 }
