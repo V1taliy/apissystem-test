@@ -1,6 +1,7 @@
 package pages.popups.withdrawal;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.WebDriverWrapper;
 
@@ -14,11 +15,12 @@ public class ApprovePopup extends WithdrawalMainPopup {
         super(driverWrapper);
     }
 
-    /**
-     * Click on 'Group' field on 'Approve' popup
-     */
-    public void clickOnGroup() {
+    public void clickOnGroupFiled() {
         web.clickLink("groupLink");
+    }
+
+    public void clickOnUserField() {
+        web.clickLink("userLink");
     }
 
     /**
@@ -34,6 +36,45 @@ public class ApprovePopup extends WithdrawalMainPopup {
                 group.click();
             }
         }
+    }
+
+    /**
+     * Select user from user drop down list
+     *
+     * @param userName user name
+     */
+    public void selectUser(String userName) {
+        List<WebElement> usersList = web.getElements("userList");
+        for (WebElement user : usersList) {
+            if (user.getText().equals(userName)) {
+                log.info(String.format("select user: < %s >", user.getText()));
+                user.click();
+            }
+        }
+    }
+
+    /**
+     * Get text from group field, where must be only one group status - 'Finance'
+     */
+    public String getGroupStatus() {
+        return web.getElement("groupList").getText();
+    }
+
+    /**
+     * Select and click radio button 'Keep bonus' or 'Remove bonus'
+     *
+     * @param radioButtonPosition radio button position on pop up 'Approve', where
+     *                            0 - Keep bonus
+     *                            1 - Remove bonus
+     */
+    public void selectBonusRadioButton(int radioButtonPosition) {
+        List<WebElement> radioButtonList = web.getElements("bonusList");
+        log.info(String.format("select < %s > radio button",
+                radioButtonList.get(radioButtonPosition)
+                        .findElement(By.cssSelector("span.show-inline"))));
+        radioButtonList.get(radioButtonPosition)
+                .findElement(By.cssSelector("input[class*=bonus-checkbox-input]"))
+                .click();
     }
 
 }

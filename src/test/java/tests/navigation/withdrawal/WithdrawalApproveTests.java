@@ -274,6 +274,31 @@ public class WithdrawalApproveTests extends Fixture {
         Assert.assertTrue(apisSystem.approvePopup.isPopupPresent());
     }
 
+    @Test(priority = 21)
+    public void changeDataOnApprovePopup() {
+        apisSystem.approvePopup.clickOnGroupFiled();
+        apisSystem.approvePopup.selectUser("Finance");
+        apisSystem.approvePopup.clickOnUserField();
+        apisSystem.approvePopup.selectUser(TEST_USER_8);
+        apisSystem.approvePopup.selectBonusRadioButton(0);
+        apisSystem.approvePopup.clickOnAddComment();
+        apisSystem.approvePopup.inputComment(TEST_COMMENT_2);
+        apisSystem.approvePopup.clickButtonSaveOrCancel(true);
+        apisSystem.approvePopup.waitInvisibilityPopup();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 22)
+    public void logoutTestUser7() {
+        logoutFromUser();
+        wait90seconds();
+    }
+
     private static void switchToUsersPage() {
         // TODO  need uncomment
 //        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {

@@ -306,32 +306,6 @@ public class WithdrawalPage extends Page {
     }
 
     /**
-     * Click on 'Assign' button from list entity on withdrawal page
-     *
-     * @param assignPosition 'decline' button position on list entity
-     */
-    @Deprecated
-    public void clickOnAssign(int assignPosition) {
-        List<WebElement> assignList = web.getElements("withdrawalAssignButtonList");
-        log.info(String.format("click on < %s > in position %s",
-                assignList.get(assignPosition).getText(), assignPosition));
-        assignList.get(assignPosition).click();
-    }
-
-    /**
-     * Click on 'Approve' button from list entity on withdrawal page
-     *
-     * @param approvePosition 'decline' button position on list entity
-     */
-    @Deprecated
-    public void clickOnApprove(int approvePosition) {
-        List<WebElement> approveList = web.getElements("withdrawalApproveButtonList");
-        log.info(String.format("click on < %s > in position %s",
-                approveList.get(approvePosition).getText(), approvePosition));
-        approveList.get(approvePosition).click();
-    }
-
-    /**
      * Click on action button on list entity for withdrawal page
      *
      * @param buttonName     button name, where input data
