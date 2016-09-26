@@ -21,6 +21,7 @@ public class WithdrawalApproveTests extends Fixture {
     private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
     private static final String TEST_COMMENT_1 = "TEST_COMMENT_FOR_TEST_USER_7";
     private static final String TEST_COMMENT_2 = "TEST_COMMENT_FOR_TEST_USER_8";
+    private static final String TEST_CONFIRM_CODE = "10";
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
@@ -275,7 +276,7 @@ public class WithdrawalApproveTests extends Fixture {
     }
 
     @Test(priority = 21)
-    public void changeDataOnApprovePopup() {
+    public void changeDataOnApprovePopupTestUser7() {
         apisSystem.approvePopup.clickOnGroupFiled();
         apisSystem.approvePopup.selectUser("Finance");
         apisSystem.approvePopup.clickOnUserField();
@@ -297,6 +298,184 @@ public class WithdrawalApproveTests extends Fixture {
     public void logoutTestUser7() {
         logoutFromUser();
         wait90seconds();
+    }
+
+    @Test(priority = 23)
+    public void loginAsTestUser8() {
+        TestUserLogin.testUserLogin(TEST_USER_8);
+    }
+
+    @Test(priority = 24)
+    public void switchToWithdrawalPageForTestUser8() {
+        switchToWithdrawalPage();
+    }
+
+    @Test(priority = 25)
+    public void clickOnApproveButtonForTestUser8() {
+        try {
+            Thread.sleep(5000);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        apisSystem.withdrawalPage.clickActionButton("Approve", 0);
+        apisSystem.approvePopup.waitPopupLoaded();
+        Assert.assertTrue(apisSystem.approvePopup.isPopupPresent());
+    }
+
+    @Test(priority = 26)
+    public void changeDataOnApprovePopupForTestUser8() {
+        apisSystem.approvePopup.selectBonusRadioButton(0);
+        apisSystem.approvePopup.inputConfirmCode(TEST_CONFIRM_CODE);
+        apisSystem.approvePopup.clickOnMethod();
+        apisSystem.approvePopup.selectMethod("CreditCard");
+        apisSystem.approvePopup.clickOnAddComment();
+        apisSystem.approvePopup.inputComment(TEST_COMMENT_2);
+        apisSystem.approvePopup.clickButtonSaveOrCancel(true);
+        apisSystem.approvePopup.waitInvisibilityPopup();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 27)
+    public void logoutTestUser8() {
+        logoutFromUser();
+        wait90seconds();
+    }
+
+    @Test(priority = 28)
+    public void loginAsAdmin2() {
+        LoginTests.loginForAdmin(false);
+    }
+
+    @Test(priority = 29)
+    public void switchToWithdrawal2() {
+        switchToWithdrawalPage();
+    }
+
+    @Test(priority = 30, enabled = TEST_STATUS)
+    public void searchUserAfterCanceled() {
+        try {
+            Thread.sleep(5000);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        apisSystem.withdrawalPage.inputCustomerID(TEST_CUSTOMER_ID);
+        apisSystem.withdrawalPage.deleteAllBrands();
+        apisSystem.withdrawalPage.inputBrand("toroption");
+        apisSystem.withdrawalPage.selectStatus(1);
+        apisSystem.filterEntity.clickSearchOrResetButton(true);
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        for (int i = 0; i < 2; i++) {
+            apisSystem.withdrawalPage.sortTab(3);
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        }
+        user_ID_position = apisSystem.withdrawalPage.getUserIndex(user_ID);
+        int userID = apisSystem.withdrawalPage.getUserID(user_ID_position);
+        if (userID > 0) {
+            Assert.assertEquals(userID, user_ID);
+        } else {
+            Assert.fail("not finding user ID");
+        }
+    }
+
+    @Test(priority = 31, enabled = TEST_STATUS)
+    public void clickViewAndComments() {
+        apisSystem.withdrawalPage.clickViewButton(user_ID_position);
+        String comment1 = null;
+        String comment2 = null;
+        String comment3 = null;
+        for (int i = 0; i < apisSystem.withdrawalPage.getCommentViewSize(); i++) {
+            apisSystem.withdrawalPage.clickOnViewForComment(i);
+            apisSystem.viewComment.isCommentDisplayed();
+            switch (i) {
+                case 0:
+                    comment1 = apisSystem.viewComment.getCommentText();
+                    break;
+                case 1:
+                    comment2 = apisSystem.viewComment.getCommentText();
+                    break;
+                case 2:
+                    comment3 = apisSystem.viewComment.getCommentText();
+            }
+            apisSystem.withdrawalPage.closeCommentMessage();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        Assert.assertEquals(comment1, TEST_COMMENT_1);
+        Assert.assertEquals(comment2, TEST_COMMENT_2);
+        Assert.assertEquals(comment3, TEST_COMMENT_2 + "_2");
+        apisSystem.withdrawalPage.clickViewButton(user_ID_position);
+    }
+
+    @Test(priority = 32)
+    public void switchToUsers2() {
+        switchToUsersPage();
+    }
+
+    @Test(priority = 33)
+    public void changeTestUsers() {
+        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        try {
+            Thread.sleep(500);
+            apisSystem.usersPage.scrollDown();
+            userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
+            log.info(String.format("user index = %s", userIndex1));
+            apisSystem.usersPage.clickActionButton(userIndex1);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(6);
+            apisSystem.editDesks.waitPopupLoaded();
+            apisSystem.editDesks.clickButtonRemove();
+            apisSystem.editDesks.clickButtonSaveOrCancel(true);
+            apisSystem.editDesks.waitInvisibilityPopup();
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+            apisSystem.greenMessage.waitMessageInvisibility();
+            apisSystem.usersPage.clickActionButton(userIndex1);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.editUser.waitPopupLoaded();
+            apisSystem.editUser.clickAndSelectGroup("Select user group");
+            apisSystem.editUser.deleteSelectBrand(1);
+            apisSystem.editUser.clickButtonSaveOrCancel(true);
+            apisSystem.editUser.waitInvisibilityPopup();
+//            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+//                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+//            }
+            apisSystem.usersPage.scrollDown();
+            userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
+            log.info(String.format("user index = %s", userIndex2));
+            apisSystem.usersPage.clickActionButton(userIndex2);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.editUser.waitPopupLoaded();
+            apisSystem.editUser.deleteSelectBrand(1);
+            apisSystem.editUser.clickAndSelectGroup("Select user group");
+            apisSystem.editUser.clickButtonSaveOrCancel(true);
+            apisSystem.editUser.waitInvisibilityPopup();
+            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     private static void switchToUsersPage() {

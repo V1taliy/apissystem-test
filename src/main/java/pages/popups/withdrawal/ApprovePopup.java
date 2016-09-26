@@ -71,10 +71,47 @@ public class ApprovePopup extends WithdrawalMainPopup {
         List<WebElement> radioButtonList = web.getElements("bonusList");
         log.info(String.format("select < %s > radio button",
                 radioButtonList.get(radioButtonPosition)
-                        .findElement(By.cssSelector("span.show-inline"))));
+                        .findElement(By.cssSelector("span.show-inline")).getText()));
         radioButtonList.get(radioButtonPosition)
                 .findElement(By.cssSelector("input[class*=bonus-checkbox-input]"))
                 .click();
+    }
+
+    /**
+     * Input data to 'Confirm code' field
+     *
+     * @param confirmCode
+     */
+    public void inputConfirmCode(String confirmCode) {
+        web.clearAndInput("confirmCodeField", confirmCode);
+    }
+
+    public void clickOnMethod() {
+        web.getElement("methodField").click();
+    }
+
+    /**
+     * Select method from drop down list on 'Approve' pop up
+     *
+     * @param methodName method name, from drop down list, where
+     *                   ccTerminal
+     *                   Wire
+     *                   CreditCard
+     *                   Pending
+     *                   Chargeback
+     *                   Bonus
+     *                   Withdrawal
+     *                   Fraund
+     */
+    public void selectMethod(String methodName) {
+        List<WebElement> methodsList = web.getElements("methodList");
+        for (WebElement method : methodsList) {
+            if (method.getText().equals(methodName)) {
+                log.info(String.format("select < %s >", method.getText()));
+                method.click();
+                return;
+            }
+        }
     }
 
 }
