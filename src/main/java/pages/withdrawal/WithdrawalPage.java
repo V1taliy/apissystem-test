@@ -1,6 +1,7 @@
 package pages.withdrawal;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Beta;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -258,7 +259,7 @@ public class WithdrawalPage extends Page {
     }
 
     /**
-     * Click on button 'Assign'
+     * Click on button 'Assign' in first position
      */
     public void clickButtonAssign() {
         web.clickLink("assignButtonPosition1");
@@ -292,13 +293,34 @@ public class WithdrawalPage extends Page {
     }
 
     /**
+     * Click on 'Decline' button from list entity on withdrawal page
      *
-     * */
+     * @param declinePosition 'decline' button position on list entity
+     */
+    @Deprecated
     public void clickOnDecline(int declinePosition) {
         List<WebElement> declineList = web.getElements("withdrawalDeclineList");
         log.info(String.format("click on < %s > in position %s",
                 declineList.get(declinePosition).getText(), declinePosition));
         declineList.get(declinePosition).click();
+    }
+
+    /**
+     * Click on action button on list entity for withdrawal page
+     *
+     * @param buttonName     button name, where input data
+     *                       - Decline
+     *                       - Approve
+     *                       - Assign
+     * @param buttonPosition button position on list entity, where
+     *                       numeric start from 0
+     */
+    @Beta
+    public void clickActionButton(String buttonName, int buttonPosition) {
+        List<WebElement> buttonsList = web.getElements("withdrawal" + buttonName + "ButtonList");
+        log.info(String.format("click on < %s > in position %s",
+                buttonsList.get(buttonPosition).getText(), buttonPosition));
+        buttonsList.get(buttonPosition).click();
     }
 
     public int getUserID(int userPosition) {

@@ -69,6 +69,11 @@ public class UsersTests extends Fixture {
             apisSystem.usersPage.clickToggleButton(button);
             apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
             apisSystem.greenMessage.waitMessageSuccessPresent();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
             button = false;
         }
