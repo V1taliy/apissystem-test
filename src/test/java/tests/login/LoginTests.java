@@ -47,7 +47,7 @@ public class LoginTests extends Fixture {
     }
 
     @Test(priority = 5, dependsOnMethods = {"openWebSite"})
-    public void userLogin() {
+    public void userLoginPositive() {
         apisSystem.loginPage.inputUserName(USER_NAME);
         apisSystem.loginPage.inputPassword(USER_PASSWORD);
         apisSystem.loginPage.clickLoginButton();
@@ -57,8 +57,28 @@ public class LoginTests extends Fixture {
     }
 
     @Test(priority = 6, dependsOnMethods = {"openWebSite"})
-    public static void adminLogin() {
+    public void userLoginNegative() {
+        apisSystem.loginPage.inputUserName(USER_NAME);
+        apisSystem.loginPage.inputPassword(USER_PASSWORD + "fail");
+        apisSystem.loginPage.clickLoginButton();
+        apisSystem.loginPage.waitInvisibilityPanelBody();
+        apisSystem.loginPage.waitAlertInvalidUserOrPass();
+        Assert.assertTrue(apisSystem.loginPage.isAlertInvalidUserOrPassPresent());
+    }
+
+    @Test(priority = 7, dependsOnMethods = {"openWebSite"})
+    public static void adminLoginPositive() {
         loginForAdmin(true);
+    }
+
+    @Test(priority = 8, dependsOnMethods = {"openWebSite"})
+    public void adminLoginNegative() {
+        apisSystem.loginPage.inputUserName(ADMIN_NAME);
+        apisSystem.loginPage.inputPassword(ADMIN_PASSWORD + "0");
+        apisSystem.loginPage.clickLoginButton();
+        apisSystem.loginPage.waitInvisibilityPanelBody();
+        apisSystem.loginPage.waitAlertInvalidUserOrPass();
+        Assert.assertTrue(apisSystem.loginPage.isAlertInvalidUserOrPassPresent());
     }
 
     private void fakeLoginTestCase(String fakeName, String fakePassword) {
