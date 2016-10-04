@@ -50,13 +50,13 @@ public class BrandsTests extends Fixture {
         for (int i = 2; i <= 4; i++) {
             for (int j = 0; j <= 1; j++) {
                 if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                    apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+                    apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
                 }
                 apisSystem.brandsPage.selectTableSort(i);
             }
         }
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.brandsPage.selectTableSort(2);
     }
@@ -67,7 +67,7 @@ public class BrandsTests extends Fixture {
         int brandPosition = 2;
         for (int i = 1; i <= 2; i++) {
             if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.brandsPage.clickBrandCheckbox(brandPosition);
             apisSystem.brandsPage.clickToggleButton(button);
@@ -134,7 +134,7 @@ public class BrandsTests extends Fixture {
     @Test(priority = 10, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void deleteFirstTestBrandClickCancel() {
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         firstBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA[3]);
         try {
@@ -159,7 +159,7 @@ public class BrandsTests extends Fixture {
     @Test(priority = 12, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void editSecondTestBrand() {
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         secondBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA_2[3]);
         try {
@@ -186,7 +186,7 @@ public class BrandsTests extends Fixture {
     public void clickDisableFromCogwheel() {
         apisSystem.brandsPage.clickActionButton(2);
         apisSystem.brandsPage.clickItemFromDropDownMenu(3);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(300);
         } catch (InterruptedException e) {
@@ -198,11 +198,11 @@ public class BrandsTests extends Fixture {
     @Test(priority = 15, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void clickEnableFromCogwheel() {
         if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.brandsPage.clickActionButton(2);
         apisSystem.brandsPage.clickItemFromDropDownMenu(4);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(300);
         } catch (InterruptedException e) {
