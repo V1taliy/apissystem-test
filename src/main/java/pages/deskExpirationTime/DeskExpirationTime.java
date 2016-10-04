@@ -58,47 +58,12 @@ public class DeskExpirationTime extends Page {
      *                   Next - next button
      *                   Last - last button
      */
-    @Beta
     public void scrollAndClickNavigationButtonsTest(String buttonName) {
         web.scrollToElementBy(String.format("button%s", buttonName));
         log.info(String.format("scroll to < %s >", web.getElement("button" + buttonName).getText()));
         ExpectedConditions.elementToBeClickable(web.getElement("button" + buttonName));
         web.clickLink("button" + buttonName);
         log.info(String.format("click on < %s > button", web.getElement("button" + buttonName).getText()));
-    }
-
-    @Deprecated
-    public void scrollAndClickNavigationButtons(String buttonName) {
-        switch (buttonName) {
-            case "first":
-                web.scrollToElementBy("buttonFirst");
-                log.info(String.format("scroll to < %s >", web.getElement("buttonFirst").getText()));
-                ExpectedConditions.elementToBeClickable(web.getElement("buttonFirst"));
-                web.clickLink("buttonFirst");
-                log.info(String.format("click on < %s > button", web.getElement("buttonFirst").getText()));
-                break;
-            case "previous":
-                web.scrollToElementBy("buttonPrevious");
-                log.info(String.format("scroll to < %s >", web.getElement("buttonPrevious").getText()));
-                ExpectedConditions.elementToBeClickable(web.getElement("buttonPrevious"));
-                web.clickLink("buttonPrevious");
-                log.info(String.format("click on < %s > button", web.getElement("buttonPrevious").getText()));
-                break;
-            case "next":
-                web.scrollToElementBy("buttonNext");
-                log.info(String.format("scroll to < %s >", web.getElement("buttonNext").getText()));
-                ExpectedConditions.elementToBeClickable(web.getElement("buttonNext"));
-                web.clickLink("buttonNext");
-                log.info(String.format("click on < %s > button", web.getElement("buttonNext").getText()));
-                break;
-            case "last":
-                web.scrollToElementBy("buttonLast");
-                log.info(String.format("scroll to < %s >", web.getElement("buttonLast").getText()));
-                ExpectedConditions.elementToBeClickable(web.getElement("buttonLast"));
-                web.clickLink("buttonLast");
-                log.info(String.format("click on < %s > button", web.getElement("buttonLast").getText()));
-                break;
-        }
     }
 
     /**
