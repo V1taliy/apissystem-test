@@ -45,4 +45,8 @@ public class MainPage extends Page {
         }
     }
 
+    public void scrollDown() {
+        web.scrollToElementBy("footerApissystem");
+    }
+
 }

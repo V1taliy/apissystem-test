@@ -1,6 +1,7 @@
 package pages.users;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Beta;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,22 +21,47 @@ public class UsersPage extends Page {
 
     // methods for FILTER
 
+    /**
+     * Input data in someone of the fields
+     *
+     * @param fieldName someone of the fields names, where
+     *                  UserName - user name field
+     *                  FirstName - first name field
+     *                  LastName - last name field
+     *                  Email - email field
+     *                  Group - group field
+     */
+    @Beta
+    public void filterInput(String fieldName, String inputData) {
+        log.info(String.format("input in < %s > field", fieldName));
+        if (fieldName.equals("Group")) {
+            web.clearAndInputAndClickEnter(String.format("filter%sField", fieldName), inputData);
+        } else {
+            web.clearAndInput(String.format("filter%sField", fieldName), inputData);
+        }
+    }
+
+    @Deprecated
     public void inputUserName(String userName) {
         web.clearAndInput("filterUserNameField", userName);
     }
 
+    @Deprecated
     public void inputFirstName(String firstName) {
         web.clearAndInput("filterFirstNameField", firstName);
     }
 
+    @Deprecated
     public void inputLastName(String lastName) {
         web.clearAndInput("filterLastNameField", lastName);
     }
 
+    @Deprecated
     public void inputEmail(String email) {
         web.clearAndInput("filterEmailField", email);
     }
 
+    @Deprecated
     public void inputGroupAndClickEnter(String group) {
         web.clearAndInputAndClickEnter("filterGroupField", group);
     }
@@ -108,19 +134,10 @@ public class UsersPage extends Page {
 
     /**
      * Click action button
+     *
+     * @param buttonPosition button position on list entity
      */
     public void clickActionButton(int buttonPosition) {
-        List<WebElement> actionButtonList = web.getElements("actionButtonList");
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
-        wait.until(ExpectedConditions.visibilityOf(actionButtonList.get(buttonPosition)));
-        actionButtonList.get(buttonPosition).click();
-    }
-
-    /**
-     * Click action button
-     */
-    public void clickActionButtonTest(int buttonPosition) {
         List<WebElement> actionButtonList = web.getElements("actionButtonList");
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
@@ -164,6 +181,11 @@ public class UsersPage extends Page {
         return web.getElement(locator).getAttribute("value");
     }
 
+    /**
+     * Get value from group field
+     *
+     * @param locator group filed locator
+     */
     public String getGroupValue(String locator) {
         return web.getElement(locator).getText();
     }
@@ -196,13 +218,12 @@ public class UsersPage extends Page {
         return brandName;
     }
 
+    /**
+     * Get brand name from first position
+     */
     public String getBrandName() {
         List<WebElement> list = web.getElements("brandsColumnList");
         return list.get(0).getText();
-    }
-
-    public void scrollDown() {
-        web.scrollToElementBy("footerApissystem");
     }
 
 }

@@ -72,7 +72,7 @@ public class WithdrawalApproveTests extends Fixture {
     public void testUser7EditUserSelectGroupAndBrand() {
         try {
             Thread.sleep(1000);
-            apisSystem.usersPage.scrollDown();
+            apisSystem.mainPage.scrollDown();
             userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
             log.info(String.format("user index = %s", userIndex1));
             apisSystem.usersPage.clickActionButton(userIndex1);
@@ -436,7 +436,7 @@ public class WithdrawalApproveTests extends Fixture {
         }
         try {
             Thread.sleep(500);
-            apisSystem.usersPage.scrollDown();
+            apisSystem.mainPage.scrollDown();
             userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
             log.info(String.format("user index = %s", userIndex1));
             apisSystem.usersPage.clickActionButton(userIndex1);
@@ -459,7 +459,7 @@ public class WithdrawalApproveTests extends Fixture {
 //            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
 //                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
 //            }
-            apisSystem.usersPage.scrollDown();
+            apisSystem.mainPage.scrollDown();
             userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
             log.info(String.format("user index = %s", userIndex2));
             apisSystem.usersPage.clickActionButton(userIndex2);

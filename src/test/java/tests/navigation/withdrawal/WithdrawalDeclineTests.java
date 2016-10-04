@@ -19,8 +19,9 @@ public class WithdrawalDeclineTests extends Fixture {
     private static final String TEST_USER_7 = PropertyLoader.loadProperty("testUser7.name");
     private static final String TEST_USER_8 = PropertyLoader.loadProperty("testUser8.name");
     private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
-    private static final String TEST_COMMENT_1 = "TEST_COMMENT_FOR_TEST_USER_7";
-    private static final String TEST_COMMENT_2 = "TEST_COMMENT_FOR_TEST_USER_8";
+    private static final String TEST_COMMENT_1 = "TEST_COMMENT: ASSIGN_ON_TEST_USER_7";
+    private static final String TEST_COMMENT_2 = "TEST_COMMENT: DECLINE_AND_ASSIGN_ON_TEST_USER_8";
+    private static final String TEST_COMMENT_3 = "TEST_COMMENT: TEST_USER_8_DECLINE";
 
     private static int userIndex1 = 0;
     private static int userIndex2 = 0;
@@ -71,7 +72,7 @@ public class WithdrawalDeclineTests extends Fixture {
     public void testUser7EditUserSelectGroupAndBrand() {
         try {
             Thread.sleep(1000);
-            apisSystem.usersPage.scrollDown();
+            apisSystem.mainPage.scrollDown();
             userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
             log.info(String.format("user index = %s", userIndex1));
             apisSystem.usersPage.clickActionButton(userIndex1);
@@ -338,7 +339,7 @@ public class WithdrawalDeclineTests extends Fixture {
         apisSystem.declinePopup.clickOnReasonField();
         apisSystem.declinePopup.selectReasonValueFromReasonField("noDocs");
         apisSystem.declinePopup.clickOnAddComment();
-        apisSystem.declinePopup.inputComment(TEST_COMMENT_2 + "_2");
+        apisSystem.declinePopup.inputComment(TEST_COMMENT_3);
         apisSystem.declinePopup.clickButtonSaveOrCancel(true);
         apisSystem.greenMessage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
@@ -417,14 +418,14 @@ public class WithdrawalDeclineTests extends Fixture {
             }
             apisSystem.withdrawalPage.closeCommentMessage();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         Assert.assertEquals(comment1, TEST_COMMENT_1);
         Assert.assertEquals(comment2, TEST_COMMENT_2);
-        Assert.assertEquals(comment3, TEST_COMMENT_2 + "_2");
+        Assert.assertEquals(comment3, TEST_COMMENT_3);
         apisSystem.withdrawalPage.clickViewButton(user_ID_position);
     }
 
@@ -440,7 +441,7 @@ public class WithdrawalDeclineTests extends Fixture {
         }
         try {
             Thread.sleep(500);
-            apisSystem.usersPage.scrollDown();
+            apisSystem.mainPage.scrollDown();
             userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
             log.info(String.format("user index = %s", userIndex1));
             apisSystem.usersPage.clickActionButton(userIndex1);
@@ -463,7 +464,7 @@ public class WithdrawalDeclineTests extends Fixture {
 //            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
 //                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
 //            }
-            apisSystem.usersPage.scrollDown();
+            apisSystem.mainPage.scrollDown();
             userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
             log.info(String.format("user index = %s", userIndex2));
             apisSystem.usersPage.clickActionButton(userIndex2);
