@@ -31,7 +31,6 @@ public class UsersPage extends Page {
      *                  Email - email field
      *                  Group - group field
      */
-    @Beta
     public void filterInput(String fieldName, String inputData) {
         log.info(String.format("input in < %s > field", fieldName));
         if (fieldName.equals("Group")) {
@@ -39,31 +38,6 @@ public class UsersPage extends Page {
         } else {
             web.clearAndInput(String.format("filter%sField", fieldName), inputData);
         }
-    }
-
-    @Deprecated
-    public void inputUserName(String userName) {
-        web.clearAndInput("filterUserNameField", userName);
-    }
-
-    @Deprecated
-    public void inputFirstName(String firstName) {
-        web.clearAndInput("filterFirstNameField", firstName);
-    }
-
-    @Deprecated
-    public void inputLastName(String lastName) {
-        web.clearAndInput("filterLastNameField", lastName);
-    }
-
-    @Deprecated
-    public void inputEmail(String email) {
-        web.clearAndInput("filterEmailField", email);
-    }
-
-    @Deprecated
-    public void inputGroupAndClickEnter(String group) {
-        web.clearAndInputAndClickEnter("filterGroupField", group);
     }
 
     public void clickOnGroupFiled() {
