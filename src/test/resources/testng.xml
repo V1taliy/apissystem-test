@@ -6,7 +6,7 @@
         <suite-file path="deskExpirationTime.xml"/>
         <suite-file path="brands.xml"/>
         <suite-file path="withdrawal.xml"/>
-        <suite-file path="withdrawal_decline.xml"/>
         <suite-file path="withdrawal_approve.xml"/>
+        <suite-file path="withdrawal_decline.xml"/>
     </suite-files>
 </suite>
