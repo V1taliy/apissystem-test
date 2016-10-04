@@ -1,7 +1,6 @@
 package tests.navigation.brands;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.Fixture;
@@ -21,8 +20,9 @@ public class BrandsTests extends Fixture {
             "testApiPassword", "testBrandName", "testDomain"};
     private static final String[] TEST_DATA_2 = {"testAppKey2", "testApiUser2",
             "testApiPassword2", "testBrandName2", "testDomain2"};
+    private static final String[] FIELDS_ARRAY = {"AppKey", "ApiUser", "ApiPassword",
+            "BrandName", "Domain"};
 
-    private static final boolean testStatus = false;
     private static int firstBrandIndex = 0;
     private static int secondBrandIndex = 0;
 
@@ -86,11 +86,11 @@ public class BrandsTests extends Fixture {
     @Test(priority = 6, dependsOnMethods = {"goToBrandsTab"})
     public void popupCreateBrandInputFieldsAndClickCancel() {
         clickCreateBrand();
-        apisSystem.createBrand.inputAppKey(TEST_DATA[0]);
-        apisSystem.createBrand.inputApiUser(TEST_DATA[1]);
-        apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
-        apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
-        apisSystem.createBrand.inputDomain(TEST_DATA[4]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[0], TEST_DATA[0]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[1], TEST_DATA[1]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[2], TEST_DATA[2]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[3], TEST_DATA[3]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA[4]);
         apisSystem.createBrand.selectCheckboxEnable();
         Assert.assertEquals(apisSystem.createBrand.clickButtonSaveOrCancel(false), true);
     }
@@ -99,11 +99,11 @@ public class BrandsTests extends Fixture {
     public void popupCreateBrandFailedDomain() {
         apisSystem.createBrand.waitInvisibilityPopup();
         clickCreateBrand();
-        apisSystem.createBrand.inputAppKey(TEST_DATA[0]);
-        apisSystem.createBrand.inputApiUser(TEST_DATA[1]);
-        apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
-        apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
-        apisSystem.createBrand.inputDomain(TEST_DATA[4]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[0], TEST_DATA[0]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[1], TEST_DATA[1]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[2], TEST_DATA[2]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[3], TEST_DATA[3]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA[4]);
         apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.createBrand.isErrorMessagePresent());
@@ -111,7 +111,7 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 8, dependsOnMethods = {"goToBrandsTab"})
     public void popupCreateBrandCorrectDomain() {
-        apisSystem.createBrand.inputDomain(TEST_DATA[4] + ".com");
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA[4] + ".com");
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         apisSystem.createBrand.waitInvisibilityPopup();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
@@ -121,11 +121,11 @@ public class BrandsTests extends Fixture {
     public void createSecondBrand() {
         apisSystem.createBrand.waitInvisibilityPopup();
         clickCreateBrand();
-        apisSystem.createBrand.inputAppKey(TEST_DATA_2[0]);
-        apisSystem.createBrand.inputApiUser(TEST_DATA_2[1]);
-        apisSystem.createBrand.inputApiPassword(TEST_DATA_2[2]);
-        apisSystem.createBrand.inputBrandName(TEST_DATA_2[3]);
-        apisSystem.createBrand.inputDomain(TEST_DATA_2[4] + ".com");
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[0], TEST_DATA_2[0]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[1], TEST_DATA_2[1]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[2], TEST_DATA_2[2]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[3], TEST_DATA_2[3]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA_2[4] + ".com");
         apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
@@ -169,8 +169,8 @@ public class BrandsTests extends Fixture {
         }
         apisSystem.brandsPage.clickActionButton(secondBrandIndex);
         apisSystem.brandsPage.clickItemFromDropDownMenu(1);
-        apisSystem.editBrand.inputApiUser(TEST_DATA_2[1] + "edit");
-        apisSystem.editBrand.inputBrandName(TEST_DATA_2[3] + "edit");
+        apisSystem.editBrand.inputField(FIELDS_ARRAY[1], TEST_DATA_2[1] + "edit");
+        apisSystem.editBrand.inputField(FIELDS_ARRAY[3], TEST_DATA_2[3] + "edit");
         apisSystem.editBrand.clickButtonSaveOrCancel(true);
         apisSystem.editBrand.waitInvisibilityPopup();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());

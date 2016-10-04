@@ -1,5 +1,6 @@
 package pages.popups.brands;
 
+import org.openqa.selenium.Beta;
 import pages.popups.MainPopup;
 import utils.WebDriverWrapper;
 
@@ -9,24 +10,19 @@ public class CreateBrand extends MainPopup {
         super(driverWrapper);
     }
 
-    public void inputAppKey(String appKey) {
-        web.clearAndInput("inputAppKey", appKey);
-    }
-
-    public void inputApiUser(String apiUser) {
-        web.clearAndInput("inputApiUser", apiUser);
-    }
-
-    public void inputApiPassword(String apiPassword) {
-        web.clearAndInput("inputApiPassword", apiPassword);
-    }
-
-    public void inputBrandName(String brandName) {
-        web.clearAndInput("inputBrandName", brandName);
-    }
-
-    public void inputDomain(String domain) {
-        web.clearAndInput("inputDomain", domain);
+    /**
+     * Input data in someone of the fields
+     *
+     * @param inputData input data in someone fields
+     * @param fieldName someone fields name, where
+     *                  AppKey - app key field
+     *                  ApiUser - api user filed
+     *                  ApiPassword - api password field
+     *                  BrandName - brand name field
+     *                  Domain - domain field
+     */
+    public void inputField(String fieldName, String inputData) {
+        web.clearAndInput(String.format("input%s", fieldName), inputData);
     }
 
     public void selectCheckboxEnable() {

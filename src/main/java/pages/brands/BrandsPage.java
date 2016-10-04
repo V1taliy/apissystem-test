@@ -96,57 +96,6 @@ public class BrandsPage extends Page {
         tableList.get(tableNumber - 1).click();
     }
 
-    public void waitInvisibilityOverlay() {
-        web.waitDisappearElement("overlay");
-    }
-
-    /**
-     * get value (brand name) from first position
-     *
-     * @param locator input field locator
-     */
-    public String getValueFromFirstBrandName(String locator) {
-        log.info(web.getElement(locator).getText());
-        return web.getElement(locator).getText();
-    }
-
-    /**
-     * Get value from input field
-     *
-     * @param locator input field locator
-     */
-    public String getInputValue(String locator) {
-        return web.getElement(locator).getText();
-    }
-
-    public int getFirstPosition() {
-        return web.getElements("firstPositionBrand").size();
-    }
-
-    /* methods for filter entity*/
-
-    public void filterInputBrandName(String brandName) {
-        web.clearAndInputAndClickEnter("filterBrandNameInput", brandName);
-    }
-
-    /**
-     * Click enabled field and select 'Enabled' or 'Disabled'
-     *
-     * @param status where
-     *               true - enabled
-     *               false - disabled
-     * @info elementList.get(0) - Select (don't click)
-     */
-    public void filterClickAndSelectEnabled(boolean status) {
-        web.clickLink("filterEnabledLink");
-        List<WebElement> elementList = web.getElements("filterEnabledList");
-        if (status) {
-            elementList.get(1).click();
-        } else {
-            elementList.get(2).click();
-        }
-    }
-
     /**
      * Get brand index from list entity
      *
