@@ -14,7 +14,7 @@ public class DeskExpirationTimeTests extends Fixture {
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String DESK_EXPIRATION_TIME_URL = PropertyLoader.loadProperty("deskTime.url");
     private static final String BRANDS_URL = PropertyLoader.loadProperty("brands.url");
-    private static final String[] BUTTONS_NAME_ARRAY = {"first", "previous", "next", "last"};
+    private static final String[] BUTTONS_NAME_ARRAY = {"First", "Previous", "Next", "Last"};
 
     @Test(priority = 1)
     public void openWebSiteAndLogin() {
@@ -53,7 +53,7 @@ public class DeskExpirationTimeTests extends Fixture {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.deskExpirationTime.scrollAndClickNavigationButtons(BUTTONS_NAME_ARRAY[i]);
+            apisSystem.deskExpirationTime.scrollAndClickNavigationButtonsTest(BUTTONS_NAME_ARRAY[i]);
         }
     }
 

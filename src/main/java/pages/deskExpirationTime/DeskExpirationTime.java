@@ -1,6 +1,7 @@
 package pages.deskExpirationTime;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Beta;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -52,11 +53,21 @@ public class DeskExpirationTime extends Page {
      * Scroll to one of the buttons and click this button
      *
      * @param buttonName button name, where
-     *                   first - First button
-     *                   previous - Previous button
-     *                   next - Next button
-     *                   last - Last button
+     *                   First - first button
+     *                   Previous - previous button
+     *                   Next - next button
+     *                   Last - last button
      */
+    @Beta
+    public void scrollAndClickNavigationButtonsTest(String buttonName) {
+        web.scrollToElementBy(String.format("button%s", buttonName));
+        log.info(String.format("scroll to < %s >", web.getElement("button" + buttonName).getText()));
+        ExpectedConditions.elementToBeClickable(web.getElement("button" + buttonName));
+        web.clickLink("button" + buttonName);
+        log.info(String.format("click on < %s > button", web.getElement("button" + buttonName).getText()));
+    }
+
+    @Deprecated
     public void scrollAndClickNavigationButtons(String buttonName) {
         switch (buttonName) {
             case "first":
