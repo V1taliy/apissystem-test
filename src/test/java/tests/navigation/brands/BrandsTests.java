@@ -49,13 +49,13 @@ public class BrandsTests extends Fixture {
     public void sortTabs() {
         for (int i = 2; i <= 4; i++) {
             for (int j = 0; j <= 1; j++) {
-                if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+                if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                     apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
                 }
                 apisSystem.brandsPage.selectTableSort(i);
             }
         }
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.brandsPage.selectTableSort(2);
@@ -66,7 +66,7 @@ public class BrandsTests extends Fixture {
         boolean button = false;
         int brandPosition = 2;
         for (int i = 1; i <= 2; i++) {
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.brandsPage.clickBrandCheckbox(brandPosition);
@@ -133,7 +133,7 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 10, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void deleteFirstTestBrandClickCancel() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         firstBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA[3]);
@@ -158,7 +158,7 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 12, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void editSecondTestBrand() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         secondBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA_2[3]);
@@ -197,7 +197,7 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 15, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void clickEnableFromCogwheel() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.brandsPage.clickActionButton(2);
