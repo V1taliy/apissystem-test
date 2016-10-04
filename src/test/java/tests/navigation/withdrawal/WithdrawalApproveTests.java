@@ -49,13 +49,13 @@ public class WithdrawalApproveTests extends Fixture {
     public void enableBrand() {
         try {
             Thread.sleep(1000);
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.brandsPage.selectTableSort(1);
             apisSystem.brandsPage.clickBrandCheckbox(1);
             apisSystem.brandsPage.clickToggleButton(true);
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -86,7 +86,7 @@ public class WithdrawalApproveTests extends Fixture {
             apisSystem.editUser.clickOnSelectBrand(3);
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class WithdrawalApproveTests extends Fixture {
         Assert.assertEquals(deskName, "Default Desk");
         apisSystem.editDesks.clickButtonSaveOrCancel(true);
         apisSystem.editDesks.waitInvisibilityPopup();
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -135,7 +135,7 @@ public class WithdrawalApproveTests extends Fixture {
         apisSystem.editUser.clickOnSelectBrand(3);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.waitInvisibilityPopup();
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -188,8 +188,8 @@ public class WithdrawalApproveTests extends Fixture {
     public void selectCustomerIDandBrand() {
         try {
             Thread.sleep(5000);
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -199,8 +199,8 @@ public class WithdrawalApproveTests extends Fixture {
         apisSystem.withdrawalPage.inputBrand("toroption");
         apisSystem.withdrawalPage.selectStatus(0);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         user_ID = apisSystem.withdrawalPage.getUserID(0);
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID_fromFirstRow(), TEST_CUSTOMER_ID);
@@ -229,8 +229,8 @@ public class WithdrawalApproveTests extends Fixture {
     @Test(priority = 16, enabled = TEST_STATUS)
     public void clickOnViewAndCheckComment() {
         apisSystem.greenMessage.waitInvisibilityOverlay();
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         // select view in 1-st position
         apisSystem.withdrawalPage.clickViewButton(0);
@@ -267,8 +267,8 @@ public class WithdrawalApproveTests extends Fixture {
 
     @Test(priority = 20)
     public void clickOnApproveForTestUser7() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.withdrawalPage.clickActionButton("Approve", 0);
         apisSystem.approvePopup.waitPopupLoaded();
@@ -314,8 +314,8 @@ public class WithdrawalApproveTests extends Fixture {
     public void clickOnApproveButtonForTestUser8() {
         try {
             Thread.sleep(5000);
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -363,8 +363,8 @@ public class WithdrawalApproveTests extends Fixture {
     public void searchUserAfterCanceled() {
         try {
             Thread.sleep(5000);
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -374,13 +374,13 @@ public class WithdrawalApproveTests extends Fixture {
         apisSystem.withdrawalPage.inputBrand("toroption");
         apisSystem.withdrawalPage.selectStatus(1);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         for (int i = 0; i < 2; i++) {
             apisSystem.withdrawalPage.sortTab(3);
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
         }
         user_ID_position = apisSystem.withdrawalPage.getUserIndex(user_ID);
@@ -431,8 +431,8 @@ public class WithdrawalApproveTests extends Fixture {
 
     @Test(priority = 33)
     public void changeTestUsers() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         try {
             Thread.sleep(500);
@@ -445,8 +445,8 @@ public class WithdrawalApproveTests extends Fixture {
             apisSystem.editDesks.clickButtonRemove();
             apisSystem.editDesks.clickButtonSaveOrCancel(true);
             apisSystem.editDesks.waitInvisibilityPopup();
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.greenMessage.waitMessageInvisibility();
             apisSystem.usersPage.clickActionButton(userIndex1);
@@ -469,8 +469,8 @@ public class WithdrawalApproveTests extends Fixture {
             apisSystem.editUser.clickAndSelectGroup("Select user group");
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -492,8 +492,8 @@ public class WithdrawalApproveTests extends Fixture {
     }
 
     private static void logoutFromUser() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.greenMessage.waitInvisibilityOverlay();
         apisSystem.mainPage.clickLogoutButton();
