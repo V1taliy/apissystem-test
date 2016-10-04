@@ -39,8 +39,8 @@ public class DeskExpirationTimeTests extends Fixture {
     public void sortTabs() {
         for (int i = 2; i <= 5; i++) {
             for (int j = 0; j <= 1; j++) {
-                if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                    apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+                if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                    apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
                 }
                 apisSystem.deskExpirationTime.selectTableSort(i);
             }
@@ -50,8 +50,8 @@ public class DeskExpirationTimeTests extends Fixture {
     @Test(priority = 4, dependsOnMethods = {"goToDeskExpirationTime"})
     public void clickNavigationButtonsOnList() {
         for (int i = 0; i <= BUTTONS_NAME_ARRAY.length - 1; i++) {
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.deskExpirationTime.scrollAndClickNavigationButtons(BUTTONS_NAME_ARRAY[i]);
         }
@@ -60,8 +60,8 @@ public class DeskExpirationTimeTests extends Fixture {
     @Test(priority = 5, dependsOnMethods = {"goToDeskExpirationTime"})
     public void clickNavigationIndexButtonsOnList() {
         for (int i = 0; i <= 3; i++) {
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.deskExpirationTime.scrollAndClickNavigationIndexButton(i);
         }
@@ -70,7 +70,7 @@ public class DeskExpirationTimeTests extends Fixture {
 
     @Test(priority = 6, dependsOnMethods = {"goToDeskExpirationTime"})
     public void clickCheckbox1() {
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         clickCheckbox(1);
     }
 
@@ -100,8 +100,8 @@ public class DeskExpirationTimeTests extends Fixture {
     @Test(priority = 10, dependsOnMethods = {"goToDeskExpirationTime"})
     public void switchToBrands() {
         apisSystem.mainPage.clickOnNavigationItem(2);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         Assert.assertEquals(apisSystem.deskExpirationTime.getCurrentPageURL(), BRANDS_URL);
     }
@@ -110,8 +110,8 @@ public class DeskExpirationTimeTests extends Fixture {
     public void changeSomeBrandsEnabled() {
         try {
             Thread.sleep(1000);
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -121,7 +121,7 @@ public class DeskExpirationTimeTests extends Fixture {
         apisSystem.brandsPage.selectTableSort(1);
         apisSystem.brandsPage.clickBrandCheckbox(1);
         apisSystem.brandsPage.clickToggleButton(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         // TODO
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
@@ -136,7 +136,7 @@ public class DeskExpirationTimeTests extends Fixture {
     public void selectBrand() {
         apisSystem.deskExpirationTime.filterClickedOnSelectBrand();
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.getBrandNameFromList(),
                 apisSystem.deskExpirationTime.getFilterBrandFiledBrandName(1));
     }
@@ -146,8 +146,8 @@ public class DeskExpirationTimeTests extends Fixture {
         apisSystem.deskExpirationTime.filterClickOnDesk();
         apisSystem.deskExpirationTime.filterClikedOnDesk();
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
     }
 
@@ -156,8 +156,8 @@ public class DeskExpirationTimeTests extends Fixture {
         String expectedResultForBrand = "All Brands";
         String expectedResultForDesk = "All Desk";
         apisSystem.filterEntity.clickSearchOrResetButton(false);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         Assert.assertEquals(apisSystem.deskExpirationTime.filterGetDeskValue(), expectedResultForDesk);
         Assert.assertEquals(apisSystem.deskExpirationTime.filterGetBrandValue(), expectedResultForBrand);
@@ -169,7 +169,7 @@ public class DeskExpirationTimeTests extends Fixture {
         apisSystem.deskExpirationTime.waitDeskToBeActive();
         int expectedResult = apisSystem.deskExpirationTime.filterClikedOnDesk();
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(apisSystem.deskExpirationTime.listGetDeskName(),
                 apisSystem.deskExpirationTime.filterGetDeskValue(expectedResult));
     }
