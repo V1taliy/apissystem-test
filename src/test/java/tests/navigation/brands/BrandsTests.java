@@ -136,8 +136,9 @@ public class BrandsTests extends Fixture {
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        firstBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA[3]);
         try {
+            Thread.sleep(500);
+            firstBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA[3]);
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
