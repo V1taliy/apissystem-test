@@ -81,9 +81,9 @@ public class EditDesks extends MainPopup {
             log.info(String.format("select desk < %s >", deskName));
             desksList.get(0).click();
         } else {
-            deskName = desksList.get(deskPosition - 1).getText();
+            deskName = desksList.get(deskPosition).getText();
             log.info(String.format("select desk < %s >", deskName));
-            desksList.get(deskPosition - 1).click();
+            desksList.get(deskPosition).click();
         }
         return deskName;
     }

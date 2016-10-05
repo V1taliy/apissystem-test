@@ -52,7 +52,7 @@ public class WithdrawalDeclineTests extends Fixture {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.brandsPage.selectTableSort(0);
+            apisSystem.listEntity.clickCheckboxSelectAll();
             apisSystem.brandsPage.clickBrandCheckbox(0);
             apisSystem.brandsPage.clickToggleButton(true);
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -418,7 +418,7 @@ public class WithdrawalDeclineTests extends Fixture {
             }
             apisSystem.withdrawalPage.closeCommentMessage();
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -501,7 +501,7 @@ public class WithdrawalDeclineTests extends Fixture {
 
     private static void clickOnDecline() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
