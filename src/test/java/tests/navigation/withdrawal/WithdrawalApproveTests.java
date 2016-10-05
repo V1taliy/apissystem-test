@@ -19,8 +19,9 @@ public class WithdrawalApproveTests extends Fixture {
     private static final String TEST_USER_7 = PropertyLoader.loadProperty("testUser7.name");
     private static final String TEST_USER_8 = PropertyLoader.loadProperty("testUser8.name");
     private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
-    private static final String TEST_COMMENT_1 = "TEST_COMMENT_FOR_TEST_USER_7";
-    private static final String TEST_COMMENT_2 = "TEST_COMMENT_FOR_TEST_USER_8";
+    private static final String TEST_COMMENT_1 = "TEST_COMMENT: ASSIGN_ON_TEST_USER_7";
+    private static final String TEST_COMMENT_2 = "TEST_COMMENT: APPROVE_AND_ASSIGN_ON_TEST_USER_8";
+    private static final String TEST_COMMENT_3 = "TEST_COMMENT: TEST_USER_8_APPROVE";
     private static final String TEST_CONFIRM_CODE = "10";
 
     private static int userIndex1 = 0;
@@ -52,7 +53,7 @@ public class WithdrawalApproveTests extends Fixture {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.brandsPage.selectTableSort(0);
+            apisSystem.listEntity.clickCheckboxSelectAll();
             apisSystem.brandsPage.clickBrandCheckbox(0);
             apisSystem.brandsPage.clickToggleButton(true);
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -313,7 +314,7 @@ public class WithdrawalApproveTests extends Fixture {
     @Test(priority = 25)
     public void clickOnApproveButtonForTestUser8() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
@@ -332,7 +333,7 @@ public class WithdrawalApproveTests extends Fixture {
         apisSystem.approvePopup.clickOnMethod();
         apisSystem.approvePopup.selectMethod("CreditCard");
         apisSystem.approvePopup.clickOnAddComment();
-        apisSystem.approvePopup.inputComment(TEST_COMMENT_2 + "_2");
+        apisSystem.approvePopup.inputComment(TEST_COMMENT_3);
         apisSystem.approvePopup.clickButtonSaveOrCancel(true);
         apisSystem.approvePopup.waitInvisibilityPopup();
         try {
@@ -420,7 +421,7 @@ public class WithdrawalApproveTests extends Fixture {
         }
         Assert.assertEquals(comment1, TEST_COMMENT_1);
         Assert.assertEquals(comment2, TEST_COMMENT_2);
-        Assert.assertEquals(comment3, TEST_COMMENT_2 + "_2");
+        Assert.assertEquals(comment3, TEST_COMMENT_3);
         apisSystem.withdrawalPage.clickViewButton(user_ID_position);
     }
 
@@ -508,7 +509,7 @@ public class WithdrawalApproveTests extends Fixture {
     private static void wait90seconds() {
         for (int i = 90; i > 0; i--) {
             try {
-                log.info(i);
+                log.info(i + " sec.");
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

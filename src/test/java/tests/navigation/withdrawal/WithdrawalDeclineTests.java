@@ -367,7 +367,7 @@ public class WithdrawalDeclineTests extends Fixture {
     @Test(priority = 31, enabled = TEST_STATUS)
     public void searchUserAfterCanceled() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
@@ -521,7 +521,7 @@ public class WithdrawalDeclineTests extends Fixture {
     private static void wait90seconds() {
         for (int i = 90; i > 0; i--) {
             try {
-                log.info(i);
+                log.info(i + " sec.");
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
