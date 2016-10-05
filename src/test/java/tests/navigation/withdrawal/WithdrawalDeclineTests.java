@@ -52,8 +52,8 @@ public class WithdrawalDeclineTests extends Fixture {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.brandsPage.selectTableSort(1);
-            apisSystem.brandsPage.clickBrandCheckbox(1);
+            apisSystem.brandsPage.selectTableSort(0);
+            apisSystem.brandsPage.clickBrandCheckbox(0);
             apisSystem.brandsPage.clickToggleButton(true);
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             Thread.sleep(500);
@@ -77,7 +77,7 @@ public class WithdrawalDeclineTests extends Fixture {
             log.info(String.format("user index = %s", userIndex1));
             apisSystem.usersPage.clickActionButton(userIndex1);
             // click edit user
-            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
             apisSystem.editUser.waitPopupLoaded();
             // select Retention TL
             apisSystem.editUser.clickAndSelectGroup("Retention TL");
@@ -99,13 +99,13 @@ public class WithdrawalDeclineTests extends Fixture {
         apisSystem.greenMessage.waitMessageInvisibility();
         apisSystem.usersPage.clickActionButton(userIndex1);
         // click edit desks
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(6);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(3);
         apisSystem.editDesks.waitPopupLoaded();
         apisSystem.editDesks.clickOnBrandField();
         String brandName = apisSystem.editDesks.selectBrandFromDropDownList(1);
         apisSystem.editDesks.waitForDeskToBeActive();
         // select Default Desk
-        String deskName = apisSystem.editDesks.selectDeskFromDropDownList(1);
+        String deskName = apisSystem.editDesks.selectDeskFromDropDownList(0);
         apisSystem.editDesks.clickAddButton();
         Assert.assertEquals(brandName, "toroption");
         Assert.assertEquals(deskName, "Default Desk");
@@ -127,7 +127,7 @@ public class WithdrawalDeclineTests extends Fixture {
         log.info(String.format("user index = %s", userIndex2));
         apisSystem.usersPage.clickActionButton(userIndex2);
         // click edit user
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
         apisSystem.editUser.waitPopupLoaded();
         apisSystem.editUser.clickAndSelectGroup("Finance");
         apisSystem.editUser.clickOnBrandsField();
@@ -445,7 +445,7 @@ public class WithdrawalDeclineTests extends Fixture {
             userIndex1 = apisSystem.listEntity.getUserNameIndex(TEST_USER_7);
             log.info(String.format("user index = %s", userIndex1));
             apisSystem.usersPage.clickActionButton(userIndex1);
-            apisSystem.usersPage.clickItemActionFromDropDownMenu(6);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(3);
             apisSystem.editDesks.waitPopupLoaded();
             apisSystem.editDesks.clickButtonRemove();
             apisSystem.editDesks.clickButtonSaveOrCancel(true);
@@ -455,7 +455,7 @@ public class WithdrawalDeclineTests extends Fixture {
             }
             apisSystem.greenMessage.waitMessageInvisibility();
             apisSystem.usersPage.clickActionButton(userIndex1);
-            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
             apisSystem.editUser.waitPopupLoaded();
             apisSystem.editUser.clickAndSelectGroup("Select user group");
             apisSystem.editUser.deleteSelectBrand(1);
@@ -468,7 +468,7 @@ public class WithdrawalDeclineTests extends Fixture {
             userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
             log.info(String.format("user index = %s", userIndex2));
             apisSystem.usersPage.clickActionButton(userIndex2);
-            apisSystem.usersPage.clickItemActionFromDropDownMenu(4);
+            apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
             apisSystem.editUser.waitPopupLoaded();
             apisSystem.editUser.deleteSelectBrand(1);
             apisSystem.editUser.clickAndSelectGroup("Select user group");

@@ -76,4 +76,12 @@ public class ListEntity extends Page {
         return element.getAttribute("class").contains("traditional");
     }
 
+    /**
+     * Click on checkbox 'Select all checkbox'
+     */
+    public void clickCheckboxSelectAll() {
+        log.info("click on checkbox \'Select all checkboxes\'");
+        web.clickLink("checkboxSelectAll");
+    }
+
 }

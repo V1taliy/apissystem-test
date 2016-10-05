@@ -53,9 +53,13 @@ public class UsersPage extends Page {
      */
     public void clickButtonSearchOrReset(boolean selectButton) {
         if (selectButton) {
+            log.info(String.format("click on < %s > button",
+                    web.getElement("filterButtonSearch").getText()));
             web.clickButton("filterButtonSearch");
         } else {
             web.clickButton("filterButtonReset");
+            log.info(String.format("click on < %s > button",
+                    web.getElement("filterButtonReset").getText()));
         }
     }
 
@@ -65,19 +69,20 @@ public class UsersPage extends Page {
      * Select and click table sort
      *
      * @param tableNumber number of table, where
-     *                    1 - select all checkbox
-     *                    2 - ID
-     *                    3 - user name
-     *                    4 - first name
-     *                    5 - last name
-     *                    6 - email
-     *                    7 - group
-     *                    8 - enable
-     *                    9 - role
+     *                    0 - ID
+     *                    1 - user name
+     *                    2 - first name
+     *                    3 - last name
+     *                    4 - email
+     *                    5 - group
+     *                    6 - brands
+     *                    7 - enable
+     *                    8 - role
      */
     public void selectTableSort(int tableNumber) {
         List<WebElement> tableList = web.getElements("listDataTableMainTabs");
-        tableList.get(tableNumber - 1).click();
+        log.info(String.format("select < %s > tab sort", tableList.get(tableNumber).getText()));
+        tableList.get(tableNumber).click();
     }
 
     /**
@@ -87,7 +92,8 @@ public class UsersPage extends Page {
      */
     public void clickUserCheckbox(int userPosition) {
         List<WebElement> checkboxList = web.getElements("checkboxList");
-        checkboxList.get(userPosition - 1).click();
+        log.info(String.format("click on checkbox in  < %s > position", userPosition));
+        checkboxList.get(userPosition).click();
     }
 
     /**
@@ -100,8 +106,10 @@ public class UsersPage extends Page {
     public void clickToggleButton(boolean selectButton) {
         List<WebElement> buttonList = web.getElements("toggleButtonList");
         if (selectButton) {
+            log.info(String.format("click on \'Enable user\'"));
             buttonList.get(1).click();
         } else {
+            log.info(String.format("click on \'Disable user\'"));
             buttonList.get(0).click();
         }
     }
@@ -116,6 +124,7 @@ public class UsersPage extends Page {
         WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
                 Long.parseLong(PropertyLoader.loadProperty("wait.timeout5sec")));
         wait.until(ExpectedConditions.visibilityOf(actionButtonList.get(buttonPosition)));
+        log.info(String.format("click on action button in < %s > position", buttonPosition));
         actionButtonList.get(buttonPosition).click();
     }
 
@@ -123,18 +132,16 @@ public class UsersPage extends Page {
      * Click action item from drop down menu
      *
      * @param menuItem item from menu, where
-     *                 1 - 'Disable user'
-     *                 2 - 'Enable user'
-     *                 3 - not used
-     *                 4 - Edit user
-     *                 5 - not used
-     *                 6- Edit desks
+     *                 0 - 'Disable user'
+     *                 1 - 'Enable user'
+     *                 2 - Edit user
+     *                 3- Edit desks
      */
     public void clickItemActionFromDropDownMenu(int menuItem) {
         List<WebElement> elementActionDropDownList = web.getElements("actionItemDropDownList");
-        elementActionDropDownList.get(menuItem - 1).click();
         log.info(String.format("click on < %s >",
-                elementActionDropDownList.get(menuItem - 1).getTagName()));
+                elementActionDropDownList.get(menuItem).getTagName()));
+        elementActionDropDownList.get(menuItem).click();
     }
 
     /**
@@ -179,15 +186,31 @@ public class UsersPage extends Page {
      */
     public String filterClickAndGetBrand(int brandPosition) {
         List<WebElement> brandsList = web.getElements("filterBrandsList");
-        String brandName = null;
+        String brandName;
         if (brandsList.size() == 1) {
             brandName = brandsList.get(0).getText();
             log.info(String.format("select brand < %s >", brandName));
             brandsList.get(0).click();
         } else {
-            brandName = brandsList.get(brandPosition - 1).getText();
+            brandName = brandsList.get(brandPosition).getText();
             log.info(String.format("select brand < %s >", brandName));
-            brandsList.get(brandPosition - 1).click();
+            brandsList.get(brandPosition).click();
+        }
+        return brandName;
+    }
+
+    public String filterClickAndGetBrand() {
+        List<WebElement> brandsList = web.getElements("filterBrandsList");
+        String brandName;
+        if (brandsList.size() == 1) {
+            brandName = brandsList.get(0).getText();
+            log.info(String.format("select brand \'%s\'", brandName));
+            brandsList.get(0).click();
+        } else {
+            int random = (int) (Math.random() * brandsList.size());
+            brandName = brandsList.get(random).getText();
+            log.info(String.format("select brand \'%s\'", brandName));
+            brandsList.get(random).click();
         }
         return brandName;
     }

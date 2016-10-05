@@ -23,16 +23,15 @@ public class DeskExpirationTime extends Page {
      * Select and click table sort
      *
      * @param tableNumber number of table, where
-     *                    1 - select all checkbox
-     *                    2 - ID
-     *                    3 - brand name
-     *                    4 - enabled
-     *                    5 - last name
+     *                    0 - ID
+     *                    1 - brand
+     *                    2 - name
+     *                    3 - expiration time
      */
     public void selectTableSort(int tableNumber) {
         List<WebElement> tableList = web.getElements("listDataTableMainTabs");
-        log.info(String.format("select < %s > element", tableList.get(tableNumber - 1).getText()));
-        tableList.get(tableNumber - 1).click();
+        log.info(String.format("select < %s > element", tableList.get(tableNumber).getText()));
+        tableList.get(tableNumber).click();
     }
 
     /**

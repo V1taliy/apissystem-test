@@ -37,7 +37,7 @@ public class DeskExpirationTimeTests extends Fixture {
 
     @Test(priority = 3, dependsOnMethods = {"goToDeskExpirationTime"})
     public void sortTabs() {
-        for (int i = 2; i <= 5; i++) {
+        for (int i = 0; i < 4; i++) {
             for (int j = 0; j <= 1; j++) {
                 if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                     apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -116,10 +116,8 @@ public class DeskExpirationTimeTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        apisSystem.brandsPage.selectTableSort(2);
-//        apisSystem.brandsPage.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.brandsPage.selectTableSort(1);
-        apisSystem.brandsPage.clickBrandCheckbox(1);
+        apisSystem.listEntity.clickCheckboxSelectAll();
+        apisSystem.brandsPage.clickBrandCheckbox(0);
         apisSystem.brandsPage.clickToggleButton(true);
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         // TODO

@@ -47,7 +47,7 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 3, dependsOnMethods = {"goToBrandsTab"})
     public void sortTabs() {
-        for (int i = 2; i <= 4; i++) {
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j <= 1; j++) {
                 if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                     apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -58,13 +58,13 @@ public class BrandsTests extends Fixture {
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        apisSystem.brandsPage.selectTableSort(2);
+        apisSystem.brandsPage.selectTableSort(0);
     }
 
     @Test(priority = 4, dependsOnMethods = {"goToBrandsTab"})
     public void selectBrandAndClickToggleButtons() {
         boolean button = false;
-        int brandPosition = 2;
+        int brandPosition = 1;
         for (int i = 1; i <= 2; i++) {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -144,7 +144,7 @@ public class BrandsTests extends Fixture {
         }
         apisSystem.greenMessage.waitInvisibilityOverlay();
         apisSystem.brandsPage.clickActionButton(firstBrandIndex);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(3);
         apisSystem.deleteBrand.waitPopupLoaded();
         Assert.assertTrue(apisSystem.deleteBrand.isPopupDeleteBrandPresent());
         apisSystem.deleteBrand.clickButtonCancelOrYes(false);
@@ -168,7 +168,7 @@ public class BrandsTests extends Fixture {
             e.printStackTrace();
         }
         apisSystem.brandsPage.clickActionButton(secondBrandIndex);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(1);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(0);
         apisSystem.editBrand.inputField(FIELDS_ARRAY[1], TEST_DATA_2[1] + "edit");
         apisSystem.editBrand.inputField(FIELDS_ARRAY[3], TEST_DATA_2[3] + "edit");
         apisSystem.editBrand.clickButtonSaveOrCancel(true);
@@ -185,7 +185,7 @@ public class BrandsTests extends Fixture {
     @Test(priority = 14, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void clickDisableFromCogwheel() {
         apisSystem.brandsPage.clickActionButton(2);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(3);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(1);
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(300);
@@ -201,7 +201,7 @@ public class BrandsTests extends Fixture {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.brandsPage.clickActionButton(2);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(4);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(2);
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(300);
@@ -219,7 +219,7 @@ public class BrandsTests extends Fixture {
 
     private void deleteBrand(int brandIndex) {
         apisSystem.brandsPage.clickActionButton(brandIndex);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(3);
         apisSystem.deleteBrand.waitPopupLoaded();
         apisSystem.deleteBrand.clickButtonCancelOrYes(true);
         apisSystem.deleteBrand.waitInvisibilityPopup();
