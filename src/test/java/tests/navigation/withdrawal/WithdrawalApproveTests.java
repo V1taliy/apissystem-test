@@ -363,7 +363,7 @@ public class WithdrawalApproveTests extends Fixture {
     @Test(priority = 30, enabled = TEST_STATUS)
     public void searchUserAfterCanceled() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }

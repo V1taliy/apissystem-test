@@ -45,10 +45,10 @@ public class ListNavigationButtons extends Page {
      */
     public void scrollAndClickNavigationButtons(String buttonName) {
         web.scrollToElementBy(String.format("button%s", buttonName));
-        log.info(String.format("scroll to < %s >", web.getElement("button" + buttonName).getText()));
-        ExpectedConditions.elementToBeClickable(web.getElement("button" + buttonName));
-        web.clickLink("button" + buttonName);
-        log.info(String.format("click on < %s > button", web.getElement("button" + buttonName).getText()));
+        log.info(String.format("scroll to < %s >", web.getElement(String.format("button%s", buttonName)).getText()));
+        ExpectedConditions.elementToBeClickable(web.getElement(String.format("button%s", buttonName)));
+        web.clickLink(String.format("button%s", buttonName));
+        log.info(String.format("click on < %s > button", web.getElement(String.format("button%s", buttonName)).getText()));
     }
 
 }

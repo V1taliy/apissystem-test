@@ -16,7 +16,7 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String WITHDRAWAL_URL = PropertyLoader.loadProperty("withdrawal.url");
     private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
-    private static final String[] BUTTONS_NAME_ARRAY = {"first", "next", "previous", "last"};
+    private static final String[] BUTTONS_NAME_ARRAY = {"First", "Next", "Previous", "Last"};
 
     private static final int newImpWait = 300;
     private static final boolean testStatus = true;
@@ -40,7 +40,7 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
     @Test(priority = 3, enabled = testStatus)
     public void inputIncorrectCustomerID() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -139,7 +139,7 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
 
     @Test(priority = 13)
     public void clickListNavigationButtons() {
-        for (int i = 0; i <= BUTTONS_NAME_ARRAY.length - 1; i++) {
+        for (int i = 0; i < BUTTONS_NAME_ARRAY.length; i++) {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
@@ -155,18 +155,6 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
     }
 
     private static void clickResetButton() {
-        // for debug
-//        {
-//            try {
-//                Thread.sleep(5000);
-//                if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
-//                    apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
-//                }
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-        //
         apisSystem.filterEntity.clickSearchOrResetButton(false);
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
