@@ -188,7 +188,7 @@ public class WithdrawalApproveTests extends Fixture {
     @Test(priority = 13, enabled = TEST_STATUS)
     public void selectCustomerIDandBrand() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
@@ -457,9 +457,6 @@ public class WithdrawalApproveTests extends Fixture {
             apisSystem.editUser.deleteSelectBrand(1);
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
-//            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-//                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-//            }
             apisSystem.mainPage.scrollDown();
             userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
             log.info(String.format("user index = %s", userIndex2));
@@ -480,9 +477,6 @@ public class WithdrawalApproveTests extends Fixture {
     }
 
     private static void switchToUsersPage() {
-//        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-//            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-//        }
         apisSystem.mainPage.clickOnNavigationItem(3);
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }

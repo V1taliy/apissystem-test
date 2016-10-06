@@ -188,7 +188,7 @@ public class WithdrawalDeclineTests extends Fixture {
     @Test(priority = 13, enabled = TEST_STATUS)
     public void selectCustomerIDandBrand() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
