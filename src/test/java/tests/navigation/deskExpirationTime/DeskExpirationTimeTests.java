@@ -120,7 +120,10 @@ public class DeskExpirationTimeTests extends Fixture {
         apisSystem.brandsPage.clickBrandCheckbox(0);
         apisSystem.brandsPage.clickToggleButton(true);
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
-        // TODO
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.greenMessage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
