@@ -508,7 +508,7 @@ public class WithdrawalDeclineTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        apisSystem.withdrawalPage.clickOnDecline(0);
+        apisSystem.withdrawalPage.clickActionButton("Decline", 0);
         apisSystem.declinePopup.waitPopupLoaded();
         Assert.assertTrue(apisSystem.declinePopup.isPopupPresent());
     }
