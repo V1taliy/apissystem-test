@@ -53,7 +53,7 @@ public class DeskExpirationTimeTests extends Fixture {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.deskExpirationTime.scrollAndClickNavigationButtonsTest(BUTTONS_NAME_ARRAY[i]);
+            apisSystem.listNavigationButtons.scrollAndClickNavigationButtons(BUTTONS_NAME_ARRAY[i]);
         }
     }
 
@@ -63,7 +63,7 @@ public class DeskExpirationTimeTests extends Fixture {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.deskExpirationTime.scrollAndClickNavigationIndexButton(i);
+            apisSystem.listNavigationButtons.scrollAndClickNavigationIndexButton(i);
         }
         apisSystem.deskExpirationTime.scrollPageToNavigationWrapper();
     }
