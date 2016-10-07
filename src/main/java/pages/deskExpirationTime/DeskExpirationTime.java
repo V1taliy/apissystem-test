@@ -86,7 +86,7 @@ public class DeskExpirationTime extends Page {
 
     public String listGetDeskName() {
         log.info(String.format("value = %s", web.getElement("listDeskName").getText()));
-        return web.getElement("listDeskName").getText();
+        return web.getElement("listDeskName").getText().toLowerCase();
     }
 
     public void waitDeskToBeActive() {
@@ -154,7 +154,7 @@ public class DeskExpirationTime extends Page {
     public String filterGetDeskValue(int value) {
         List<WebElement> elementList = web.getElements("filterDeskBrandList");
         log.info(String.format("value = %s", elementList.get(value).getText()));
-        return elementList.get(value).getText();
+        return elementList.get(value).getText().toLowerCase();
     }
 
     /**
