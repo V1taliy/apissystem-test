@@ -16,7 +16,7 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String WITHDRAWAL_URL = PropertyLoader.loadProperty("withdrawal.url");
     private static final String TEST_CUSTOMER_ID = PropertyLoader.loadProperty("test.customerID");
-    private static final String[] BUTTONS_NAME_ARRAY = {"first", "next", "previous", "last"};
+    private static final String[] BUTTONS_NAME_ARRAY = {"First", "Next", "Previous", "Last"};
 
     private static final int newImpWait = 300;
     private static final boolean testStatus = true;
@@ -40,17 +40,17 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
     @Test(priority = 3, enabled = testStatus)
     public void inputIncorrectCustomerID() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.withdrawalPage.inputCustomerID("testCustomerID");
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         Assert.assertTrue(apisSystem.withdrawalPage.isCustomerIdErrorMessagePresent());
     }
@@ -60,8 +60,8 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         int test_customerID = apisSystem.withdrawalPage.getCustomerID(0);
         apisSystem.withdrawalPage.inputCustomerID(String.valueOf(test_customerID));
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID(0), test_customerID);
     }
@@ -77,8 +77,8 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         apisSystem.withdrawalPage.clickOnVerificationStatusField();
         apisSystem.withdrawalPage.selectVerificationStatus(verificationStatus);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         Assert.assertEquals(apisSystem.withdrawalPage.getVerificationStatus(0), verificationStatus);
     }
@@ -93,8 +93,8 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         String status = "Pending";
         apisSystem.withdrawalPage.selectStatus(status);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         Assert.assertEquals(apisSystem.withdrawalPage.getStatus(0), status.toLowerCase());
     }
@@ -113,8 +113,8 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         apisSystem.withdrawalPage.selectStatus(status);
         apisSystem.withdrawalPage.inputBrand(brand);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         Assert.assertEquals(apisSystem.withdrawalPage.getCustomerID(position), Integer.parseInt(TEST_CUSTOMER_ID));
         Assert.assertEquals(apisSystem.withdrawalPage.getStatus(position), status.toLowerCase());
@@ -131,23 +131,23 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
         int size = apisSystem.withdrawalPage.getNavigationSize();
         for (int i = 0; i < size; i++) {
             apisSystem.withdrawalPage.clickOnNavigationElement(i);
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
         }
     }
 
     @Test(priority = 13)
     public void clickListNavigationButtons() {
-        for (int i = 0; i <= BUTTONS_NAME_ARRAY.length - 1; i++) {
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        for (int i = 0; i < BUTTONS_NAME_ARRAY.length; i++) {
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.listNavigationButtons.scrollAndClickNavigationButtons(BUTTONS_NAME_ARRAY[i]);
         }
         for (int i = 0; i <= 3; i++) {
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.listNavigationButtons.scrollAndClickNavigationIndexButton(i);
         }
@@ -155,21 +155,9 @@ public class WithdrawalFilterAndDatatableTests extends Fixture {
     }
 
     private static void clickResetButton() {
-        // for debug
-        {
-            try {
-                Thread.sleep(5000);
-                if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                    apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        //
         apisSystem.filterEntity.clickSearchOrResetButton(false);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
     }
 

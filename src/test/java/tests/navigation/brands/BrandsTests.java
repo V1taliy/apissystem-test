@@ -1,7 +1,6 @@
 package tests.navigation.brands;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.Fixture;
@@ -21,8 +20,9 @@ public class BrandsTests extends Fixture {
             "testApiPassword", "testBrandName", "testDomain"};
     private static final String[] TEST_DATA_2 = {"testAppKey2", "testApiUser2",
             "testApiPassword2", "testBrandName2", "testDomain2"};
+    private static final String[] FIELDS_ARRAY = {"AppKey", "ApiUser", "ApiPassword",
+            "BrandName", "Domain"};
 
-    private static final boolean testStatus = false;
     private static int firstBrandIndex = 0;
     private static int secondBrandIndex = 0;
 
@@ -47,27 +47,27 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 3, dependsOnMethods = {"goToBrandsTab"})
     public void sortTabs() {
-        for (int i = 2; i <= 4; i++) {
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j <= 1; j++) {
-                if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                    apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+                if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                    apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
                 }
                 apisSystem.brandsPage.selectTableSort(i);
             }
         }
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        apisSystem.brandsPage.selectTableSort(2);
+        apisSystem.brandsPage.selectTableSort(0);
     }
 
     @Test(priority = 4, dependsOnMethods = {"goToBrandsTab"})
     public void selectBrandAndClickToggleButtons() {
         boolean button = false;
-        int brandPosition = 2;
+        int brandPosition = 1;
         for (int i = 1; i <= 2; i++) {
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.brandsPage.clickBrandCheckbox(brandPosition);
             apisSystem.brandsPage.clickToggleButton(button);
@@ -86,11 +86,11 @@ public class BrandsTests extends Fixture {
     @Test(priority = 6, dependsOnMethods = {"goToBrandsTab"})
     public void popupCreateBrandInputFieldsAndClickCancel() {
         clickCreateBrand();
-        apisSystem.createBrand.inputAppKey(TEST_DATA[0]);
-        apisSystem.createBrand.inputApiUser(TEST_DATA[1]);
-        apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
-        apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
-        apisSystem.createBrand.inputDomain(TEST_DATA[4]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[0], TEST_DATA[0]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[1], TEST_DATA[1]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[2], TEST_DATA[2]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[3], TEST_DATA[3]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA[4]);
         apisSystem.createBrand.selectCheckboxEnable();
         Assert.assertEquals(apisSystem.createBrand.clickButtonSaveOrCancel(false), true);
     }
@@ -99,11 +99,11 @@ public class BrandsTests extends Fixture {
     public void popupCreateBrandFailedDomain() {
         apisSystem.createBrand.waitInvisibilityPopup();
         clickCreateBrand();
-        apisSystem.createBrand.inputAppKey(TEST_DATA[0]);
-        apisSystem.createBrand.inputApiUser(TEST_DATA[1]);
-        apisSystem.createBrand.inputApiPassword(TEST_DATA[2]);
-        apisSystem.createBrand.inputBrandName(TEST_DATA[3]);
-        apisSystem.createBrand.inputDomain(TEST_DATA[4]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[0], TEST_DATA[0]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[1], TEST_DATA[1]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[2], TEST_DATA[2]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[3], TEST_DATA[3]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA[4]);
         apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.createBrand.isErrorMessagePresent());
@@ -111,7 +111,7 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 8, dependsOnMethods = {"goToBrandsTab"})
     public void popupCreateBrandCorrectDomain() {
-        apisSystem.createBrand.inputDomain(TEST_DATA[4] + ".com");
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA[4] + ".com");
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         apisSystem.createBrand.waitInvisibilityPopup();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
@@ -121,11 +121,11 @@ public class BrandsTests extends Fixture {
     public void createSecondBrand() {
         apisSystem.createBrand.waitInvisibilityPopup();
         clickCreateBrand();
-        apisSystem.createBrand.inputAppKey(TEST_DATA_2[0]);
-        apisSystem.createBrand.inputApiUser(TEST_DATA_2[1]);
-        apisSystem.createBrand.inputApiPassword(TEST_DATA_2[2]);
-        apisSystem.createBrand.inputBrandName(TEST_DATA_2[3]);
-        apisSystem.createBrand.inputDomain(TEST_DATA_2[4] + ".com");
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[0], TEST_DATA_2[0]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[1], TEST_DATA_2[1]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[2], TEST_DATA_2[2]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[3], TEST_DATA_2[3]);
+        apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA_2[4] + ".com");
         apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
@@ -133,18 +133,19 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 10, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void deleteFirstTestBrandClickCancel() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        firstBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA[3]);
         try {
+            Thread.sleep(500);
+            firstBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA[3]);
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         apisSystem.greenMessage.waitInvisibilityOverlay();
         apisSystem.brandsPage.clickActionButton(firstBrandIndex);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(3);
         apisSystem.deleteBrand.waitPopupLoaded();
         Assert.assertTrue(apisSystem.deleteBrand.isPopupDeleteBrandPresent());
         apisSystem.deleteBrand.clickButtonCancelOrYes(false);
@@ -158,8 +159,8 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 12, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void editSecondTestBrand() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         secondBrandIndex = apisSystem.brandsPage.getBrandIndex(TEST_DATA_2[3]);
         try {
@@ -168,9 +169,9 @@ public class BrandsTests extends Fixture {
             e.printStackTrace();
         }
         apisSystem.brandsPage.clickActionButton(secondBrandIndex);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(1);
-        apisSystem.editBrand.inputApiUser(TEST_DATA_2[1] + "edit");
-        apisSystem.editBrand.inputBrandName(TEST_DATA_2[3] + "edit");
+        apisSystem.brandsPage.clickItemFromDropDownMenu(0);
+        apisSystem.editBrand.inputField(FIELDS_ARRAY[1], TEST_DATA_2[1] + "edit");
+        apisSystem.editBrand.inputField(FIELDS_ARRAY[3], TEST_DATA_2[3] + "edit");
         apisSystem.editBrand.clickButtonSaveOrCancel(true);
         apisSystem.editBrand.waitInvisibilityPopup();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
@@ -185,8 +186,8 @@ public class BrandsTests extends Fixture {
     @Test(priority = 14, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void clickDisableFromCogwheel() {
         apisSystem.brandsPage.clickActionButton(2);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(3);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.brandsPage.clickItemFromDropDownMenu(1);
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(300);
         } catch (InterruptedException e) {
@@ -197,12 +198,12 @@ public class BrandsTests extends Fixture {
 
     @Test(priority = 15, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
     public void clickEnableFromCogwheel() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.brandsPage.clickActionButton(2);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(4);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.brandsPage.clickItemFromDropDownMenu(2);
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(300);
         } catch (InterruptedException e) {
@@ -219,7 +220,7 @@ public class BrandsTests extends Fixture {
 
     private void deleteBrand(int brandIndex) {
         apisSystem.brandsPage.clickActionButton(brandIndex);
-        apisSystem.brandsPage.clickItemFromDropDownMenu(6);
+        apisSystem.brandsPage.clickItemFromDropDownMenu(3);
         apisSystem.deleteBrand.waitPopupLoaded();
         apisSystem.deleteBrand.clickButtonCancelOrYes(true);
         apisSystem.deleteBrand.waitInvisibilityPopup();

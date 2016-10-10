@@ -36,24 +36,4 @@ public class FilterEntity extends Page {
         }
     }
 
-    /**
-     * Wait for processing disappear
-     */
-    public void waitLoadedAttributeToBeEmptyClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        WebDriverWait wait = new WebDriverWait(driverWrapper.getOriginalDriver(),
-                Long.parseLong(PropertyLoader.loadProperty("wait.timeout40sec")));
-        wait.until(ExpectedConditions.attributeToBe(element, "class", ""));
-    }
-
-    /**
-     * Check is processing element present on the page
-     *
-     * @return true if processing element present, otherwise false
-     */
-    public boolean isLoadedClassHaveAttributeInClass() {
-        WebElement element = web.getElement("isLoadedElement");
-        return element.getAttribute("class").contains("traditional");
-    }
-
 }

@@ -16,10 +16,9 @@ public class UsersTests extends Fixture {
     private static final String LOGIN_URL = PropertyLoader.loadProperty("login.url");
     private static final String USERS_URL = PropertyLoader.loadProperty("users.url");
     private static final String USER_NAME_TEST = PropertyLoader.loadProperty("userName.test");
-    private static final String USER_EMAIL_TEST = PropertyLoader.loadProperty("userEmail.test");
     private static final int actionButtonPosition = 0;
-    private static final int ITEM_EDIT_USER = 4;
-    private static final int ITEM_EDIT_DESKS = 6;
+    private static final int ITEM_EDIT_USER = 2;
+    private static final int ITEM_EDIT_DESKS = 3;
     private static final String[] DATA_TEST = {"First-Name-Test", "Last-Name-Test"};
 
     @Test(priority = 1)
@@ -43,10 +42,10 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 3, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void sortTabs() {
-        for (int i = 2; i <= 10; i++) {
+        for (int i = 1; i < 9; i++) {
             for (int j = 0; j <= 1; j++) {
-                if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                    apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+                if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                    apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
                 }
                 apisSystem.usersPage.selectTableSort(i);
             }
@@ -56,18 +55,18 @@ public class UsersTests extends Fixture {
     @Test(priority = 4, dependsOnMethods = {"goToUsersTab"})
     public void selectUserCheckboxAndClickToggleButtons() {
         boolean button = true;
-        int userPosition = 1;
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.usersPage.inputUserName(USER_NAME_TEST);
+        int userPosition = 0;
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.filterInput("UserName", USER_NAME_TEST);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         for (int i = 1; i <= 2; i++) {
-            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-                apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+                apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
             apisSystem.usersPage.clickUserCheckbox(userPosition);
             apisSystem.usersPage.clickToggleButton(button);
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             apisSystem.greenMessage.waitMessageSuccessPresent();
             try {
                 Thread.sleep(500);
@@ -81,7 +80,22 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 5, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void clickedOnDisableUser() {
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        apisSystem.usersPage.clickActionButton(actionButtonPosition);
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(0);
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.greenMessage.waitMessageSuccessPresent();
+        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+    }
+
+    @Test(priority = 6, dependsOnMethods = {"goToUsersTab"})
+    public void clickedOnEnableUser() {
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -89,29 +103,14 @@ public class UsersTests extends Fixture {
         }
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(1);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.greenMessage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
-    }
-
-    @Test(priority = 6, dependsOnMethods = {"goToUsersTab"})
-    public void clickedOnEnableUser() {
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        apisSystem.usersPage.clickActionButton(actionButtonPosition);
-        apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.greenMessage.waitMessageSuccessPresent();
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 7, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void clickedOnEditUser() {
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -182,8 +181,8 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 14, dependsOnMethods = {"goToUsersTab"})
     public void openEditDesksPopup() {
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         apisSystem.greenMessage.waitInvisibilityOverlay();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
@@ -197,7 +196,7 @@ public class UsersTests extends Fixture {
     @Test(priority = 15, dependsOnMethods = {"goToUsersTab"})
     public void selectBrandAndDeskInPopup() {
         apisSystem.editDesks.clickOnBrandField();
-        String brand = apisSystem.editDesks.selectBrandFromDropDownList(1);
+        String brand = apisSystem.editDesks.selectBrandFromDropDownList(0);
         apisSystem.editDesks.waitForDeskToBeActive();
         apisSystem.editDesks.clickOnDeskField();
         String desk = apisSystem.editDesks.selectDeskFromDropDownList(1);
@@ -245,17 +244,22 @@ public class UsersTests extends Fixture {
         apisSystem.editUser.clickOnEnabled();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.greenMessage.waitMessageSuccessPresent();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
     @Test(priority = 21, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputUsername() {
         apisSystem.editUser.waitInvisibilityPopup();
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         String username = apisSystem.usersPage.getValue("firstUserUsername");
-        apisSystem.usersPage.inputUserName(username);
+        apisSystem.usersPage.filterInput("UserName", username);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(username, apisSystem.usersPage.getInputValue("filterUserNameField"));
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
@@ -263,11 +267,15 @@ public class UsersTests extends Fixture {
     @Test(priority = 22, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputFirstName() {
 //        apisSystem.editUser.waitInvisibilityPopup();
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.selectTableSort(2);
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         String firstName = apisSystem.usersPage.getValue("firstUserFirstName");
-        apisSystem.usersPage.inputFirstName(firstName);
+        apisSystem.usersPage.filterInput("FirstName", firstName);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(firstName, apisSystem.usersPage.getInputValue("filterFirstNameField"));
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
@@ -275,11 +283,15 @@ public class UsersTests extends Fixture {
     @Test(priority = 23, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputLastName() {
 //        apisSystem.editUser.waitInvisibilityPopup();
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.selectTableSort(3);
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         String lastName = apisSystem.usersPage.getValue("firstUserLastName");
-        apisSystem.usersPage.inputLastName(lastName);
+        apisSystem.usersPage.filterInput("LastName", lastName);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(lastName, apisSystem.usersPage.getInputValue("filterLastNameField"));
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
@@ -287,16 +299,16 @@ public class UsersTests extends Fixture {
     @Test(priority = 24, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterInputEmail() {
 //        apisSystem.editUser.waitInvisibilityPopup();
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         String email = apisSystem.usersPage.getValue("firstUserEmail");
-        apisSystem.usersPage.inputEmail(email);
+        apisSystem.usersPage.filterInput("Email", email);
         apisSystem.usersPage.clickButtonSearchOrReset(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         Assert.assertEquals(email, apisSystem.usersPage.getInputValue("filterEmailField"));
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
@@ -304,25 +316,25 @@ public class UsersTests extends Fixture {
     @Test(priority = 25, enabled = true, dependsOnMethods = {"goToUsersTab"})
     public void filterSelectGroup() {
 //        apisSystem.editUser.waitInvisibilityPopup();
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        apisSystem.usersPage.selectTableSort(7);
-        if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
-            apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.selectTableSort(5);
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
         String group = apisSystem.usersPage.getValue("firstUserGroup");
-        apisSystem.usersPage.inputGroupAndClickEnter(group);
+        apisSystem.usersPage.filterInput("Group", group);
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.clickOnGroupFiled();
         Assert.assertEquals(group, apisSystem.usersPage.getGroupValue("filterGroupValue"));
         apisSystem.filterEntity.clickSearchOrResetButton(false);
@@ -330,11 +342,11 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 26, dependsOnMethods = {"goToUsersTab"})
     public void selectBrand() {
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.filterClickOnBrandsField();
-        String brand = apisSystem.usersPage.filterClickAndGetBrand(1);
+        String brand = apisSystem.usersPage.filterClickAndGetBrand();
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         if (apisSystem.listEntity.getListResult() == 1) {
             Assert.assertEquals(apisSystem.listEntity.getTextAboutNoResult(), "No matching records found.");
         } else {
@@ -345,10 +357,10 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 27, dependsOnMethods = {"goToUsersTab"})
     public void openEditDesksAbdDeleteDesk() {
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.usersPage.inputUserName(USER_NAME_TEST);
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.usersPage.filterInput("UserName", USER_NAME_TEST);
         apisSystem.filterEntity.clickSearchOrResetButton(true);
-        apisSystem.filterEntity.waitLoadedAttributeToBeEmptyClass();
+        apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         // select 'Edit desks' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_DESKS);

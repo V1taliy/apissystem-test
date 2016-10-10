@@ -20,6 +20,7 @@ public class BrandsPage extends Page {
      */
     public void clickActionButton(int buttonPosition) {
         List<WebElement> actionButtonList = web.getElements("actionButtonList");
+        log.info(String.format("click on action button #%s", buttonPosition));
         actionButtonList.get(buttonPosition).click();
     }
 
@@ -28,16 +29,14 @@ public class BrandsPage extends Page {
      *
      * @param menuItem item from menu, where
      *                 0 - Edit brand
-     *                 1 - not used
-     *                 2 - Disable brand
-     *                 3 - Enable brand
-     *                 4 - not used
-     *                 5 - Delete brand
+     *                 1 - Disable brand
+     *                 2 - Enable brand
+     *                 3 - Delete brand
      */
     public void clickItemFromDropDownMenu(int menuItem) {
         List<WebElement> elementList = web.getElements("actionItemDropDownList");
-        elementList.get(menuItem - 1).click();
-        log.info(String.format("click on < %s >", elementList.get(menuItem - 1).getTagName()));
+        log.info(String.format("click on < %s >", elementList.get(menuItem).getTagName()));
+        elementList.get(menuItem).click();
     }
 
     /**
@@ -47,7 +46,7 @@ public class BrandsPage extends Page {
      */
     public void clickBrandCheckbox(int userPosition) {
         List<WebElement> checkboxList = web.getElements("checkboxList");
-        checkboxList.get(userPosition - 1).click();
+        checkboxList.get(userPosition).click();
     }
 
     /**
@@ -85,66 +84,13 @@ public class BrandsPage extends Page {
      * Select and click table sort
      *
      * @param tableNumber number of table, where
-     *                    1 - select all checkbox
-     *                    2 - ID
-     *                    3 - brand name
-     *                    4 - enabled
-     *                    5 - last name
+     *                    0 - ID
+     *                    1 - brand name
+     *                    2 - enabled
      */
     public void selectTableSort(int tableNumber) {
         List<WebElement> tableList = web.getElements("listDataTableMainTabs");
-        tableList.get(tableNumber - 1).click();
-    }
-
-    public void waitInvisibilityOverlay() {
-        web.waitDisappearElement("overlay");
-    }
-
-    /**
-     * get value (brand name) from first position
-     *
-     * @param locator input field locator
-     */
-    public String getValueFromFirstBrandName(String locator) {
-        log.info(web.getElement(locator).getText());
-        return web.getElement(locator).getText();
-    }
-
-    /**
-     * Get value from input field
-     *
-     * @param locator input field locator
-     */
-    public String getInputValue(String locator) {
-        return web.getElement(locator).getText();
-    }
-
-    public int getFirstPosition() {
-        return web.getElements("firstPositionBrand").size();
-    }
-
-    /* methods for filter entity*/
-
-    public void filterInputBrandName(String brandName) {
-        web.clearAndInputAndClickEnter("filterBrandNameInput", brandName);
-    }
-
-    /**
-     * Click enabled field and select 'Enabled' or 'Disabled'
-     *
-     * @param status where
-     *               true - enabled
-     *               false - disabled
-     * @info elementList.get(0) - Select (don't click)
-     */
-    public void filterClickAndSelectEnabled(boolean status) {
-        web.clickLink("filterEnabledLink");
-        List<WebElement> elementList = web.getElements("filterEnabledList");
-        if (status) {
-            elementList.get(1).click();
-        } else {
-            elementList.get(2).click();
-        }
+        tableList.get(tableNumber).click();
     }
 
     /**
