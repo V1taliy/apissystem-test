@@ -86,8 +86,8 @@ public class EditUser extends MainPopup {
 
     public String getAddBrandName(int brandPosition) {
         List<WebElement> addBrandsNames = web.getElements("editUserAddBrandsList");
-        log.info(String.format("brand name < %s >", addBrandsNames.get(brandPosition - 1).getText()));
-        return addBrandsNames.get(brandPosition - 1).getText();
+        log.info(String.format("brand name < %s >", addBrandsNames.get(brandPosition).getText()));
+        return addBrandsNames.get(brandPosition).getText();
     }
 
     /**
