@@ -146,14 +146,14 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 10, dependsOnMethods = {"switchToUsersPage"})
     public void editUserSelectBrandAndDelete() {
-        int brandPosition = 1;
+        int brandPosition = 0;
         selectBrand(brandPosition);
         apisSystem.editUser.deleteSelectBrand(brandPosition);
     }
 
     @Test(priority = 11, dependsOnMethods = {"switchToUsersPage"})
     public void editUserSelectBrand() {
-        int brandPosition = 1;
+        int brandPosition = 0;
         selectBrand(brandPosition);
     }
 
@@ -400,7 +400,7 @@ public class UsersTests extends Fixture {
 
     @Test(priority = 29, enabled = true, dependsOnMethods = {"openPopupEditUserForTestUser"})
     public void deleteBrandAndSave() {
-        apisSystem.editUser.deleteSelectBrand(1);
+        apisSystem.editUser.deleteSelectBrand(0);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
     }
 

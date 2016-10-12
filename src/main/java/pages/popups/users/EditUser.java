@@ -80,8 +80,8 @@ public class EditUser extends MainPopup {
 
     public void deleteSelectBrand(int brandPosition) {
         List<WebElement> brandsList = web.getElements("editUserDeleteBrandsList");
-        log.info(String.format("delete brand < %s >", brandsList.get(brandPosition - 1).getText()));
-        brandsList.get(brandPosition - 1).click();
+        log.info(String.format("delete brand < %s >", brandsList.get(brandPosition).getText()));
+        brandsList.get(brandPosition).click();
     }
 
     public String getAddBrandName(int brandPosition) {
