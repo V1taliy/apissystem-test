@@ -45,12 +45,12 @@ public class DeskExpirationTime extends Page {
      * Click action item from drop down menu
      *
      * @param menuItem item from menu, where
-     *                 1 - Edit
+     *                 0 - Edit
      */
     public void clickItemFromDropDownMenu(int menuItem) {
-        List<WebElement> elementList = web.getElements("actionItemDropDownList");
-        elementList.get(menuItem - 1).click();
-        log.info(String.format("click on < %s >", elementList.get(menuItem - 1).getTagName()));
+        List<WebElement> elementList = web.getElements("listToggleButtonsList");
+        log.info(String.format("click on < %s >", elementList.get(menuItem).getTagName()));
+        elementList.get(menuItem).click();
     }
 
     /**

@@ -179,7 +179,6 @@ public class DeskExpirationTimeTests extends Fixture {
         // select checkbox in some position and click
         apisSystem.deskExpirationTime.selectCheckboxInPosition(checkboxPosition);
         apisSystem.deskExpirationTime.clickActionButton(checkboxPosition);
-        apisSystem.deskExpirationTime.clickItemFromDropDownMenu(1);
         apisSystem.edit.waitPopupLoaded();
         Assert.assertTrue(apisSystem.edit.isPopupPresent());
     }
