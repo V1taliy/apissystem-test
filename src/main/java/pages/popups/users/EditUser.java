@@ -74,9 +74,9 @@ public class EditUser extends MainPopup {
      */
     public String clickOnSelectBrand(int brandPosition) {
         List<WebElement> brandsList = web.getElements("editUserBrandsList");
-        String brandName = brandsList.get(brandPosition - 1).getText();
+        String brandName = brandsList.get(brandPosition).getText();
         log.info(String.format("select brand < %s >", brandName));
-        brandsList.get(brandPosition - 1).click();
+        brandsList.get(brandPosition).click();
         return brandName;
     }
 
@@ -138,19 +138,22 @@ public class EditUser extends MainPopup {
     }
 
     /**
+     * Select value 'Select user group'
+     * from group drop down list on 'Edit user' popup
+     */
+    public void makeUserGroupEmpty() {
+        web.clickLink("editUserGroupLink");
+        web.clickLink("editUserGroupSelectUserGroup");
+    }
+
+    /**
      * Select and click random position from role list
      */
     public void clickAndSelectRole() {
         web.clickLink("editUserRoleLink");
         List<WebElement> roleList = web.getElements("editUserRoleList");
-        List<WebElement> newRoleList = new ArrayList<>();
-        for (WebElement role : roleList) {
-            if (!role.getAttribute("value").contains("undefined:undefined")) {
-                newRoleList.add(role);
-            }
-        }
-        int random = (int) (Math.random() * newRoleList.size());
-        newRoleList.get(random).click();
+        int random = (int) (Math.random() * roleList.size());
+        roleList.get(random).click();
     }
 
     /**

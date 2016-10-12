@@ -35,13 +35,13 @@ public class UsersTests extends Fixture {
     }
 
     @Test(priority = 2, dependsOnMethods = {"openWebSiteAndLogin"})
-    public void goToUsersTab() {
+    public void switchToUsersPage() {
         apisSystem.mainPage.clickOnNavigationItem(3);
         Assert.assertEquals(apisSystem.usersPage.getCurrentPageURL(), USERS_URL);
     }
 
-    @Test(priority = 3, enabled = true, dependsOnMethods = {"goToUsersTab"})
-    public void sortTabs() {
+    @Test(priority = 3, enabled = true, dependsOnMethods = {"switchToUsersPage"})
+    public void sortTabsOnUsersPage() {
         for (int i = 1; i < 9; i++) {
             for (int j = 0; j <= 1; j++) {
                 if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
@@ -52,7 +52,7 @@ public class UsersTests extends Fixture {
         }
     }
 
-    @Test(priority = 4, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 4, dependsOnMethods = {"switchToUsersPage"})
     public void selectUserCheckboxAndClickToggleButtons() {
         boolean button = true;
         int userPosition = 0;
@@ -78,7 +78,7 @@ public class UsersTests extends Fixture {
         }
     }
 
-    @Test(priority = 5, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 5, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void clickedOnDisableUser() {
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
@@ -93,7 +93,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 6, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 6, dependsOnMethods = {"switchToUsersPage"})
     public void clickedOnEnableUser() {
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
@@ -108,7 +108,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 7, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 7, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void clickedOnEditUser() {
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         try {
@@ -124,11 +124,11 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isPopupPresent());
     }
 
-    @Test(priority = 8, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 8, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void editUserChangeGroupWithEmptyFields() {
         apisSystem.editUser.inputFistName(false, null);
         apisSystem.editUser.inputLastName(false, null);
-        apisSystem.editUser.clickAndSelectGroup();
+        apisSystem.editUser.clickAndSelectGroup("Retention");
         // if running on firefox browser, need uncomment string
 //        apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -136,7 +136,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 9, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 9, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void editUserChangeRoleWithEmptyFields() {
         apisSystem.editUser.clickAndSelectRole();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -144,20 +144,20 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 10, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 10, dependsOnMethods = {"switchToUsersPage"})
     public void editUserSelectBrandAndDelete() {
         int brandPosition = 1;
         selectBrand(brandPosition);
         apisSystem.editUser.deleteSelectBrand(brandPosition);
     }
 
-    @Test(priority = 11, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 11, dependsOnMethods = {"switchToUsersPage"})
     public void editUserSelectBrand() {
         int brandPosition = 1;
         selectBrand(brandPosition);
     }
 
-    @Test(priority = 12, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 12, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void editUserInputFirstName() {
         apisSystem.editUser.inputFistName(true, DATA_TEST[0]);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -165,7 +165,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isErrorMessagePresent());
     }
 
-    @Test(priority = 13, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 13, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void editUserInputLastName() {
         try {
             Thread.sleep(500);
@@ -179,7 +179,7 @@ public class UsersTests extends Fixture {
         }
     }
 
-    @Test(priority = 14, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 14, dependsOnMethods = {"switchToUsersPage"})
     public void openEditDesksPopup() {
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -193,7 +193,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.editUser.isPopupPresent());
     }
 
-    @Test(priority = 15, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 15, dependsOnMethods = {"switchToUsersPage"})
     public void selectBrandAndDeskInPopup() {
         apisSystem.editDesks.clickOnBrandField();
         String brand = apisSystem.editDesks.selectBrandFromDropDownList(0);
@@ -205,12 +205,12 @@ public class UsersTests extends Fixture {
         Assert.assertEquals(desk, apisSystem.editDesks.getAddedBrandText("desk"));
     }
 
-    @Test(priority = 16, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 16, dependsOnMethods = {"switchToUsersPage"})
     public void clickButtonCancel() {
         apisSystem.editDesks.clickButtonSaveOrCancel(false);
     }
 
-    @Test(priority = 17, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 17, dependsOnMethods = {"switchToUsersPage"})
     public void openEditDesksPopup2() {
         try {
             Thread.sleep(500);
@@ -220,17 +220,17 @@ public class UsersTests extends Fixture {
         openEditDesksPopup();
     }
 
-    @Test(priority = 18, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 18, dependsOnMethods = {"switchToUsersPage"})
     public void selectBrandAndDeskInPopup2() {
         selectBrandAndDeskInPopup();
     }
 
-    @Test(priority = 19, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 19, dependsOnMethods = {"switchToUsersPage"})
     public void clickButtonSave() {
         apisSystem.editDesks.clickButtonSaveOrCancel(true);
     }
 
-    @Test(priority = 20, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 20, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void editUserChangeEnabled() {
         apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
@@ -252,7 +252,7 @@ public class UsersTests extends Fixture {
         Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
     }
 
-    @Test(priority = 21, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 21, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void filterInputUsername() {
         apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -264,7 +264,7 @@ public class UsersTests extends Fixture {
         apisSystem.usersPage.clickButtonSearchOrReset(false);
     }
 
-    @Test(priority = 22, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 22, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void filterInputFirstName() {
 //        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.selectTableSort(2);
@@ -280,7 +280,7 @@ public class UsersTests extends Fixture {
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
 
-    @Test(priority = 23, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 23, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void filterInputLastName() {
 //        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.usersPage.selectTableSort(3);
@@ -296,7 +296,7 @@ public class UsersTests extends Fixture {
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
 
-    @Test(priority = 24, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 24, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void filterInputEmail() {
 //        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -313,7 +313,7 @@ public class UsersTests extends Fixture {
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
 
-    @Test(priority = 25, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 25, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void filterSelectGroup() {
 //        apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -340,7 +340,7 @@ public class UsersTests extends Fixture {
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
 
-    @Test(priority = 26, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 26, dependsOnMethods = {"switchToUsersPage"})
     public void selectBrand() {
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.filterClickOnBrandsField();
@@ -355,7 +355,7 @@ public class UsersTests extends Fixture {
         apisSystem.filterEntity.clickSearchOrResetButton(false);
     }
 
-    @Test(priority = 27, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 27, dependsOnMethods = {"switchToUsersPage"})
     public void openEditDesksAbdDeleteDesk() {
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         apisSystem.usersPage.filterInput("UserName", USER_NAME_TEST);
@@ -371,7 +371,7 @@ public class UsersTests extends Fixture {
         apisSystem.editDesks.clickButtonSaveOrCancel(true);
     }
 
-    @Test(priority = 28, enabled = true, dependsOnMethods = {"goToUsersTab"})
+    @Test(priority = 28, enabled = true, dependsOnMethods = {"switchToUsersPage"})
     public void openPopupEditUserForTestUser() {
         try {
             Thread.sleep(1000);
