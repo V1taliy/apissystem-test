@@ -458,7 +458,7 @@ public class WithdrawalDeclineTests extends Fixture {
             apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
             apisSystem.editUser.waitPopupLoaded();
             apisSystem.editUser.clickAndSelectGroup("Select user group");
-            apisSystem.editUser.deleteSelectBrand(1);
+            apisSystem.editUser.deleteSelectBrand(0);
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
 //            if (apisSystem.filterEntity.isLoadedClassHaveAttributeInClass()) {
@@ -470,7 +470,7 @@ public class WithdrawalDeclineTests extends Fixture {
             apisSystem.usersPage.clickActionButton(userIndex2);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
             apisSystem.editUser.waitPopupLoaded();
-            apisSystem.editUser.deleteSelectBrand(1);
+            apisSystem.editUser.deleteSelectBrand(0);
             apisSystem.editUser.clickAndSelectGroup("Select user group");
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
