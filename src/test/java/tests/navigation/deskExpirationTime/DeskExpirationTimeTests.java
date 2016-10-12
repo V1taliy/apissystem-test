@@ -93,8 +93,8 @@ public class DeskExpirationTimeTests extends Fixture {
         apisSystem.edit.inputExpirationTime(100);
         apisSystem.edit.clickButtonSaveOrCancel(true);
         apisSystem.edit.waitInvisibilityPopup();
-        apisSystem.greenMessage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        apisSystem.successMessage.waitMessagePresent();
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 10, dependsOnMethods = {"goToDeskExpirationTime"})
@@ -123,8 +123,8 @@ public class DeskExpirationTimeTests extends Fixture {
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        apisSystem.greenMessage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        apisSystem.successMessage.waitMessagePresent();
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 12, dependsOnMethods = {"goToDeskExpirationTime"})

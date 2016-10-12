@@ -1,6 +1,5 @@
 package pages.popups.brands;
 
-import org.openqa.selenium.Beta;
 import pages.popups.MainPopup;
 import utils.WebDriverWrapper;
 
@@ -30,7 +29,7 @@ public class CreateBrand extends MainPopup {
     }
 
     public boolean isErrorMessagePresent() {
-        return web.isElementPresent("errorMessage");
+        return web.isElementPresent("editUserErrorMessage");
     }
 
 }

@@ -3,13 +3,11 @@ package pages.popups.users;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.popups.MainPopup;
 import utils.PropertyLoader;
 import utils.WebDriverWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditUser extends MainPopup {
@@ -172,7 +170,7 @@ public class EditUser extends MainPopup {
     }
 
     public boolean isErrorMessagePresent() {
-        return web.isElementPresent("errorMessage");
+        return web.isElementPresent("editUserErrorMessage");
     }
 
     /**

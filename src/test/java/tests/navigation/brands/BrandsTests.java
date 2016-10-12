@@ -71,13 +71,13 @@ public class BrandsTests extends Fixture {
             }
             apisSystem.brandsPage.clickBrandCheckbox(brandPosition);
             apisSystem.brandsPage.clickToggleButton(button);
-            apisSystem.greenMessage.waitMessageSuccessPresent();
+            apisSystem.successMessage.waitMessagePresent();
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+            Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
             button = true;
             brandPosition++;
         }
@@ -114,7 +114,7 @@ public class BrandsTests extends Fixture {
         apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA[4] + ".com");
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
         apisSystem.createBrand.waitInvisibilityPopup();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 9, dependsOnMethods = {"goToBrandsTab"})
@@ -128,7 +128,7 @@ public class BrandsTests extends Fixture {
         apisSystem.createBrand.inputField(FIELDS_ARRAY[4], TEST_DATA_2[4] + ".com");
         apisSystem.createBrand.selectCheckboxEnable();
         apisSystem.createBrand.clickButtonSaveOrCancel(true);
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 10, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
@@ -143,7 +143,7 @@ public class BrandsTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        apisSystem.greenMessage.waitInvisibilityOverlay();
+        apisSystem.successMessage.waitInvisibilityOverlay();
         apisSystem.brandsPage.clickActionButton(firstBrandIndex);
         apisSystem.brandsPage.clickItemFromDropDownMenu(3);
         apisSystem.deleteBrand.waitPopupLoaded();
@@ -174,7 +174,7 @@ public class BrandsTests extends Fixture {
         apisSystem.editBrand.inputField(FIELDS_ARRAY[3], TEST_DATA_2[3] + "edit");
         apisSystem.editBrand.clickButtonSaveOrCancel(true);
         apisSystem.editBrand.waitInvisibilityPopup();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
         apisSystem.editBrand.waitInvisibilityPopup();
     }
 
@@ -193,7 +193,7 @@ public class BrandsTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 15, dependsOnMethods = {"goToBrandsTab"}, enabled = true)
@@ -209,7 +209,7 @@ public class BrandsTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     private void clickCreateBrand() {
@@ -224,7 +224,7 @@ public class BrandsTests extends Fixture {
         apisSystem.deleteBrand.waitPopupLoaded();
         apisSystem.deleteBrand.clickButtonCancelOrYes(true);
         apisSystem.deleteBrand.waitInvisibilityPopup();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
         apisSystem.deleteBrand.waitInvisibilityPopup();
     }
 

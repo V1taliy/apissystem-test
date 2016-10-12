@@ -61,7 +61,7 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 5)
@@ -92,12 +92,12 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 7, enabled = TEST_STATUS)
     public void testUser7EditDesksAddDesk() {
-        apisSystem.greenMessage.waitMessageInvisibility();
+        apisSystem.successMessage.waitMessageInvisibility();
         apisSystem.usersPage.clickActionButton(userIndex1);
         // click edit desks
         apisSystem.usersPage.clickItemActionFromDropDownMenu(3);
@@ -118,12 +118,12 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 8, enabled = TEST_STATUS)
     public void testUser8EditUserSelectGroupAndBrand() {
-        apisSystem.greenMessage.waitMessageInvisibility();
+        apisSystem.successMessage.waitMessageInvisibility();
         userIndex2 = apisSystem.listEntity.getUserNameIndex(TEST_USER_8);
         log.info(String.format("user index = %s", userIndex2));
         apisSystem.usersPage.clickActionButton(userIndex2);
@@ -142,7 +142,7 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 9, enabled = TEST_STATUS)
@@ -162,7 +162,7 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 11, enabled = TEST_STATUS)
@@ -174,7 +174,7 @@ public class WithdrawalApproveTests extends Fixture {
             apisSystem.pagesEntity.selectCheckBoxWithdrawal();
             apisSystem.groupsPage.clickButtonSave();
             Thread.sleep(500);
-            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+            Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -223,13 +223,13 @@ public class WithdrawalApproveTests extends Fixture {
         apisSystem.assignPopup.clickOnAddComment();
         apisSystem.assignPopup.inputComment(TEST_COMMENT_1);
         apisSystem.assignPopup.clickButtonSaveOrCancel(true);
-        apisSystem.greenMessage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        apisSystem.successMessage.waitMessagePresent();
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 16, enabled = TEST_STATUS)
     public void clickOnViewAndCheckComment() {
-        apisSystem.greenMessage.waitInvisibilityOverlay();
+        apisSystem.successMessage.waitInvisibilityOverlay();
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
@@ -292,7 +292,7 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 22)
@@ -341,7 +341,7 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 27)
@@ -449,7 +449,7 @@ public class WithdrawalApproveTests extends Fixture {
             if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
                 apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
             }
-            apisSystem.greenMessage.waitMessageInvisibility();
+            apisSystem.successMessage.waitMessageInvisibility();
             apisSystem.usersPage.clickActionButton(userIndex1);
             apisSystem.usersPage.clickItemActionFromDropDownMenu(2);
             apisSystem.editUser.waitPopupLoaded();
@@ -473,7 +473,7 @@ public class WithdrawalApproveTests extends Fixture {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     private static void switchToUsersPage() {
@@ -490,7 +490,7 @@ public class WithdrawalApproveTests extends Fixture {
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        apisSystem.greenMessage.waitInvisibilityOverlay();
+        apisSystem.successMessage.waitInvisibilityOverlay();
         apisSystem.mainPage.clickLogoutButton();
         try {
             Thread.sleep(500);

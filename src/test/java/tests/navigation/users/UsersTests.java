@@ -67,13 +67,13 @@ public class UsersTests extends Fixture {
             apisSystem.usersPage.clickUserCheckbox(userPosition);
             apisSystem.usersPage.clickToggleButton(button);
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
-            apisSystem.greenMessage.waitMessageSuccessPresent();
+            apisSystem.successMessage.waitMessagePresent();
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+            Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
             button = false;
         }
     }
@@ -89,8 +89,8 @@ public class UsersTests extends Fixture {
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(0);
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.greenMessage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        apisSystem.successMessage.waitMessagePresent();
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 6, dependsOnMethods = {"switchToUsersPage"})
@@ -104,8 +104,8 @@ public class UsersTests extends Fixture {
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         apisSystem.usersPage.clickItemActionFromDropDownMenu(1);
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
-        apisSystem.greenMessage.waitMessageSuccessPresent();
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        apisSystem.successMessage.waitMessagePresent();
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 7, enabled = true, dependsOnMethods = {"switchToUsersPage"})
@@ -128,7 +128,7 @@ public class UsersTests extends Fixture {
     public void editUserChangeGroupWithEmptyFields() {
         apisSystem.editUser.inputFistName(false, null);
         apisSystem.editUser.inputLastName(false, null);
-        apisSystem.editUser.clickAndSelectGroup("Retention");
+        apisSystem.editUser.clickAndSelectGroup("Manager");
         // if running on firefox browser, need uncomment string
 //        apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
@@ -172,11 +172,23 @@ public class UsersTests extends Fixture {
             apisSystem.editUser.inputLastName(true, DATA_TEST[1]);
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             Thread.sleep(300);
-            apisSystem.greenMessage.waitMessageSuccessPresent();
-            Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+            apisSystem.successMessage.waitMessagePresent();
+            Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test(priority = 14)
+    public void openEditDesksPopupFailed() {
+        if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
+            apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
+        }
+        apisSystem.successMessage.waitInvisibilityOverlay();
+        apisSystem.usersPage.clickActionButton(actionButtonPosition);
+        // select 'Edit desks' item from drop down menu
+        apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_DESKS);
+
     }
 
     @Test(priority = 14, dependsOnMethods = {"switchToUsersPage"})
@@ -184,7 +196,7 @@ public class UsersTests extends Fixture {
         if (apisSystem.listEntity.isLoadedClassHaveAttributeInClass()) {
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
         }
-        apisSystem.greenMessage.waitInvisibilityOverlay();
+        apisSystem.successMessage.waitInvisibilityOverlay();
         apisSystem.usersPage.clickActionButton(actionButtonPosition);
         // select 'Edit desks' item from drop down menu
         apisSystem.usersPage.clickItemActionFromDropDownMenu(ITEM_EDIT_DESKS);
@@ -243,13 +255,13 @@ public class UsersTests extends Fixture {
         }
         apisSystem.editUser.clickOnEnabled();
         apisSystem.editUser.clickButtonSaveOrCancel(true);
-        apisSystem.greenMessage.waitMessageSuccessPresent();
+        apisSystem.successMessage.waitMessagePresent();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(apisSystem.greenMessage.isMessageSuccessPresent());
+        Assert.assertTrue(apisSystem.successMessage.isMessagePresent());
     }
 
     @Test(priority = 21, enabled = true, dependsOnMethods = {"switchToUsersPage"})
