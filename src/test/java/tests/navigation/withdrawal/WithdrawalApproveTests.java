@@ -84,7 +84,7 @@ public class WithdrawalApproveTests extends Fixture {
             apisSystem.editUser.clickAndSelectGroup("Retention TL");
             apisSystem.editUser.clickOnBrandsField();
             // select toroption
-            apisSystem.editUser.clickOnSelectBrand(3);
+            apisSystem.editUser.clickOnSelectBrand(2);
             apisSystem.editUser.clickButtonSaveOrCancel(true);
             apisSystem.editUser.waitInvisibilityPopup();
             apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
@@ -133,7 +133,7 @@ public class WithdrawalApproveTests extends Fixture {
         apisSystem.editUser.clickAndSelectGroup("Finance");
         apisSystem.editUser.clickOnBrandsField();
         // select toroption
-        apisSystem.editUser.clickOnSelectBrand(3);
+        apisSystem.editUser.clickOnSelectBrand(2);
         apisSystem.editUser.clickButtonSaveOrCancel(true);
         apisSystem.editUser.waitInvisibilityPopup();
         apisSystem.listEntity.waitLoadedAttributeToBeEmptyClass();
