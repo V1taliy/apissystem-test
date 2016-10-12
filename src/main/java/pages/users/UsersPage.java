@@ -40,7 +40,7 @@ public class UsersPage extends Page {
         }
     }
 
-    public void clickOnGroupFiled() {
+    public void clickOnGroupField() {
         web.clickLink("filterGroupField");
     }
 
